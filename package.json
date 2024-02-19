@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "prepare": "husky install",
-    "test": "git "
+    "test": ""
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.10",
