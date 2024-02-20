@@ -1,9 +1,10 @@
 export const filterSearch = (allDishes, searchDish) => {
-    if(allDishes.length === 0){
-        return []
-    }
+
+    if(allDishes.length === 0){ return [] }
+
     const splitSearch = searchDish.split(' ')
-    const matchDishes = []
+    const matchDishes = [];
+
     allDishes.forEach(dish => {
         let count = 0
         for(let i = 0; i < splitSearch.length; i++){
@@ -15,7 +16,21 @@ export const filterSearch = (allDishes, searchDish) => {
         matchDishes.push(dish)
       }
     });
-    return matchDishes
+
+    if (matchDishes.length === 0){
+        allDishes.forEach(dish => {
+          for(let i = 0; i < splitSearch.length; i++){
+            if (dish.dish_name.toLowerCase().includes(splitSearch[i].toLowerCase())){
+              matchDishes.push(dish)
+            }
+          }
+      });
+    }
+
+    const uniqueDishes = [...new Set(matchDishes)] // remove duplicates
+
+    return uniqueDishes
+
 }
 
 export default { filterSearch }
