@@ -1,32 +1,26 @@
-import { View, Text, Button} from 'react-native'
-import React from 'react'
+import { View, Text, Button } from "react-native";
+import React from "react";
+import FooterNav from "../components/FooterNav";
 
-
-export default function LandingPage({navigation}) {
+export default function LandingPage({ navigation }) {
   return (
-    <View>
+    <>
+      <View>
+        <Button
+          title="Add Restaurants Page"
+          onPress={() => navigation.navigate("AddRestaurantPage")}
+        />
+        <Button
+          title="Results Page"
+          onPress={() => navigation.navigate("ResultsPage")}
+        />
 
-<Button
-      title="Add Restaurants Page"
-      onPress={() =>
-        navigation.navigate('AddRestaurantPage')
-      }
-    />
-<Button
-      title="Results Page"
-      onPress={() =>
-        navigation.navigate('ResultsPage')
-      }
-    />
-  
-  <Button
-      title="Search Page"
-      onPress={() =>
-        navigation.navigate('SearchPage')
-      }
-    />
-
-      
-    </View>
-  )
+        <Button
+          title="Search Page"
+          onPress={() => navigation.navigate("SearchPage")}
+        />
+      </View>
+      <FooterNav />
+    </>
+  );
 }
