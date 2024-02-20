@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
-import { getRestaurants } from "../utils/api";
+import { postRestaurant } from "../utils/api";
 
 export default function AddRestaurantPage() {
   const [restaurantName, setRestaurantName] = React.useState("");
@@ -11,8 +11,6 @@ export default function AddRestaurantPage() {
   const [placeID, setPlaceID] = React.useState(null);
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
-
-  getRestaurants()
 
   return (
     <View>
@@ -50,7 +48,16 @@ export default function AddRestaurantPage() {
 
       <Button
         mode="contained"
-        onPress={() => console.log("Pressed")}
+        onPress={() => {
+          const input = {cuisine, restaurantName, restaurantDescription, placeID}
+          postRestaurant(input)
+          .then(()=>{
+            console.log('restaurant submitted')
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        }}
       >
         Submit
       </Button>

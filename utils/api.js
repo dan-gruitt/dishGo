@@ -10,3 +10,14 @@ const { data, error } = await supabase
 .select()
 console.log(data)
 }
+
+export const postRestaurant = async(input) =>{
+    console.log(input)
+    const {restaurantName, cuisine, restaurantDescription, placeID} = input
+    console.log(restaurantName)
+   const restaurantToAdd = {name: restaurantName, cuisine: cuisine, description: restaurantDescription, place_id: placeID}
+   console.log(restaurantToAdd)
+    const { error } = await supabase
+  .from('test_restaurants')
+  .insert(restaurantToAdd)
+}
