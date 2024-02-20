@@ -1,6 +1,6 @@
 import { View, Button } from "react-native";
 import React from "react";
-import NavBar from "../components/NavBar";
+
 
 export default function LandingPage({ navigation }) {
   return (
@@ -21,7 +21,6 @@ export default function LandingPage({ navigation }) {
         />
 
       </View>
-    <NavBar/>
     </>
   );
 }
