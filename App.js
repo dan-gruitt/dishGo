@@ -29,7 +29,7 @@ export default function App() {
           <Stack.Screen
             name="ResultsPage"
             component={ResultsPage}
-            options={{ title: "Results Page" }}
+            options={{ title: "Result Page" }}
           />
           <Stack.Screen
             name="SearchPage"
