@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
 import SearchBar from '../component/SearchBar';
-
+import TestSearch from '../component/TestSearch';
 
 export default function SearchPage() {
-
+  
   return (
-    <View style={styles.container}>
-      <Text>What dish are you looking for?</Text>
-      <SearchBar />
-    </View>
+    <TestSearch />
+    // <View style={styles.container}>
+    //   <Text>What dish are you looking for?</Text>
+    //   <SearchBar />
+    // </View>
   )
 }
 
