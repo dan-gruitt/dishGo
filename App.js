@@ -8,14 +8,15 @@ import LandingPage from "./pages/LandingPage";
 import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
-import UserAccountPage from "./pages/UserAccountPage";
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <PaperProvider>
     <NavigationContainer>
-      <PaperProvider>
+     
         <Stack.Navigator>
           <Stack.Screen
             name="LandingPage"
@@ -37,15 +38,10 @@ export default function App() {
             component={SearchPage}
             options={{ title: "Search Page" }}
           />
-
-          <Stack.Screen
-            name="UserAccountPage"
-            component={UserAccountPage}
-            options={{ title: "User Account Page" }}
-          />
         </Stack.Navigator>
-      </PaperProvider>
+      
     </NavigationContainer>
+    </PaperProvider>
   );
 }
 

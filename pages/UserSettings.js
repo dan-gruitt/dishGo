@@ -1,11 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const UserSettings = () => {
-    return ( 
-        <View>
-            <Text>This is the User Settings</Text>
-        </View>
-     );
+export default function UserSettings() {
+  return (
+    <View>
+      <Text>UserSettings</Text>
+    </View>
+  )
 }
- 
-export default UserSettings;
