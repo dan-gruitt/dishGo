@@ -9,19 +9,21 @@ import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <PaperProvider>
     <NavigationContainer>
-      <PaperProvider>
+     
         <Stack.Navigator>
-        <Stack.Screen
+          <Stack.Screen
             name="LandingPage"
             component={LandingPage}
             options={{ title: "Landing Page" }}
           />
-        <Stack.Screen
+          <Stack.Screen
             name="AddRestaurantPage"
             component={AddRestaurantPage}
             options={{ title: "Add restaurant page" }}
@@ -37,8 +39,9 @@ export default function App() {
             options={{ title: "Search Page" }}
           />
         </Stack.Navigator>
-      </PaperProvider>
+      
     </NavigationContainer>
+    </PaperProvider>
   );
 }
 

@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
 
 
 
