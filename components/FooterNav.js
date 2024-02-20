@@ -1,6 +1,9 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 
+
+
+
 //routes
 const SearchRoute = () => {
   <Text>Search</Text>;
@@ -36,11 +39,14 @@ const FooterNav = () => {
   });
 
   return (
+    <>
+    <Text>Im the footer element?</Text>
     <BottomNavigation
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
     />
+    </>
   );
 };
 
