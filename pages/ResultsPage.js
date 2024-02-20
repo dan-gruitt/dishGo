@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, SafeAreaView, View, Text, Item } from 'react-native'
+import { ScrollView, FlatList, StyleSheet, SafeAreaView, View, Text, Item } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getDishes } from '../utils/getDishes';
 import ResultDishCard from '../component/ResultDishCard';
@@ -18,14 +18,14 @@ export default function ResultsPage({navigation, route}) {
 
   return (
     <View>
-      <Text>Results for: {route.params.dish}</Text>
+      <Text> {dishesToShow.length} Results for: {route.params.dish}</Text>
+      <ScrollView>
       {
         dishesToShow.map((dish)=>{
-          // if(dish.dish_name === route.params.dish){
           return <ResultDishCard key={dish.id} dish={dish}/>
-          // }
         })
       }
+      </ScrollView>
     </View>
   )
 }

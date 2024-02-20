@@ -1,66 +1,35 @@
-/*
-    - Update getData to utils function to get dishes
-    - Clean up code.
-*/ 
-
 import { View, Text, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput, FlatList, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { Ionicons } from '@expo/vector-icons';
-
-const supabase = createClient(process.env.EXPO_PUBLIC_SUPABASE_URL, process.env.EXPO_PUBLIC_SUPABASE_KEY)
-
-const filteredDishes = (arr,text) => {
-  const newArr = arr.filter((item)=>{
-    if(item.name.toLowerCase().indexOf(text.toLowerCase()) > -1){
-      return item;
-    }
-  });
-  return newArr;
-}
-
+import { getDishes } from '../utils/getDishes';
+import { filterSearch } from '../utils/filterSearch';
 
 export default function TestSearch({setUserSearch}) {
     const [input, setInput] =  useState('');
     const [dishes, setDishes] =  useState([]);
     const [filterDishes, setFilterDishes] =  useState([]);
   
-  
-    useEffect(()=>{
-      getData()
-    }, [])
-
-    const getData = () => {
-        supabase.from("test_dishes").select()
-        .then(({data}) => {
-            const newData = data.map((dish)=>{
-                return { name: dish.dish_name, id: dish.id }
-            })
-            setDishes(newData);
-        }).catch((error)=> {
-            console.log('ERROR >>',error)
-        })
-    }
-    
+  useEffect(() =>{
+    getDishes().then((data)=>{
+      setDishes(data);
+    });
+  },[])
+ 
     const onChangeText = async (event) =>{
       setInput(event.nativeEvent.text);
-  
-      if (input.length > 1 && filteredDishes(dishes, event.nativeEvent.text).length > 0){
-        setFilterDishes(filteredDishes(dishes, event.nativeEvent.text));
+      setUserSearch(event.nativeEvent.text)
+
+      if (input.length > 1 && filterSearch(dishes, event.nativeEvent.text).length > 0){
+        setFilterDishes(filterSearch(dishes, event.nativeEvent.text));
       } else {
         setFilterDishes([]);
       }
-
-      setUserSearch(event.nativeEvent.text)
     }
   
 // Set filtered results to [] to remove options from page
   const dishSelected = (dishName) => {
-    // if (input.length > 1 && filteredDishes(dishes, dishName).length > 0){
-    //   setFilterDishes(filteredDishes(dishes, dishName));
-    // } else {
       setFilterDishes([]);
-    // }
     setUserSearch(dishName)
   }
   
@@ -78,7 +47,7 @@ export default function TestSearch({setUserSearch}) {
         }}>
           <Ionicons name="search" size={24} color="black" />
           <View>
-            <Text style={{fontWeight: "700"}}>{item.name}</Text>
+            <Text style={{fontWeight: "700"}}>{item.dish_name}</Text>
             <Text style={{fontSize: 12}}>{item.id}</Text>
           </View>
         </View>
@@ -106,8 +75,8 @@ export default function TestSearch({setUserSearch}) {
         <FlatList
           data={filterDishes}
           renderItem={({item, index}) => <Pressable onPress= {()=>{
-            setInput(item.name)
-            dishSelected(item.name)
+            setInput(item.dish_name)
+            dishSelected(item.dish_name)
             }}>
             {getItemText(item)}
           </Pressable>}
