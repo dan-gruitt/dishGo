@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function SearchPage() {
+export default function UserFavourites() {
   return (
     <View>
-      <Text>SearchPage because dan is silly</Text>
+      <Text>UserFavourites</Text>
     </View>
   )
 }
