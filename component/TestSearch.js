@@ -1,3 +1,8 @@
+/*
+    - Update getData to utils function to get dishes
+    - Clean up code.
+*/ 
+
 import { View, Text, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput, FlatList, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
@@ -15,7 +20,7 @@ const filteredDishes = (arr,text) => {
 }
 
 
-export default function TestSearch() {
+export default function TestSearch({setUserSearch}) {
     const [input, setInput] =  useState('');
     const [dishes, setDishes] =  useState([]);
     const [filterDishes, setFilterDishes] =  useState([]);
@@ -45,6 +50,8 @@ export default function TestSearch() {
       } else {
         setFilterDishes([]);
       }
+
+      setUserSearch(event.nativeEvent.text)
     }
   
 // Set filtered results to [] to remove options from page
@@ -54,6 +61,7 @@ export default function TestSearch() {
     // } else {
       setFilterDishes([]);
     // }
+    setUserSearch(dishName)
   }
   
     const getItemText = (item) =>{
