@@ -10,12 +10,24 @@ const { data, error } = await supabase
 .select()
 }
 
-export const postRestaurant = async(input) =>{
+export const postRestaurant = async (input) => {
     const {restaurantName, cuisine, restaurantDescription, placeID} = input
    const restaurantToAdd = {name: restaurantName, cuisine: cuisine, description: restaurantDescription, place_id: placeID}
-    const { data, error } = await supabase
+   const { data, error } = await supabase
   .from('test_restaurants')
   .insert(restaurantToAdd)
   .select()
+  console.log(data[0])
+  console.log(error)
+  return data[0]
+}
+
+export const postDishByRestaurantId = async (dishName, description, price, dietaryObj, restaurantId) => {
+ const dishToAdd = {dish_name: dishName, description: description, price: Number(price), vegan: dietaryObj.vegan, vegetarian: dietaryObj.vegetarian, pescatarian: dietaryObj.pescatarian, restaurant_id: restaurantId}
+ const { data, error } = await supabase
+.from('test_dishes')
+.insert(dishToAdd)
+.select()
+console.log(error)
   return data[0]
 }

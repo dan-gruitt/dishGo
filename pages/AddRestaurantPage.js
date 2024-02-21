@@ -47,7 +47,7 @@ export default function AddRestaurantPage({navigation}) {
           const input = { cuisine, restaurantName, restaurantDescription, placeID };
           postRestaurant(input)
             .then((restaurantData) => {
-              console.log(restaurantData);
+              console.log(restaurantData, "added successfully")
               navigation.navigate("BusinessMenuPage", {restaurant: restaurantData})
             })
             .catch((err) => {

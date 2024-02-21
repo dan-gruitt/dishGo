@@ -1,14 +1,16 @@
-import { View, Text } from "react-native";
+import { View, Text} from "react-native";
 import React from "react";
-import { TextInput, Chip } from "react-native-paper";
+import { TextInput, Button} from "react-native-paper";
 import ChipList from "./ChipList";
+
+import { postDishByRestaurantId } from "../utils/api";
 
 export default function DishUploadForm(props) {
   const { restaurant } = props;
 
-  const [dish, setDish] = React.useState("");
+  const [dishName, setDishName] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState(null);
+  const [price, setPrice] = React.useState(0);
 
   const [dietary, setDietary] = React.useState({
     vegan: false,
@@ -16,13 +18,22 @@ export default function DishUploadForm(props) {
     pescatarian: false,
   })
 
+  function handleSubmit(){
+    console.log(restaurant)
+    postDishByRestaurantId(dishName, description, price, dietary, restaurant.id)
+    .then((dishData)=>{
+      console.log(dishData)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
   return (
     <View>
       <TextInput
         label="Name of dish"
-        value={dish}
-        onChangeText={(dish) => setDish(dish)}
+        value={dishName}
+        onChangeText={(dishName) => setDishName(dishName)}
         mode="outlined"
       />
       <TextInput
@@ -39,10 +50,13 @@ export default function DishUploadForm(props) {
         value={price}
         onChangeText={(price) => setPrice(price)}
         mode="outlined"
+        maxLength={5}
         keyboardType="numeric"
       />
       <ChipList setDietary={setDietary} dietary={dietary}></ChipList>
-
+      <Button mode="contained" onPress={() => handleSubmit()}>
+    Add dish
+  </Button>
     </View>
   );
 }

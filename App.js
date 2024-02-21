@@ -14,8 +14,6 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
 
-  const [restaurant, setRestaurant] = React.useState(null)
-
   return (
     <PaperProvider>
       <NavigationContainer>
