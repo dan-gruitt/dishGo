@@ -11,9 +11,3 @@ export const getPlacesById = (places_id) => {
 };
 
 export default { getPlacesById };
-
-// useEffect(() => {
-//     getPlacesById(placeTest).then((response) => {
-//       console.log(response.data.result.website);
-//     })
-//   },[])

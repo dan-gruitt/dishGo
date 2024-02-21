@@ -15,9 +15,3 @@ export const getRestaurantsById = (id_array) => {
 }
 
 export default { getRestaurantsById };
-
-// useEffect(() => {
-//     getRestaurantsById(testArray).then((response) => {
-//     console.log(response)
-//     })
-//   }, [])

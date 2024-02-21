@@ -1,5 +1,3 @@
-// Make relational database request for dishes and restaurants
-
 import { ScrollView, FlatList, StyleSheet, SafeAreaView, View, Text, Item } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getDishes } from '../utils/getDishes';
@@ -14,49 +12,38 @@ export default function ResultsPage({navigation, route}) {
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantsPlaces, setRestaurantsPlaces] = useState([]);
 
-  useEffect(() =>{
-
-    getDishes().then((data)=>{
-      setDishesToShow(filterSearch(data,route.params.dish));
-      return filterSearch(data,route.params.dish)
-    })
-    .then((data)=>{
-      const restaurantsIds = data.map((restaurant)=> {
-        return restaurant.restaurant_id
-      });
-
-      return getRestaurantsById(restaurantsIds).then((response) => { 
-        setRestaurants(response.data);
-
-        // Adding key to existing state
-        response.data.forEach((restaurant)=>{
-          setDishesToShow((dishes)=>{
-              dishes.forEach((dish)=>{
-                if(dish.restaurant_id === restaurant.id){
-                  dish.restaurant_info = restaurant;
-                }
-              });
-            return data;
-          });
-        })
-
-
-        return response.data;
-      });
-
-    })
-    .then((data) => {
-
-        data.map((restaurant) => {
-          getPlacesById(restaurant.place_id).then((response) => {
-            setRestaurantsPlaces([...restaurantsPlaces,response.data.result])
-          })
+  useEffect(() => {
+    getDishes()
+      .then((data) => {
+        setDishesToShow(filterSearch(data, route.params.dish));
+        return filterSearch(data, route.params.dish);
+      })
+      .then((data) => {
+        const restaurantsIds = data.map((restaurant) => {
+          return restaurant.restaurant_id;
         });
-    })
-
-  },[])
-
-console.log('DISHES >>', dishesToShow)
+  
+        return getRestaurantsById(restaurantsIds).then((response) => {
+          setRestaurants(response.data);
+          return response.data;
+        });
+      })
+      .then((data) => {
+        const placesPromises = data.map((restaurant) => {
+          return getPlacesById(restaurant.place_id).then((response) => {
+            return response.data.result;
+          });
+        });
+        return Promise.all(placesPromises);
+      })
+      .then((placesData) => {
+        setRestaurantsPlaces(placesData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  
 
   return (
     <View>
@@ -64,7 +51,7 @@ console.log('DISHES >>', dishesToShow)
       <ScrollView>
       {
         dishesToShow.map((dish)=>{
-          return <ResultDishCard key={dish.id} dish={dish}/>
+          return <ResultDishCard key={dish.id} dish={dish} restaurants={restaurants} restaurantsPlaces={restaurantsPlaces} />
         })
       }
       </ScrollView>
