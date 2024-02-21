@@ -1,18 +1,9 @@
 import { View, Button } from "react-native";
 import {useEffect} from 'react'
-import { getRestaurantsById } from "../utils/getRestaurantsById";
 import React from "react";
 
 
 export default function LandingPage({ navigation }) {
-
-  const testArray = [1, 2, 3]
-
-  useEffect(() => {
-    getRestaurantsById(testArray).then((response) => {
-    console.log(response)
-    })
-  }, [])
 
   return (
     <>
