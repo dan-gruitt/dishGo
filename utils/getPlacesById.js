@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "https://maps.googleapis.com/maps/api/place/details/json?place_id=";
-const API_KEY = "AIzaSyAFMe9JfdeVAeADJdfKiWQI1IrntSi8_9Y";
+const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
 export const getPlacesById = (places_id) => {
   return axios.get(
