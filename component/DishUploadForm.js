@@ -6,11 +6,11 @@ import ChipList from "./ChipList";
 import { postDishByRestaurantId } from "../utils/api";
 
 export default function DishUploadForm(props) {
-  const { restaurant } = props;
+  const { restaurant, menu, setMenu } = props;
 
   const [dishName, setDishName] = React.useState("");
   const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState(0);
+  const [price, setPrice] = React.useState("");
 
   const [dietary, setDietary] = React.useState({
     vegan: false,
@@ -23,6 +23,10 @@ export default function DishUploadForm(props) {
     postDishByRestaurantId(dishName, description, price, dietary, restaurant.id)
     .then((dishData)=>{
       console.log(dishData)
+      setMenu(() => {
+        const updatedMenu = [...menu]
+        
+      })
     }).catch((err)=>{
       console.log(err)
     })

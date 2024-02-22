@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Chip } from "react-native-paper";
 
@@ -37,7 +37,7 @@ export default function ChipList({ setDietary, dietary }) {
   };
 
   return (
-    <View>
+    <View style={styles.chip}>
       {dietaryList.map((diet, index) => {
         return (
           <Chip
@@ -55,3 +55,13 @@ export default function ChipList({ setDietary, dietary }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  chip: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent:"center",
+    margin: 10,
+    gap: 10
+  }
+})

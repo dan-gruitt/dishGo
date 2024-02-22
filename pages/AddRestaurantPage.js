@@ -22,6 +22,7 @@ export default function AddRestaurantPage({navigation}) {
         onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
       <TextInput
         label="Restaurant Description"
+        mode="outlined"
         value={restaurantDescription}
         onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
       <SelectDropdown
