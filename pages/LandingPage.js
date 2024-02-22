@@ -1,10 +1,9 @@
 import { View, Button } from "react-native";
-import {useEffect} from 'react'
 import React from "react";
 
 
 export default function LandingPage({ navigation }) {
-
+  
   return (
     <>
       <View>
