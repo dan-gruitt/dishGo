@@ -10,6 +10,7 @@ import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import BusinessSignUp from "./pages/BusinessSignUp";
 import { UserProvider } from './context/UserContext';
+import TestPage from "./pages/TestPage";
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,11 @@ export default function App() {
             name="BusinessSignUp"
             component={BusinessSignUp}
             options={{ title: "Business SignUp" }}
+          />
+          <Stack.Screen
+            name="TestPage"
+            component={TestPage}
+            options={{ title: "Test Page" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

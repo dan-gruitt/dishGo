@@ -13,7 +13,8 @@ export default function Account({ session }: { session: Session }) {
   const [username, setUsername] = useState('')
   const [website, setWebsite] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
-  const [user, setUser] = useContext(UserContext)
+  const {user, setUser} = useContext(UserContext)
+
 
   useEffect(() => {
     if (session) getProfile()
@@ -24,8 +25,7 @@ export default function Account({ session }: { session: Session }) {
     const { data, error, status } = await supabase
     .from('profiles')
     .select(`username, website, avatar_url, id`)
-    // setUser(data)
-    
+    setUser(data[0])
   }
 
   async function getProfile() {
@@ -37,7 +37,7 @@ export default function Account({ session }: { session: Session }) {
         .from('profiles')
         .select(`username, website, avatar_url`)
         .eq('id', session?.user.id)
-        .single()
+        .single()        
       if (error && status !== 406) {
         throw error
       }
@@ -127,7 +127,11 @@ export default function Account({ session }: { session: Session }) {
       </View>
 
       <View style={styles.verticallySpaced}>
-        <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+        <Button title="Sign Out" onPress={() =>{
+          console.log("inside onpress");
+          supabase.auth.signOut()
+          setUser(null)
+        } } />
       </View>
     </View>
     
@@ -148,3 +152,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 })
+
+
+

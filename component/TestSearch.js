@@ -54,37 +54,35 @@ export default function TestSearch({setUserSearch}) {
     )}
   
     return (
-      <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
-        <SafeAreaView style={{flex: 1}}>
+      <><TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <SafeAreaView style={{ flex: 1 }}>
           <Text style={{ marginLeft: 12, marginVertical: 5, fontSize: 18 }}>
             Search Dishes</Text>
-        <TextInput 
-          placeholder='Find Dish'
-          value={input}
-          onChange={onChangeText}
-          style={{
-            height: 40,
-            marginHorizontal: 12,
-            marginVertical: 12,
-            borderWidth: 1,
-            paddingHorizontal: 10,
-            borderRadius: 5,
-          }}
-        />
-    
-        <FlatList
-          data={filterDishes}
-          renderItem={({item, index}) => <Pressable onPress= {()=>{
-            setInput(item.dish_name)
-            dishSelected(item.dish_name)
-            }}>
-            {getItemText(item)}
-          </Pressable>}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-        />
-  
+          <TextInput
+            placeholder='Find Dish'
+            value={input}
+            onChange={onChangeText}
+            style={{
+              height: 40,
+              marginHorizontal: 12,
+              marginVertical: 12,
+              borderWidth: 1,
+              paddingHorizontal: 10,
+              borderRadius: 5,
+            }} />
+
+          <FlatList
+            data={filterDishes}
+            renderItem={({ item, index }) => <Pressable onPress={() => {
+              setInput(item.dish_name);
+              dishSelected(item.dish_name);
+            } }>
+              {getItemText(item)}
+            </Pressable>}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false} />
+
         </SafeAreaView>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback></>
     )
   }
