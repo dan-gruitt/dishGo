@@ -16,25 +16,22 @@ export default function ChipList({ setDietary, dietary }) {
     checked: "emoticon-happy-outline",
   };
 
-  React.useEffect(()=>{
-    setDietaryList(dietaryList)
-  }, [dietaryList])
-
   const handleOnPress = (diet, index) => {
     setDietary(() => {
       dietary[diet.name] = !dietary[diet.name];
-      console.log(dietary, dietaryList)
       return dietary;
     })
       if (dietary[diet.name] === true) {
         setDietaryList(()=>{
-          dietaryList[index].icon = icons.checked
-          return dietaryList
+          const newDietaryList = [...dietaryList]
+          newDietaryList[index].icon = icons.checked
+          return newDietaryList
         })
       } else {
         setDietaryList(()=>{
-          dietaryList[index].icon = icons[diet.name]
-          return dietaryList
+          const newDietaryList = [...dietaryList]
+          newDietaryList[index].icon = icons[diet.name]
+          return newDietaryList
         })
       }
   };
