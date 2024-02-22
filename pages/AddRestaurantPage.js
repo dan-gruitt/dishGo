@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import React from "react";
 import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
@@ -15,7 +15,7 @@ export default function AddRestaurantPage({navigation}) {
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
 
   return (
-    <><View>
+    <ScrollView>
       <Text>Add Restaurant</Text>
       <TextInput
         label="Restaurant Name"
@@ -61,6 +61,6 @@ export default function AddRestaurantPage({navigation}) {
       >
         Submit
       </Button>
-    </View></>
+    </ScrollView>
   );
 }
