@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import DishUploadForm from "../component/DishUploadForm";
 import MenuList from "../component/MenuList";
@@ -9,11 +9,12 @@ export default function BusinessMenuPage({ route }) {
   const [menu, setMenu] = React.useState([]);
   React.useEffect(() => {
     getMenuByRestaurantID(restaurant.id);
+    //? .then() for logged in user to render existing menu
   }, []);
   return (
-    <View>
+    <ScrollView>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
       <MenuList menu = {menu}/>
-    </View>
+    </ScrollView>
   );
 }
