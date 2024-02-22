@@ -4,7 +4,7 @@ import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant } from "../utils/api";
 
-import { PlaceIdSearcher } from "../component/PlaceIdSearcher";
+import PlaceIdSearcher from "../component/PlaceIdSearcher";
 
 export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
