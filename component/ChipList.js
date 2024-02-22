@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Chip } from "react-native-paper";
 
 export default function ChipList({ setDietary, dietary }) {
@@ -8,6 +8,14 @@ export default function ChipList({ setDietary, dietary }) {
     { name: "vegetarian", icon: "leaf-circle" },
     { name: "pescatarian", icon: "fish" },
   ]);
+
+  useEffect(()=>{
+    setDietaryList([
+      { name: "vegan", icon: "leaf" },
+      { name: "vegetarian", icon: "leaf-circle" },
+      { name: "pescatarian", icon: "fish" },
+    ])
+  }, [dietary])
 
   const icons = {
     vegan: "leaf",
