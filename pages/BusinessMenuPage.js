@@ -6,14 +6,14 @@ import { getMenuByRestaurantID } from "../utils/api";
 
 export default function BusinessMenuPage({ route }) {
   const { restaurant } = route.params;
-  const [menu, setMenu] = React.useState({});
+  const [menu, setMenu] = React.useState([]);
   React.useEffect(() => {
     getMenuByRestaurantID(restaurant.id);
   }, []);
   return (
     <View>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
-      <MenuList />
+      <MenuList menu = {menu}/>
     </View>
   );
 }

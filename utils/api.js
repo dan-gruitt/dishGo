@@ -56,6 +56,9 @@ export const getMenuByRestaurantID = async (restaurantId) => {
   .from("test_dishes")
   .select()
   .eq("restaurant_id", restaurantId)
-  console.log(data[0], "<---- data here")
+  if (data.length === 0){
+    console.log(data)
+    return []
+  } else console.log(data[0], "<---- data here")
   console.log(error)
 };

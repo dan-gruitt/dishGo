@@ -22,10 +22,19 @@ export default function DishUploadForm(props) {
     console.log(restaurant)
     postDishByRestaurantId(dishName, description, price, dietary, restaurant.id)
     .then((dishData)=>{
-      console.log(dishData)
+      const newDish = dishData
       setMenu(() => {
-        const updatedMenu = [...menu]
-        
+        const updatedMenu = [newDish, ...menu]
+        console.log(updatedMenu)
+        return updatedMenu
+      })
+      setDishName("")
+      setDescription("")
+      setPrice("")
+      setDietary({
+        vegan: false,
+        vegetarian: false,
+        pescatarian: false,
       })
     }).catch((err)=>{
       console.log(err)
