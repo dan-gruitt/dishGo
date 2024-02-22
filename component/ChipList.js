@@ -28,24 +28,15 @@ export default function ChipList({ setDietary, dietary }) {
     })
       if (dietary[diet.name] === true) {
         setDietaryList(()=>{
-          dietaryList[index][diet.icon] = icons.checked
+          dietaryList[index].icon = icons.checked
           return dietaryList
         })
       } else {
         setDietaryList(()=>{
-          dietaryList[index][diet.icon] = icons[diet.name]
+          dietaryList[index].icon = icons[diet.name]
           return dietaryList
         })
       }
-
-    // if (dietary[diet.name] === false) {
-    //   setDietaryList(() => {
-    //     dietary[diet.icon] = icons[diet.name];
-    //     return dietary
-    //   });
-    // }
-
-  
   };
 
   return (
