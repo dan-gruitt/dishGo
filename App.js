@@ -8,10 +8,12 @@ import LandingPage from "./pages/LandingPage";
 import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
+import BusinessMenuPage from "./pages/BusinessMenuPage";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default function App() {
+
   return (
     <PaperProvider>
       <NavigationContainer>
@@ -25,6 +27,11 @@ export default function App() {
             name="AddRestaurantPage"
             component={AddRestaurantPage}
             options={{ title: "Add restaurant page" }}
+          />
+                    <Stack.Screen
+            name="BusinessMenuPage"
+            component={BusinessMenuPage}
+            options={{ title: "Add menu page" }}
           />
           <Stack.Screen
             name="ResultsPage"
