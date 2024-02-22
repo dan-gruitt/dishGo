@@ -8,11 +8,15 @@ import LandingPage from "./pages/LandingPage";
 import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
+import BusinessSignUp from "./pages/BusinessSignUp";
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+
+
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
@@ -36,9 +40,15 @@ export default function App() {
             component={SearchPage}
             options={{ title: "Search Page" }}
           />
+          <Stack.Screen
+            name="BusinessSignUp"
+            component={BusinessSignUp}
+            options={{ title: "Business SignUp" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
+  
   );
 }
 
