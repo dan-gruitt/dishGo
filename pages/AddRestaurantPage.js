@@ -1,4 +1,5 @@
-import { ScrollView, Text } from "react-native";
+import { Text } from "react-native";
+import { ScrollView } from 'react-native-virtualized-view';
 import React from "react";
 import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
@@ -43,7 +44,7 @@ export default function AddRestaurantPage({navigation}) {
           return item;
         } }
         defaultButtonText="Select a cuisine" />
-        <PlaceIdSearcher />
+        <PlaceIdSearcher setPlaceID={setPlaceID}/>
 
       <Button
         mode="contained"

@@ -4,7 +4,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY; // never save your real api key in a snack!
 
-const TestPlaceIdSearcher = () => {
+const TestPlaceIdSearcher = ({setPlaceId}) => {
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
@@ -13,7 +13,11 @@ const TestPlaceIdSearcher = () => {
           key: GOOGLE_PLACES_API_KEY,
           language: 'en', // language of the results
         }}
-        onPress={(data, details = null) => console.log(data)}
+        onPress={(data, details = null) => {
+          console.log(data.place_id)
+          setPlaceId(data.place_id)
+        }
+        }
         onFail={(error) => console.error(error)}
       />
     </View>
