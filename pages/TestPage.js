@@ -14,7 +14,7 @@ export default function TestPage() {
 
   return (
     <>
-      <Text>Hello {user.id} from the settings page!</Text>
+      {/* <Text>Hello {user.id} from the test page</Text> */}
       <NavBar />
     </>
   );
