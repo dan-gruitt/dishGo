@@ -11,10 +11,6 @@ export default function LandingPage({ navigation }) {
           title="Add Restaurants Page"
           onPress={() => navigation.navigate("AddRestaurantPage")}
         />
-        <Button
-          title="Results Page"
-          onPress={() => navigation.navigate("ResultsPage")}
-        />
 
         <Button
           title="Search Page"
