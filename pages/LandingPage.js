@@ -1,6 +1,7 @@
 import { View, Button } from "react-native";
 import React from "react";
 import Auth from '../component/Auth';
+import TestContext from '../component/TestContext';
 
 export default function LandingPage({ navigation }) {
 
@@ -25,7 +26,9 @@ export default function LandingPage({ navigation }) {
 
       </View>
 
-  
+    <View>
+      <TestContext />
+    </View>
     </>
   );
 }
