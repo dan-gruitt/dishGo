@@ -1,5 +1,4 @@
-import { Text } from "react-native";
-import { ScrollView } from 'react-native-virtualized-view';
+import { ScrollView, Text } from "react-native";
 import React from "react";
 import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
