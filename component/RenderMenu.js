@@ -11,7 +11,7 @@ export const RenderMenu = ({ menu, styles }) => {
             <Text style={styles.dishName}>{dish.dish_name} - £{dish.price}</Text>
           </View>
           <Text style={styles.dishDescription}>{dish.description}</Text>
-          {(dish.vegan || dish.vegetarian || dish.pescatarian) && ( // Render iconContainer only if at least one dietary flag is true
+          {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
             <View style={styles.iconContainer}>
               {dish.vegan && (
                 <View style={styles.iconTextContainer}>
