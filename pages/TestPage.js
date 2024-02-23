@@ -3,6 +3,7 @@ import React from "react";
 import NavBar from "../component/NavBar";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import Account from "../component/Account";
 
 
 export default function TestPage() {
@@ -15,7 +16,7 @@ export default function TestPage() {
   return (
     <>
       {/* <Text>Hello {user.id} from the test page</Text> */}
-      <NavBar />
+      <Account/>
     </>
   );
 }

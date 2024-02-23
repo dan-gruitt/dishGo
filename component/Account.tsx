@@ -21,6 +21,9 @@ export default function Account({ session }: { session: Session }) {
     if (session) getUser()
   }, [session])
 
+  console.log(session, "<<< session?");
+  
+
   async function getUser() {
     const { data, error, status } = await supabase
     .from('profiles')
