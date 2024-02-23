@@ -1,9 +1,8 @@
 import { View, Button } from "react-native";
 import React from "react";
 
-
 export default function LandingPage({ navigation }) {
-  
+
   return (
     <>
       <View>
@@ -17,6 +16,15 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("SearchPage")}
         />
 
+        <Button
+          title="Business SignUp"
+          onPress={() => navigation.navigate("BusinessSignUp")}
+        />
+
+        <Button
+          title="Test Page"
+          onPress={() => navigation.navigate("TestPage")}
+        />
       </View>
     </>
   );
