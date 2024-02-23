@@ -7,29 +7,29 @@ import Avatar from './Avatar'
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
-
 export default function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState('')
   const [website, setWebsite] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
-  const {user, setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
 
   useEffect(() => {
     if (session) getProfile()
-    if (session) getUser()
+
+    // if (session) setUser(session.user.id)
+    // if (session) getUser()
   }, [session])
 
-  console.log(session, "<<< session?");
-  
-
-  async function getUser() {
-    const { data, error, status } = await supabase
-    .from('profiles')
-    .select(`username, website, avatar_url, id`)
-    setUser(data[0])
-  }
+  console.log(user, "<<< USER INFO?");
+ 
+  // async function getUser() {
+  //   const { data, error, status } = await supabase
+  //   .from('profiles')
+  //   .select(`username, website, avatar_url, id`)
+  //   setUser(data[0])
+  // }
 
   async function getProfile() {
     try {
@@ -38,9 +38,9 @@ export default function Account({ session }: { session: Session }) {
 
       const { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`*`)
         .eq('id', session?.user.id)
-        .single()        
+        .single()
       if (error && status !== 406) {
         throw error
       }
@@ -49,6 +49,7 @@ export default function Account({ session }: { session: Session }) {
         setUsername(data.username)
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
+        setUser(data);
       }
 
     } catch (error) {
@@ -109,16 +110,16 @@ export default function Account({ session }: { session: Session }) {
 
 
 
-    <View>
-      <Avatar
-        size={200}
-        url={avatarUrl}
-        onUpload={(url: string) => {
-          setAvatarUrl(url)
-          updateProfile({ username, website, avatar_url: url })
-        }}
-      />
-    </View>
+      <View>
+        <Avatar
+          size={200}
+          url={avatarUrl}
+          onUpload={(url: string) => {
+            setAvatarUrl(url)
+            updateProfile({ username, website, avatar_url: url })
+          }}
+        />
+      </View>
 
 
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -130,14 +131,14 @@ export default function Account({ session }: { session: Session }) {
       </View>
 
       <View style={styles.verticallySpaced}>
-        <Button title="Sign Out" onPress={() =>{
+        <Button title="Sign Out" onPress={() => {
           console.log("inside onpress");
           supabase.auth.signOut()
           setUser(null)
-        } } />
+        }} />
       </View>
     </View>
-    
+
   )
 }
 
@@ -158,3 +159,15 @@ const styles = StyleSheet.create({
 
 
 
+// { 
+//   "app_metadata": { "provider": "email", 
+//   "providers": ["email"] }, 
+//   "aud": "authenticated", 
+//   "confirmed_at": "2024-02-22T14:43:23.473976Z", 
+//   "created_at": "2024-02-22T14:43:23.470234Z", 
+//   "email": "testing123@gmail.com", 
+//   "email_confirmed_at": "2024-02-22T14:43:23.473976Z", 
+//   "id": "051f4f89-6d91-4c4c-8e55-34c2838029eb", 
+//   "identities": [{ "created_at": "2024-02-22T14:43:23.472638Z", 
+//   "email": "testing123@gmail.com", 
+//   "id": "051f4f89-6d91-4c4c-8e55-34c2838029eb", "identity_data": [Object], "identity_id": "066581b2-ed27-4425-a09c-997bc0d47279", "last_sign_in_at": "2024-02-22T14:43:23.472592Z", "provider": "email", "updated_at": "2024-02-22T14:43:23.472638Z", "user_id": "051f4f89-6d91-4c4c-8e55-34c2838029eb" }], "last_sign_in_at": "2024-02-23T09:31:53.974975564Z", "phone": "", "role": "authenticated", "updated_at": "2024-02-23T09:31:53.976517Z", "user_metadata": { } }

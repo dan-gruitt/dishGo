@@ -1,9 +1,8 @@
 import { View, Button } from "react-native";
 import React from "react";
-import Auth from "../component/Auth";
-import TestContext from "../component/TestContext";
 
 export default function LandingPage({ navigation }) {
+
   return (
     <>
       <View>
@@ -26,10 +25,6 @@ export default function LandingPage({ navigation }) {
           title="Test Page"
           onPress={() => navigation.navigate("TestPage")}
         />
-      </View>
-
-      <View>
-        <TestContext />
       </View>
     </>
   );
