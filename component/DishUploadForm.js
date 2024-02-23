@@ -1,5 +1,6 @@
 import { View, Text} from "react-native";
 import React from "react";
+import { useState } from 'react'
 import { TextInput, Button} from "react-native-paper";
 import ChipList from "./ChipList";
 
@@ -63,7 +64,6 @@ export default function DishUploadForm(props) {
         value={price}
         onChangeText={(price) => setPrice(price)}
         mode="outlined"
-        maxLength={5}
         keyboardType="numeric"
       />
       <ChipList setDietary={setDietary} dietary={dietary}></ChipList>
