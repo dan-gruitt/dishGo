@@ -15,7 +15,7 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
-export default function Auth({navigation}) {
+export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,12 +42,8 @@ export default function Auth({navigation}) {
       password: password,
     });
 
-    if (error){
-      Alert.alert(error.message)
-    } else {
-      console.log('IN ELSE BLOCK SIGN UP')
-      navigation.navigate("AddRestaurantPage")
-    };
+    if (error) Alert.alert(error.message)
+  
 
     if (!session)
       Alert.alert("Please check your inbox for email verification!");
