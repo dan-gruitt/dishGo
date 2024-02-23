@@ -21,7 +21,12 @@ export default function App() {
 
   return (
     <View>
-      { session && session.user ? <Auth /> : null }
+      {session && session.user ? 
+      <>
+      <Text>USER UPDATE COMPONENT</Text>
+      <Account key={session.user.id} session={session} /> 
+      </>
+      : <Auth />}
     </View>
   )
 }
