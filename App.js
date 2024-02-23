@@ -33,7 +33,7 @@ export default function App() {
             component={AddRestaurantPage}
             options={{ title: "Add restaurant page" }}
           />
-                    <Stack.Screen
+          <Stack.Screen
             name="BusinessMenuPage"
             component={BusinessMenuPage}
             options={{ title: "Add menu page" }}

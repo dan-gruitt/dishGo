@@ -15,7 +15,7 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
-export default function Auth() {
+export default function Auth({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,8 @@ export default function Auth() {
     });
 
     if (error) Alert.alert(error.message);
-    setLoading(false);
+
+    setLoading(false);   
   }
 
   async function signUpWithEmail() {
@@ -41,7 +42,13 @@ export default function Auth() {
       password: password,
     });
 
-    if (error) Alert.alert(error.message);
+    if (error){
+      Alert.alert(error.message)
+    } else {
+      console.log('IN ELSE BLOCK SIGN UP')
+      navigation.navigate("AddRestaurantPage")
+    };
+
     if (!session)
       Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
