@@ -8,7 +8,7 @@ const TestPlaceIdSearcher = ({setPlaceId}) => {
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
-        placeholder="Search"
+        placeholder="Search for restaurant"
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: 'en', // language of the results
