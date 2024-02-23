@@ -2,12 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import { Chip } from "react-native-paper";
 
-export default function ChipList({ setDietary, dietary }) {
-  const [dietaryList, setDietaryList] = React.useState([
-    { name: "vegan", icon: "leaf" },
-    { name: "vegetarian", icon: "leaf-circle" },
-    { name: "pescatarian", icon: "fish" },
-  ]);
+export default function ChipList({setDietary, dietary }) {
+  const dietaryNames = Object.keys(dietary)
 
   useEffect(()=>{
     setDietaryList([
@@ -21,42 +17,31 @@ export default function ChipList({ setDietary, dietary }) {
     vegan: "leaf",
     vegetarian: "leaf-circle",
     pescatarian: "fish",
-    checked: "emoticon-happy-outline",
+    checked: "check",
   };
 
-  const handleOnPress = (diet, index) => {
+  const handleOnPress = (name) => {
     setDietary(() => {
-      dietary[diet.name] = !dietary[diet.name];
-      return dietary;
+      const newDietary = {...dietary}
+      newDietary[name] = !newDietary[name];
+      return newDietary;
     })
-      if (dietary[diet.name] === true) {
-        setDietaryList(()=>{
-          const newDietaryList = [...dietaryList]
-          newDietaryList[index].icon = icons.checked
-          return newDietaryList
-        })
-      } else {
-        setDietaryList(()=>{
-          const newDietaryList = [...dietaryList]
-          newDietaryList[index].icon = icons[diet.name]
-          return newDietaryList
-        })
-      }
   };
 
   return (
     <View style={styles.chip}>
-      {dietaryList.map((diet, index) => {
+      {dietaryNames.map((name, index) => {
         return (
           <Chip
             key={index}
-            icon={diet.icon}
+            icon={dietary[name]? icons.checked : icons[name]}
+            style = {dietary[name]? styles.selected : null}
             onPress={() => {
-               return handleOnPress(diet, index);
+               return handleOnPress(name);
             }}
-            selected={dietary[diet.name]}
+            selected={dietary[name]}
           >
-            {diet.name}
+            {name}
           </Chip>
         );
       })}
@@ -71,5 +56,8 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     margin: 10,
     gap: 10
+  },
+  selected:{
+    backgroundColor: "green",
   }
 })
