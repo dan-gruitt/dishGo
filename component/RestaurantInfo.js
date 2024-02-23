@@ -11,11 +11,6 @@ const RestaurantInfo = ({
 }) => {
   const openNowStyle = open_now ? styles.open_now_green : styles.open_now_red;
 
-  const cleanUrl = (url) => {
-    const cleanUrl = url.split("?")[0];
-    return cleanUrl;
-  };
-
   const handleWebsitePress = () => {
     Linking.openURL(website);
   };

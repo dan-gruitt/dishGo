@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, StyleSheet, Image, ScrollView, View } from "react-native";
-import { Card } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome";
 import RestaurantInfo from "../component/RestaurantInfo";
+import RenderStarRating from "../component/RenderStarRating";
+import RenderReviews from "../component/RenderReviews";
+import RenderMenu from "../component/RenderMenu";
+import { getMenuByRestaurantId } from "../utils/getMenuByRestaurantId";
 
 export default function RestaurantPage({ route }) {
   const { results } = route.params;
   const restaurant = results[1];
   const restaurantPlace = results[2];
   const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
+  const [menu, setMenu] = useState([]);
 
   const renderPhotos = () => {
     return restaurantPlace.photos.map((photo, index) => (
@@ -22,53 +25,18 @@ export default function RestaurantPage({ route }) {
     ));
   };
 
-  const renderStarRating = (rating) => {
-    const filledStars = Math.floor(rating);
-    const halfStars = Math.ceil(rating - filledStars);
-    const emptyStars = 5 - filledStars - halfStars;
-
-    let stars = [];
-
-    for (let i = 0; i < filledStars; i++) {
-      stars.push(<Icon key={i} name="star" size={24} color="gold" />);
-    }
-
-    if (halfStars === 1) {
-      stars.push(
-        <Icon key="half" name="star-half-full" size={24} color="gold" />
-      );
-    }
-
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <Icon key={`empty${i}`} name="star-o" size={24} color="gray" />
-      );
-    }
-
-    return <>{stars}</>;
-  };
-
-  const renderMenu = () => {};
-
-  const renderReviews = () => {
-    return restaurantPlace.reviews.map((review, index) => (
-      <Card key={index} style={styles.card}>
-        <Card.Content style={styles.reviewContainer}>
-          <View style={styles.reviewHeader}>
-            <Text style={styles.reviewAuthor}>{review.author_name}</Text>
-          </View>
-          <View style={styles.starContainer}>
-            {renderStarRating(review.rating)}
-          </View>
-          <Text style={styles.reviewText}>{review.text}</Text>
-        </Card.Content>
-      </Card>
-    ));
-  };
+  useEffect(() => {
+    getMenuByRestaurantId([restaurant.id]).then((data) => {
+      setMenu(data);
+    });
+  }, [restaurant.id]); 
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.restaurant_name}>{restaurant.name}</Text>
+      <View style={styles.starContainer}>
+        <RenderStarRating rating={restaurantPlace.rating} />
+      </View>
       <Text style={styles.restaurant_description}>
         {restaurant.description}
       </Text>
@@ -83,7 +51,9 @@ export default function RestaurantPage({ route }) {
       <Text style={styles.sectionTitle}>Photos</Text>
       <ScrollView horizontal={true}>{renderPhotos()}</ScrollView>
       <Text style={styles.sectionTitle}>Recent Reviews</Text>
-      {renderReviews()}
+      <RenderReviews reviews={restaurantPlace.reviews} styles={styles} />
+      <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text>
+      {menu && <RenderMenu menu={menu} styles={styles} />}
     </ScrollView>
   );
 }
@@ -169,5 +139,52 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+  },
+  menuContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dishHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+  },
+  dishName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+    textAlign: "center",
+  },
+  dishDescription: {
+    fontSize: 15,
+    margin: 20,
+    textAlign: "center",
+  },
+  reviewText: {
+    fontSize: 15,
+    margin: 20,
+    textAlign: "center",
+  },
+  cover: {
+    height: 200,
+    width: 200,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    backgroundColor: "#e8c6f7",
+    borderRadius: 10,
+    padding: 5,
+  },
+  iconTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 5,
+  },
+  iconText: {
+    fontSize: 16,
   },
 });
