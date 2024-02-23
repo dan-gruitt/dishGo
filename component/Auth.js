@@ -28,7 +28,8 @@ export default function Auth() {
     });
 
     if (error) Alert.alert(error.message);
-    setLoading(false);
+
+    setLoading(false);   
   }
 
   async function signUpWithEmail() {
@@ -41,7 +42,9 @@ export default function Auth() {
       password: password,
     });
 
-    if (error) Alert.alert(error.message);
+    if (error) Alert.alert(error.message)
+  
+
     if (!session)
       Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
