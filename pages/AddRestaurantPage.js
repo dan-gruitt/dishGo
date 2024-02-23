@@ -4,7 +4,7 @@ import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant } from "../utils/api";
 
-export default function AddRestaurantPage() {
+export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
   const [cuisine, setCuisine] = React.useState("");
@@ -22,6 +22,7 @@ export default function AddRestaurantPage() {
         onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
       <TextInput
         label="Restaurant Description"
+        mode="outlined"
         value={restaurantDescription}
         onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
       <SelectDropdown
@@ -46,8 +47,9 @@ export default function AddRestaurantPage() {
         onPress={() => {
           const input = { cuisine, restaurantName, restaurantDescription, placeID };
           postRestaurant(input)
-            .then(() => {
-              console.log('restaurant submitted');
+            .then((restaurantData) => {
+              console.log(restaurantData, "added successfully")
+              navigation.navigate("BusinessMenuPage", {restaurant: restaurantData})
             })
             .catch((err) => {
               console.log(err);

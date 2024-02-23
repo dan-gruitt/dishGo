@@ -11,11 +11,11 @@ import SearchPage from "./pages/SearchPage";
 import BusinessSignUp from "./pages/BusinessSignUp";
 import { UserProvider } from './context/UserContext';
 import TestPage from "./pages/TestPage";
-
-
-const Stack = createNativeStackNavigator();
+import BusinessMenuPage from "./pages/BusinessMenuPage";
+const Stack = createNativeStackNavigator()
 
 export default function App() {
+
   return (
 
 <UserProvider>
@@ -31,6 +31,11 @@ export default function App() {
             name="AddRestaurantPage"
             component={AddRestaurantPage}
             options={{ title: "Add restaurant page" }}
+          />
+                    <Stack.Screen
+            name="BusinessMenuPage"
+            component={BusinessMenuPage}
+            options={{ title: "Add menu page" }}
           />
           <Stack.Screen
             name="ResultsPage"
