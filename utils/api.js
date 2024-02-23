@@ -11,19 +11,17 @@ export const getRestaurants = async () => {
 };
 
 export const postRestaurant = async (input) => {
-  const { restaurantName, cuisine, restaurantDescription, placeID } = input;
+  const { restaurantName, cuisine, restaurantDescription, placeId } = input;
   const restaurantToAdd = {
     name: restaurantName,
     cuisine: cuisine,
     description: restaurantDescription,
-    place_id: placeID,
+    place_id: placeId,
   };
   const { data, error } = await supabase
     .from("test_restaurants")
     .insert(restaurantToAdd)
     .select();
-  console.log(data[0]);
-  console.log(error);
   return data[0];
 };
 
@@ -56,9 +54,20 @@ export const getMenuByRestaurantID = async (restaurantId) => {
   .from("test_dishes")
   .select()
   .eq("restaurant_id", restaurantId)
+  console.log
   if (data.length === 0){
-    console.log(data)
+    console.log(data, "no dishes")
     return []
-  } else console.log(data[0], "<---- data here")
+  } else
+  console.log(data, "this is working <<<<<<<<") 
+  return data
   console.log(error)
 };
+
+export const deleteDishByDishId = async (dishId) => {
+  const { data, error } = await supabase
+  .from("test_dishes")
+  .delete()
+  .eq("id", dishId)
+  console.log('Dish deleted successfully')
+}
