@@ -40,7 +40,6 @@ export default function MenuList(props) {
                 subtitle={`£${item.price.toFixed(2)}`}
               />
               <Card.Content>
-                <Text>Description</Text>
                 <Text>{item.description}</Text>
               </Card.Content>
               {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
