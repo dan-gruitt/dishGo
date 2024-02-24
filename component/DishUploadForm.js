@@ -1,7 +1,7 @@
-import { View, Text} from "react-native";
+import { View} from "react-native";
 import React from "react";
-import { useState } from 'react'
-import { TextInput, Button} from "react-native-paper";
+
+import { TextInput, Button, Text} from "react-native-paper";
 import ChipList from "./ChipList";
 
 import { postDishByRestaurantId } from "../utils/api";
@@ -12,6 +12,7 @@ export default function DishUploadForm(props) {
   const [dishName, setDishName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [price, setPrice] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const [dietary, setDietary] = React.useState({
     vegan: false,
@@ -20,7 +21,7 @@ export default function DishUploadForm(props) {
   })
 
   function handleSubmit(){
-    console.log(restaurant)
+    setIsSubmitting(true)
     postDishByRestaurantId(dishName, description, price, dietary, restaurant.id)
     .then((dishData)=>{
       const newDish = dishData
@@ -29,6 +30,7 @@ export default function DishUploadForm(props) {
         console.log(updatedMenu)
         return updatedMenu
       })
+      setIsSubmitting(false)
       setDishName("")
       setDescription("")
       setPrice("")
@@ -67,7 +69,10 @@ export default function DishUploadForm(props) {
         keyboardType="numeric"
       />
       <ChipList setDietary={setDietary} dietary={dietary}></ChipList>
-      <Button mode="contained" onPress={() => handleSubmit()}>
+      <Button mode="contained" 
+      onPress={() => handleSubmit()}
+      disabled = {isSubmitting}
+      >
     Add dish
   </Button>
     </View>
