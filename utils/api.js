@@ -11,12 +11,21 @@ export const getRestaurants = async () => {
 };
 
 export const postRestaurant = async (input) => {
-  const { restaurantName, cuisine, restaurantDescription, placeId } = input;
+  let { restaurantName, cuisine, restaurantDescription, placeId, user } = input;
+  let userId
+  
+  if (user === null){
+     userId = null
+  } else userId = user.id
+// userId defaults to null if no user logged in, to prevent errors while fixing user login
+// once fixed, simply set userId = user.id
+
   const restaurantToAdd = {
     name: restaurantName,
     cuisine: cuisine,
     description: restaurantDescription,
     place_id: placeId,
+    user_id: userId
   };
   const { data, error } = await supabase
     .from("test_restaurants")
