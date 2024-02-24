@@ -1,6 +1,6 @@
 import { View} from "react-native";
 import React from "react";
-import { HelperText, TextInput, Button, Text} from "react-native-paper";
+import { HelperText, TextInput, Button, Text, List} from "react-native-paper";
 
 import ChipList from "./ChipList";
 import { dishSchema } from "../validation/DishValidation";
@@ -71,6 +71,9 @@ export default function DishUploadForm(props) {
 
   return (
     <View>
+      <List.Accordion
+        title={"Add New Dish"}
+        >
       <TextInput
         label="Name of dish"
         value={dishName}
@@ -114,6 +117,7 @@ export default function DishUploadForm(props) {
 <HelperText type="error" visible={errors}>
         Unable to submit form - invalid input(s)
       </HelperText>
+      </List.Accordion>
     </View>
   );
 }
