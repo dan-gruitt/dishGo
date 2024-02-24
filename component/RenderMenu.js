@@ -10,7 +10,7 @@ export const RenderMenu = ({ menu, styles }) => {
           <View style={styles.dishHeader}>
             <Text style={styles.dishName}>{dish.dish_name} - £{dish.price}</Text>
           </View>
-          <Text style={styles.dishDescription}>{dish.description}</Text>
+          {dish.description && <Text style={styles.dishDescription}>{dish.description}</Text>}
           {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
             <View style={styles.iconContainer}>
               {dish.vegan && (

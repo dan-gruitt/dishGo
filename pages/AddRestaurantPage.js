@@ -1,19 +1,25 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import {ScrollView, View} from 'react-native'
 import React from "react";
 import { TextInput, Button } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant } from "../utils/api";
+import { UserContext } from "../context/UserContext";
+
+import PlaceIdSearcher from "../component/PlaceIdSearcher";
 
 export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
   const [cuisine, setCuisine] = React.useState("");
-  const [placeID, setPlaceID] = React.useState(null);
+  const [placeId, setPlaceId] = React.useState(null);
+  const { user: user } = React.useContext(UserContext);
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
 
   return (
-    <><View>
+    // <ScrollView>
+    <View>
       <Text>Add Restaurant</Text>
       <TextInput
         label="Restaurant Name"
@@ -41,11 +47,12 @@ export default function AddRestaurantPage({navigation}) {
           return item;
         } }
         defaultButtonText="Select a cuisine" />
+        <PlaceIdSearcher setPlaceId={setPlaceId}/>
 
       <Button
         mode="contained"
         onPress={() => {
-          const input = { cuisine, restaurantName, restaurantDescription, placeID };
+          const input = { cuisine, restaurantName, restaurantDescription, placeId, user };
           postRestaurant(input)
             .then((restaurantData) => {
               console.log(restaurantData, "added successfully")
@@ -58,6 +65,8 @@ export default function AddRestaurantPage({navigation}) {
       >
         Submit
       </Button>
-    </View></>
+
+    </View>
+    // </ScrollView>
   );
 }

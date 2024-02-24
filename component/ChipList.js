@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
 import { Chip } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ChipList({setDietary, dietary }) {
   const dietaryNames = Object.keys(dietary)
@@ -15,7 +16,7 @@ export default function ChipList({setDietary, dietary }) {
 
   const icons = {
     vegan: "leaf",
-    vegetarian: "leaf-circle",
+    vegetarian: "carrot",
     pescatarian: "fish",
     checked: "check",
   };

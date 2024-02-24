@@ -14,7 +14,7 @@ export default function BusinessMenuPage({ route }) {
   return (
     <ScrollView>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
-      <MenuList menu = {menu}/>
+      <MenuList menu = {menu} setMenu = {setMenu} restaurant = {restaurant} /> 
     </ScrollView>
   );
 }

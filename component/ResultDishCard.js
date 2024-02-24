@@ -3,11 +3,10 @@ import { Button, Card, Text } from "react-native-paper";
 import mergeDishCardData from "../utils/mergeDishCardData";
 import { Linking, View, ActivityIndicator, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from '@react-navigation/native';
-
+import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
-
   const navigation = useNavigation();
 
   if (!dish || !restaurants || !restaurantsPlaces) {
@@ -27,6 +26,8 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
     );
   }
 
+  console.log(results[2]);
+
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>
@@ -41,6 +42,28 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
         </View>
         <Text style={styles.description}>{dish.description}</Text>
       </Card.Content>
+      {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
+            <View style={styles.iconContainer}>
+              {dish.vegan && (
+                <View style={styles.iconTextContainer}>
+                  <Icon2 name="leaf" size={20} color="green" />
+                  <Text style={styles.iconText}>Vegan</Text>
+                </View>
+              )}
+              {dish.vegetarian && (
+                <View style={styles.iconTextContainer}>
+                  <Icon2 name="carrot" size={20} color="orange" />
+                  <Text style={styles.iconText}>Vegetarian</Text>
+                </View>
+              )}
+              {dish.pescatarian && (
+                <View style={styles.iconTextContainer}>
+                  <Icon2 name="fish" size={20} color="blue" />
+                  <Text style={styles.iconText}>Pescatarian</Text>
+                </View>
+              )}
+            </View>
+          )}
       <Card.Cover
         source={{
           uri: results[0].img_url
@@ -63,14 +86,14 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
           </Button>
         )}
         <Button
-  mode="contained"
-  onPress={() => navigation.navigate("RestaurantPage", { results })}
-  style={styles.button}
-  labelStyle={styles.buttonLabel}
-  contentStyle={styles.buttonContent}
->
-  Visit Restaurant's Page
-</Button>
+          mode="contained"
+          onPress={() => navigation.navigate("RestaurantPage", { results })}
+          style={styles.button}
+          labelStyle={styles.buttonLabel}
+          contentStyle={styles.buttonContent}
+        >
+          Visit Restaurant's Page
+        </Button>
       </Card.Actions>
     </Card>
   );
@@ -135,6 +158,23 @@ const styles = StyleSheet.create({
   buttonContent: {
     height: 40,
     width: "100%",
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    backgroundColor: "#e8c6f7",
+    borderRadius: 10,
+    padding: 5,
+  },
+  iconTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 5,
+  },
+  iconText: {
+    fontSize: 16,
   },
 });
 
