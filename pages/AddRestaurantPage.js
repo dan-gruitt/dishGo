@@ -7,6 +7,8 @@ import { postRestaurant } from "../utils/api";
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 
+import setUserContext from '../utils/setUserContext';
+
 export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
@@ -14,6 +16,8 @@ export default function AddRestaurantPage({navigation}) {
   const [placeId, setPlaceId] = React.useState(null);
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
+
+  setUserContext('ADD RESTAURANT')
 
   return (
     // <ScrollView>

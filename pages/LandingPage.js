@@ -1,7 +1,12 @@
 import { View, Button, Text, Image, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import setUserContext from '../utils/setUserContext';
+import { UserContext } from '../context/UserContext';
 
 export default function LandingPage({ navigation }) {
+  const { user, setUser } = useContext(UserContext)
+ 
+  setUserContext('LANDING PAGE')
 
   return (
     <>
@@ -11,10 +16,18 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("AddRestaurantPage")}
         />
 
-        <Button
+    { user ? 
+            <Button
+            title="Add Menu"
+            onPress={() => navigation.navigate("BusinessSignUp")}
+          />
+          :
+          <Button
           title="Partners"
           onPress={() => navigation.navigate("BusinessSignUp")}
         />
+    }
+
 
 
         <View style={styles.imgWrap}>
