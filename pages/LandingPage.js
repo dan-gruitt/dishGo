@@ -2,7 +2,6 @@ import { View, Button, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 
 export default function LandingPage({ navigation }) {
-
   return (
     <>
       <View>
@@ -16,11 +15,8 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("BusinessSignUp")}
         />
 
-
         <View style={styles.imgWrap}>
-        <Image 
-          style={styles.image}
-          source={require('../assets/food.jpeg')} />        
+          <Image style={styles.image} source={require("../assets/food.jpeg")} />
         </View>
 
         <Button
@@ -38,17 +34,19 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("TestPage")}
         />
 
-        <Text onPress={()=>{console.log('FAQ PAGE')}}>How does it work?</Text>
+        <Text onPress={() => navigation.navigate("Faq")}>
+          How does it work?
+        </Text>
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  imgWrap:{
-    display:'flex',
+  imgWrap: {
+    display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   image: {
     width: 250,
@@ -56,6 +54,6 @@ const styles = StyleSheet.create({
     borderRadius: 250 / 2,
     overflow: "hidden",
     marginTop: 50,
-    marginBottom: 50
-  }
+    marginBottom: 50,
+  },
 });
