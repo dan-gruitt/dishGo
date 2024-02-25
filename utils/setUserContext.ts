@@ -3,8 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 
-export default function setUserContext(str='WHAT PAGE??') {
-  console.log(str)
+export default function setUserContext() {
   
   const [session, setSession] = useState<Session | null>(null)
   const { user, setUser } = useContext(UserContext)
@@ -27,9 +26,6 @@ export default function setUserContext(str='WHAT PAGE??') {
       .select(`*`)
       .then(({ data, error, status })=>{
         if (data) setUser(data)
-
-        console.log('ACCOUNT', data)
-        console.log('STATUS', status)
       })
     }
   },[session])

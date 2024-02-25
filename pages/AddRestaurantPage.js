@@ -17,7 +17,7 @@ export default function AddRestaurantPage({navigation}) {
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
 
-  setUserContext('ADD RESTAURANT')
+  setUserContext()
 
   return (
     // <ScrollView>
