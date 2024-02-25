@@ -5,10 +5,10 @@ import { UserContext } from '../context/UserContext';
 import { supabase } from '../lib/supabase'
 
 export default function LandingPage({ navigation }) {
+  
   const { user, setUser } = useContext(UserContext)
- 
   setUserContext()
-
+  
   return (
     <>
       <View style={styles.buttons}>
@@ -30,11 +30,8 @@ export default function LandingPage({ navigation }) {
     }
 
 
-
         <View style={styles.imgWrap}>
-        <Image 
-          style={styles.image}
-          source={require('../assets/food.jpeg')} />        
+          <Image style={styles.image} source={require("../assets/food.jpeg")} />
         </View>
 
         <Button
@@ -52,6 +49,7 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("TestPage")}
         />
 
+
         <Button
           title="Sign Out"
           onPress={() => {
@@ -60,7 +58,9 @@ export default function LandingPage({ navigation }) {
           }}
         />
 
-        <Text onPress={()=>{console.log('FAQ PAGE')}}>How does it work?</Text>
+        <Text onPress={() => navigation.navigate("Faq")}>
+          How does it work?
+        </Text>
       </View>
     </>
   );
@@ -88,3 +88,6 @@ const styles = StyleSheet.create({
     gap: 10,
   }
 });
+
+});
+
