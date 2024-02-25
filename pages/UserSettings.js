@@ -9,7 +9,7 @@ export default function UserSettings() {
 
   return (
 <>
-      <Text>Hello {user.id} from user settings</Text>
+      <Text>Hello from user settings</Text>
    
     </>
   )

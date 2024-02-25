@@ -4,8 +4,9 @@ import UserBusinessProfile from '../component/UserBusinessProfile'
 
 export default function TestPage() {
   return (
-    <View>
+    <><View>
       <UserBusinessProfile />
     </View>
+    </>
   )
 }

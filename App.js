@@ -14,6 +14,9 @@ import { UserProvider } from "./context/UserContext";
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 import Faq from "./pages/Faq";
+import TestNavPage from "./pages/TestNavPage";
+import HomePage from "./pages/HomePage";
+import TopBar from "./component/TopBar"
 
 const Stack = createNativeStackNavigator();
 
@@ -22,11 +25,13 @@ export default function App() {
     <UserProvider>
       <PaperProvider>
         <NavigationContainer>
+        <TopBar />
           <Stack.Navigator>
+
             <Stack.Screen
               name="LandingPage"
               component={LandingPage}
-              options={{ title: "Landing Page" }}
+              options={{ title: '', headerShown: false}}
             />
             <Stack.Screen
               name="AddRestaurantPage"
@@ -62,6 +67,16 @@ export default function App() {
               name="TestPage"
               component={TestPage}
               options={{ title: "Test Page" }}
+            />
+            <Stack.Screen
+              name="TestNavPage"
+              component={TestNavPage}
+              options={{ title: "Test Nav Page" }}
+            />
+            <Stack.Screen
+              name="HomePage"
+              component={HomePage}
+              options={{ title: "Home Page", headerShown: false }}
             />
             <Stack.Screen
               name="Faq"
