@@ -1,12 +1,13 @@
-import { Text } from "react-native";
 import {ScrollView, View} from 'react-native'
-import React from "react";
-import { TextInput, Button } from "react-native-paper";
+import React, { useEffect } from "react";
+import { Text, TextInput, Button, HelperText } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
+import { restaurantSchema } from "../validation/RestaurantValidation";
+import getRestaurantByUserId from '../utils/getRestaurantsById';
 
 export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
@@ -15,22 +16,79 @@ export default function AddRestaurantPage({navigation}) {
   const [placeId, setPlaceId] = React.useState(null);
   const { user: user } = React.useContext(UserContext);
 
+  const [restaurant, setRestaurant] = React.useState(null)
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [errors, setErrors] = React.useState(null)
+
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
+
+  useEffect(()=>{
+    if (user){
+      getRestaurantByUserId(user.id).then((restaurantData)=>{
+        setRestaurant(restaurantData)
+      })
+    }
+  }, [])
+
+  async function handleSubmit(){
+    setIsSubmitting(true)
+
+    const formInput = {
+      restaurantName: restaurantName,
+      restaurantDescription: restaurantDescription,
+      cuisine: cuisine,
+      placeId: placeId
+    }
+
+      try{
+        await restaurantSchema.validate(formInput, {abortEarly: false})
+        setErrors(null)
+        submitRestaurant();
+      } catch (error) {
+        console.log(error.inner)
+        const newError = {}
+        error.inner.forEach((err)=>{
+          newError[err.path] = err.message
+        })
+        setErrors(newError)
+        setIsSubmitting(false)
+      }
+  }
+
+  function submitRestaurant(){
+    const input = {restaurantName, restaurantDescription, cuisine, placeId, user};
+    postRestaurant(input)
+      .then((restaurantData) => {
+        setIsSubmitting(false)
+        console.log(restaurantData, "added successfully")
+        navigation.navigate("BusinessMenuPage", {restaurant: restaurantData})
+      })
+      .catch((err) => {
+        setIsSubmitting(false)
+        console.log(err);
+      });
+  }
 
   return (
     // <ScrollView>
     <View>
-      <Text>Add Restaurant</Text>
       <TextInput
         label="Restaurant Name"
         mode="outlined"
         value={restaurantName}
         onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
+              {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText type="error">
+        {errors.restaurantName}
+      </HelperText> : null}
       <TextInput
         label="Restaurant Description"
         mode="outlined"
         value={restaurantDescription}
         onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
+              {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText type="error">
+        {errors.restaurantDescription}
+      </HelperText> : null}
       <SelectDropdown
         data={cuisines}
         onSelect={(selectedItem, index) => {
@@ -47,26 +105,25 @@ export default function AddRestaurantPage({navigation}) {
           return item;
         } }
         defaultButtonText="Select a cuisine" />
+              {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText type="error">
+        {errors.cuisine}
+      </HelperText> : null}
         <PlaceIdSearcher setPlaceId={setPlaceId}/>
-
+        {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText type="error">
+        {errors.placeId}
+      </HelperText> : null}
       <Button
         mode="contained"
-        onPress={() => {
-          const input = { cuisine, restaurantName, restaurantDescription, placeId, user };
-          postRestaurant(input)
-            .then((restaurantData) => {
-              console.log(restaurantData, "added successfully")
-              navigation.navigate("BusinessMenuPage", {restaurant: restaurantData})
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } }
+        onPress={() => {handleSubmit()} }
+        disabled = {isSubmitting}
       >
         Submit
       </Button>
-
-    </View>
+      <HelperText type="error" visible={errors}>
+        Unable to submit form - invalid input(s)
+      </HelperText>
+    </View> 
+    
     // </ScrollView>
   );
 }
