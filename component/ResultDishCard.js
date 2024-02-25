@@ -17,8 +17,8 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces, setCardCount }) 
   useEffect(() => {
     if (location && results) {
       const distance = calculateDistance(location.coords.latitude, location.coords.longitude, results[2].geometry.location.lat, results[2].geometry.location.lng);
-      setIsVisible(distance < 500);
-      if (distance < 500) {
+      setIsVisible(distance < 200);
+      if (distance < 200) {
         setCardCount(prevCount => prevCount + 1);
       }
     }
