@@ -2,15 +2,17 @@ import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import DishUploadForm from "../component/DishUploadForm";
 import MenuList from "../component/MenuList";
-import { getMenuByRestaurantID } from "../utils/api";
+import { getMenuByRestaurantId } from "../utils/api";
 
 export default function BusinessMenuPage({ route }) {
   const { restaurant } = route.params;
   const [menu, setMenu] = React.useState([]);
 
   React.useEffect(() => {
-    getMenuByRestaurantID(restaurant.id);
-    //? .then() for logged in user to render existing menu
+    getMenuByRestaurantId(restaurant.id).then((menuData)=>{
+      console.log('loading menu')
+      setMenu(menuData)
+    })
   }, []);
   return (
     <ScrollView>

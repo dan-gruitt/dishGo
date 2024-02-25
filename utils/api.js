@@ -84,19 +84,18 @@ export const postDishByRestaurantId = async (
   return data[0];
 };
 
-export const getMenuByRestaurantID = async (restaurantId) => {
+export const getMenuByRestaurantId = async (restaurantId) => {
   const { data, error } = await supabase
   .from("test_dishes")
   .select()
   .eq("restaurant_id", restaurantId)
-  console.log
+  console.log(error)
   if (data.length === 0){
     console.log(data, "no dishes")
     return []
   } else
-  console.log(data, "this is working <<<<<<<<") 
+  console.log(data, "menu retrieved") 
   return data
-  console.log(error)
 };
 
 export const deleteDishByDishId = async (dishId) => {
