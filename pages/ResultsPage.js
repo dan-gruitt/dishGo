@@ -1,23 +1,20 @@
-import {
-  ScrollView,
-  FlatList,
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Text,
-  Item,
-} from "react-native";
 import React, { useEffect, useState } from "react";
+import { ScrollView, View, Text } from "react-native";
+import { Button, ActivityIndicator } from "react-native-paper";
 import { getDishes } from "../utils/getDishes";
 import ResultDishCard from "../component/ResultDishCard";
 import { filterSearch } from "../utils/filterSearch";
 import { getRestaurantsById } from "../utils/getRestaurantsById";
 import { getPlacesById } from "../utils/getPlacesById";
+import GoogleMapView from "../component/GoogleMapView";
 
 export default function ResultsPage({ navigation, route }) {
   const [dishesToShow, setDishesToShow] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantsPlaces, setRestaurantsPlaces] = useState([]);
+  const [cardCount, setCardCount] = useState(0);
+  const [mapView, setMapView] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     getDishes()
@@ -45,6 +42,7 @@ export default function ResultsPage({ navigation, route }) {
       })
       .then((placesData) => {
         setRestaurantsPlaces(placesData);
+        setDataLoaded(true); 
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -54,20 +52,30 @@ export default function ResultsPage({ navigation, route }) {
   return (
     <View>
       <Text>
-        {" "}
-        {dishesToShow.length} Results for: {route.params.dish}
+        {cardCount} Result{cardCount > 1? 's' : ''} for: {route.params.dish}
       </Text>
       <ScrollView>
-        {dishesToShow.map((dish) => {
-          return (
+        <Button mode="contained" onPress={() => setMapView(!mapView)}>
+          {mapView ? "Show List View" : "Show Map View"}
+        </Button>
+        {mapView ? (
+          <GoogleMapView dishes={dishesToShow} restaurants={restaurants} />
+        ) : dataLoaded ? (
+          dishesToShow.map((dish) => (
             <ResultDishCard
+              setCardCount={setCardCount}
+              cardCount={cardCount}
               key={dish.id}
               dish={dish}
               restaurants={restaurants}
               restaurantsPlaces={restaurantsPlaces}
             />
-          );
-        })}
+          ))
+        ) : (
+          <View>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
       </ScrollView>
     </View>
   );

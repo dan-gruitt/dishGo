@@ -11,6 +11,7 @@ import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import BusinessSignUp from "./pages/BusinessSignUp";
 import { UserProvider } from './context/UserContext';
+import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 const Stack = createNativeStackNavigator()
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
 
+<LocationProvider>
 <UserProvider>
     <PaperProvider>
       <NavigationContainer>
@@ -67,6 +69,7 @@ export default function App() {
       </NavigationContainer>
     </PaperProvider>
     </UserProvider>
+    </LocationProvider>
   );
 }
 
