@@ -8,6 +8,8 @@ import { UserContext } from "../context/UserContext";
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 
+import setUserContext from '../utils/setUserContext';
+
 export default function AddRestaurantPage({navigation}) {
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
@@ -16,6 +18,8 @@ export default function AddRestaurantPage({navigation}) {
   const { user: user } = React.useContext(UserContext);
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
+
+  setUserContext()
 
   return (
     // <ScrollView>
