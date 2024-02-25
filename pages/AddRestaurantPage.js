@@ -12,12 +12,14 @@ import getRestaurantByUserId from '../utils/getRestaurantsById';
 import setUserContext from '../utils/setUserContext';
 
 export default function AddRestaurantPage({navigation}) {
+  
+  setUserContext();
+
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
   const [cuisine, setCuisine] = React.useState("");
   const [placeId, setPlaceId] = React.useState(null);
   const { user: user } = React.useContext(UserContext);
-  setUserContext()
   
   const [restaurant, setRestaurant] = React.useState(null)
 
