@@ -14,7 +14,7 @@ export const postRestaurant = async (input) => {
   let { restaurantName, cuisine, restaurantDescription, placeId, user } = input;
   let userId
   
-  if (user === null){
+  if (!user){
      userId = null
   } else userId = user.id
 // userId defaults to null if no user logged in, to prevent errors while fixing user login
