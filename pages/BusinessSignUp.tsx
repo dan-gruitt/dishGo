@@ -16,6 +16,7 @@ export default function BusinessSignUp({navigation}) {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      
       return session;
     }).then(async (test) => {
 
