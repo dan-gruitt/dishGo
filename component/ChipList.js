@@ -6,6 +6,14 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default function ChipList({setDietary, dietary }) {
   const dietaryNames = Object.keys(dietary)
 
+  // useEffect(()=>{
+  //   setDietaryList([
+  //     { name: "vegan", icon: "leaf" },
+  //     { name: "vegetarian", icon: "leaf-circle" },
+  //     { name: "pescatarian", icon: "fish" },
+  //   ])
+  // }, [dietary])
+
   const icons = {
     vegan: "leaf",
     vegetarian: "carrot",

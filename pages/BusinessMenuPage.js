@@ -7,6 +7,7 @@ import { getMenuByRestaurantID } from "../utils/api";
 export default function BusinessMenuPage({ route }) {
   const { restaurant } = route.params;
   const [menu, setMenu] = React.useState([]);
+
   React.useEffect(() => {
     getMenuByRestaurantID(restaurant.id);
     //? .then() for logged in user to render existing menu
