@@ -1,13 +1,12 @@
 import {ScrollView, View} from 'react-native'
-import React, { useEffect } from "react";
-import { Text, TextInput, Button, HelperText } from "react-native-paper";
+import React from "react";
+import { Text, TextInput, Button, HelperText, Card } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
-import { postRestaurant } from "../utils/api";
+import { postRestaurant, getRestaurantByUserId, patchRestaurantById } from "../utils/api";
 import { UserContext } from "../context/UserContext";
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 import { restaurantSchema } from "../validation/RestaurantValidation";
-import getRestaurantByUserId from '../utils/getRestaurantsById';
 
 import setUserContext from '../utils/setUserContext';
 
@@ -20,15 +19,19 @@ export default function AddRestaurantPage({navigation}) {
   const [cuisine, setCuisine] = React.useState("");
   const [placeId, setPlaceId] = React.useState(null);
   const { user: user } = React.useContext(UserContext);
+
+  const [searcherPlaceHolder, setSearcherPlaceHolder] = React.useState('')
   
   const [restaurant, setRestaurant] = React.useState(null)
+  const [restaurantToEdit, setRestaurantToEdit] = React.useState(null)
 
+  const [isEditMode, setIsEditMode] = React.useState(false)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [errors, setErrors] = React.useState(null)
 
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
 
-  useEffect(()=>{
+  React.useEffect(()=>{
     if (user){
       getRestaurantByUserId(user.id).then((restaurantData)=>{
         setRestaurant(restaurantData)
@@ -49,7 +52,10 @@ export default function AddRestaurantPage({navigation}) {
       try{
         await restaurantSchema.validate(formInput, {abortEarly: false})
         setErrors(null)
-        submitRestaurant();
+        if(isEditMode){
+          updateRestaurantById();
+        }
+        else if (!isEditMode) submitRestaurant();
       } catch (error) {
         console.log(error.inner)
         const newError = {}
@@ -65,9 +71,9 @@ export default function AddRestaurantPage({navigation}) {
     const input = {restaurantName, restaurantDescription, cuisine, placeId, user};
     postRestaurant(input)
       .then((restaurantData) => {
+        setRestaurant(restaurantData)
         setIsSubmitting(false)
         console.log(restaurantData, "added successfully")
-        navigation.navigate("BusinessMenuPage", {restaurant: restaurantData})
       })
       .catch((err) => {
         setIsSubmitting(false)
@@ -75,7 +81,43 @@ export default function AddRestaurantPage({navigation}) {
       });
   }
 
-  return (
+  function updateRestaurantById(){
+    const restaurantId = restaurantToEdit.id
+    const input = {restaurantName, restaurantDescription, cuisine, placeId, user};
+    patchRestaurantById(input, restaurantId)
+      .then((restaurantData) => {
+        setIsEditMode(false)
+        setRestaurant(restaurantData)
+        setIsSubmitting(false)
+        console.log(restaurantData, "updated successfully")
+      })
+      .catch((err) => {
+        setIsSubmitting(false)
+        console.log(err);
+      });
+  }
+
+  return restaurant ? (
+  <View>
+  <Card>
+    <Card.Title subtitle={restaurant.cuisine} />
+    <Card.Content>
+      <Text variant="titleLarge">{restaurant.name}</Text>
+      <Text variant="bodyMedium">{restaurant.description}</Text>
+    </Card.Content>
+    <Card.Actions>
+      <Button onPress = {()=>{
+          navigation.navigate("BusinessMenuPage", {restaurant: restaurant})
+      }}>Manage Menu</Button>
+            <Button onPress = {()=>{
+              setIsEditMode(true)
+          setRestaurantToEdit(restaurant)
+          setRestaurant(null)
+      }}>Edit</Button>
+    </Card.Actions>
+  </Card>
+  </View>
+  ) : (
     // <ScrollView>
     <View>
       <TextInput
@@ -109,11 +151,12 @@ export default function AddRestaurantPage({navigation}) {
           // if data array is an array of objects then return item.property to represent item in dropdown
           return item;
         } }
-        defaultButtonText="Select a cuisine" />
+        defaultButtonText="Select a cuisine"
+        defaultValue={cuisine? cuisine : null} />
               {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText type="error">
         {errors.cuisine}
       </HelperText> : null}
-        <PlaceIdSearcher setPlaceId={setPlaceId}/>
+        <PlaceIdSearcher setPlaceId={setPlaceId} searcherPlaceHolder = {searcherPlaceHolder} setSearcherPlaceHolder = {setSearcherPlaceHolder}/>
         {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText type="error">
         {errors.placeId}
       </HelperText> : null}
@@ -122,8 +165,18 @@ export default function AddRestaurantPage({navigation}) {
         onPress={() => {handleSubmit()} }
         disabled = {isSubmitting}
       >
-        Submit
+        {isEditMode ? 'Update' : 'Submit'}
       </Button>
+      {isEditMode?  <Button
+        mode="outlined"
+        onPress={() => {
+          setIsEditMode(false)
+          setRestaurant(restaurantToEdit)
+        } }
+        disabled = {isSubmitting}
+      >
+        Cancel
+      </Button> : null }
       <HelperText type="error" visible={errors}>
         Unable to submit form - invalid input(s)
       </HelperText>
