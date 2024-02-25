@@ -4,35 +4,51 @@ import { Linking, View, ActivityIndicator, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
-import { calculateDistance } from "../utils/calculateDistance"; 
-import { LocationContext } from "../context/LocationContext"; 
+import { calculateDistance } from "../utils/calculateDistance";
+import { LocationContext } from "../context/LocationContext";
 import { mergeDishCardData } from "../utils/mergeDishCardData";
 
-const ResultDishCard = ({ dish, restaurants, restaurantsPlaces, setCardCount }) => {
+const ResultDishCard = ({
+  dish,
+  restaurants,
+  restaurantsPlaces,
+  setCardCount,
+  setMapResults,
+  storeMapResults,
+}) => {
   const navigation = useNavigation();
-  const { location } = useContext(LocationContext); 
+  const { location } = useContext(LocationContext);
   const [isVisible, setIsVisible] = useState(false);
   const [results, setResults] = useState(null);
 
   useEffect(() => {
     if (location && results) {
-      const distance = calculateDistance(location.coords.latitude, location.coords.longitude, results[2].geometry.location.lat, results[2].geometry.location.lng);
-      setIsVisible(distance < 200);
-      if (distance < 200) {
-        setCardCount(prevCount => prevCount + 1);
+      const distance = calculateDistance(
+        location.coords.latitude,
+        location.coords.longitude,
+        results[2].geometry.location.lat,
+        results[2].geometry.location.lng,
+      );
+      setIsVisible(distance < 1500);
+      if (distance < 1500) {
+        setCardCount((prevCount) => prevCount + 1);
+        storeMapResults(results);
       }
     }
-  }, [location, results, setCardCount]);
+  }, [location, results, setCardCount, setMapResults]);
 
   useEffect(() => {
-    const mergedResults = mergeDishCardData(dish, restaurants, restaurantsPlaces);
+    const mergedResults = mergeDishCardData(
+      dish,
+      restaurants,
+      restaurantsPlaces
+    );
     setResults(mergedResults);
   }, [dish, restaurants, restaurantsPlaces]);
 
-  if (!isVisible || !results) {
+  if (!isVisible || !results || !results[2]) {
     return null;
   }
-
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>
