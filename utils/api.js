@@ -31,6 +31,32 @@ export const postRestaurant = async (input) => {
     .from("test_restaurants")
     .insert(restaurantToAdd)
     .select();
+    console.log(error)
+  return data[0];
+};
+
+export const patchRestaurantById = async (input, restaurantId) => {
+  let { restaurantName, cuisine, restaurantDescription, placeId, user } = input;
+  let userId
+
+  if (!user){
+     userId = null
+  } else userId = user.id
+// userId defaults to null if no user logged in, to prevent errors while fixing user login
+// once fixed, simply set userId = user.id
+
+  const restaurantToUpdate = {
+    name: restaurantName,
+    cuisine: cuisine,
+    description: restaurantDescription,
+    place_id: placeId,
+    user_id: userId,
+    id: restaurantId,
+  };
+  const { data, error } = await supabase
+    .from("test_restaurants")
+    .upsert(restaurantToUpdate)
+    .select();
   return data[0];
 };
 
