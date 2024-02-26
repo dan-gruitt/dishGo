@@ -7,8 +7,17 @@ export const getDishes = () => {
     .then(({data}) => {
         return data;
     }).catch((error)=> {
-        console.log('GETDISH ERROR >>',error)
+        console.log('GET DISH ERROR >>',error)
     })
 }
 
-export default { getDishes };
+export const getDishesName = () => {
+    return supabase.from("test_dishes").select('dish_name,id')
+    .then(({data}) => {
+        return data;
+    }).catch((error)=> {
+        console.log('GET DISH ERROR >>',error)
+    })
+}
+
+export default { getDishes, getDishesName };
