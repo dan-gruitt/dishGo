@@ -3,6 +3,7 @@ import React from "react";
 import { HelperText, TextInput, Button, Text, List} from "react-native-paper";
 
 import ChipList from "./ChipList";
+import ImageUploader from "./ImageUploader";
 import { dishSchema } from "../validation/DishValidation";
 
 import { postDishByRestaurantId } from "../utils/api";
@@ -14,8 +15,10 @@ export default function DishUploadForm(props) {
   const [dishName, setDishName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [price, setPrice] = React.useState("");
+  const [imgUrl, setImgUrl] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [errors, setErrors] = React.useState(null)
+
 
   const [dietary, setDietary] = React.useState({
     vegan: false,
@@ -48,7 +51,7 @@ export default function DishUploadForm(props) {
 
   function submitDish(){
     setIsSubmitting(true)
-    postDishByRestaurantId(dishName, description, price, dietary, restaurant.id)
+    postDishByRestaurantId(dishName, description, price, dietary, restaurant.id, imgUrl)
     .then((dishData)=>{
       const newDish = dishData
       setMenu(() => {
@@ -59,6 +62,7 @@ export default function DishUploadForm(props) {
       setDishName("")
       setDescription("")
       setPrice("")
+      setImgUrl("")
       setDietary({
         vegan: false,
         vegetarian: false,
@@ -74,6 +78,7 @@ export default function DishUploadForm(props) {
       <List.Accordion
         title={"Add New Dish"}
         >
+          <ImageUploader restaurant={restaurant} setImgUrl = {setImgUrl} imgUrl = {imgUrl} />
       <TextInput
         label="Name of dish"
         value={dishName}
