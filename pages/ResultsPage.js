@@ -15,6 +15,9 @@ export default function ResultsPage({ navigation, route }) {
   const [cardCount, setCardCount] = useState(0);
   const [mapView, setMapView] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [mapResults, setMapResults] = useState([]);
+
+
 
   useEffect(() => {
     getDishes()
@@ -42,27 +45,42 @@ export default function ResultsPage({ navigation, route }) {
       })
       .then((placesData) => {
         setRestaurantsPlaces(placesData);
-        setDataLoaded(true); 
+        setDataLoaded(true);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
 
+  const storeMapResults = (result) => {
+    const resultObj = {
+      dish: result[0],
+      restaurant: result[1],
+      place: result[2],
+    };
+    setMapResults((prevResults) => [
+      ...prevResults,
+      resultObj
+    ]);
+  };
+
   return (
     <View>
       <Text>
-        {cardCount} Result{cardCount > 1? 's' : ''} for: {route.params.dish}
+        {cardCount} Result{cardCount > 1 ? "s" : ""} for: {route.params.dish}
       </Text>
       <ScrollView>
         <Button mode="contained" onPress={() => setMapView(!mapView)}>
           {mapView ? "Show List View" : "Show Map View"}
         </Button>
         {mapView ? (
-          <GoogleMapView dishes={dishesToShow} restaurants={restaurants} />
+          <GoogleMapView mapResults={mapResults} />
         ) : dataLoaded ? (
           dishesToShow.map((dish) => (
             <ResultDishCard
+              setMapResults={setMapResults}
+              mapResults={mapResults}
+              storeMapResults={storeMapResults}
               setCardCount={setCardCount}
               cardCount={cardCount}
               key={dish.id}
