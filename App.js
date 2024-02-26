@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import LandingPage from "./pages/LandingPage";
 import AddRestaurantPage from "./pages/AddRestaurantPage";
@@ -14,9 +13,9 @@ import { UserProvider } from "./context/UserContext";
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 import Faq from "./pages/Faq";
-import TestNavPage from "./pages/TestNavPage";
 import HomePage from "./pages/HomePage";
 import TopBar from "./component/TopBar"
+import HomePageBusiness from "./pages/HomePageBusiness";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +26,6 @@ export default function App() {
         <NavigationContainer>
         <TopBar />
           <Stack.Navigator>
-
             <Stack.Screen
               name="LandingPage"
               component={LandingPage}
@@ -69,10 +67,11 @@ export default function App() {
               options={{ title: "Test Page" }}
             />
             <Stack.Screen
-              name="TestNavPage"
-              component={TestNavPage}
-              options={{ title: "Test Nav Page" }}
+              name="HomePageBusiness"
+              component={HomePageBusiness}
+              options={{ title: "Home Page Business", headerShown: false }}
             />
+ 
             <Stack.Screen
               name="HomePage"
               component={HomePage}

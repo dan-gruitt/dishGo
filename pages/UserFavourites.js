@@ -4,7 +4,7 @@ import React from 'react'
 export default function UserFavourites() {
   return (
     <View>
-      <Text>UserFavourites</Text>
+      <Text>User Favourites</Text>
     </View>
   )
 }

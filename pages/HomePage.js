@@ -1,11 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SearchPage from '../pages/SearchPage';
-import LandingPage from '../pages/LandingPage';
-import UserSettings from './UserSettings';
-import ResultsPage from './ResultsPage';
-import SearchStack from '../component/SearchStack';
+import SearchStack from '../navstack/SearchStack';
+import FavouriteStack from '../navstack/FavouriteStack';
+import SettingStack from '../navstack/SettingStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,9 +11,8 @@ export default function HomePage() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Search"  options={{ headerShown: false }} component={SearchStack}/>
-      <Tab.Screen name="UserSetting" component={UserSettings} />
-     
+      <Tab.Screen name="Favourites" component={FavouriteStack} />
+      <Tab.Screen name="Settings" component={SettingStack} />
     </Tab.Navigator>
-    
   )
 }

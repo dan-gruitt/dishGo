@@ -1,24 +1,12 @@
 import * as React from 'react';
-import { useCallback } from 'react';
-import { Appbar, FAB, useTheme } from 'react-native-paper';
-import { StyleSheet, Text, Button, Image, View, Pressable } from 'react-native';
+import { Appbar } from 'react-native-paper';
+import { StyleSheet, Text, Image, View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { useFonts, OpenSans_700Bold, OpenSans_400Regular, OpenSans_300Light } from '@expo-google-fonts/open-sans';
 
 const MyComponent = () => {
     
       const navigation = useNavigation()
-
-      let [fontsLoaded, fontError] = useFonts({
-        OpenSans_700Bold,
-        OpenSans_400Regular,
-        
-      });
-    
-      if (!fontsLoaded && !fontError) {
-        return null;
-      }
 
 return (
   <Appbar.Header style={styles.appBar} mode="medium">
@@ -31,9 +19,9 @@ return (
     <View>
         <Pressable  
             style={styles.button}
-            onPress={() => navigation.navigate("BusinessSignUp")}
+            onPress={() => navigation.navigate("HomePageBusiness")}
         >
-            <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 14, color: '#FFF' }}>Partners</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 14, color: '#FFF' }}>Partners</Text>
         </Pressable>
     </View>
     </View>

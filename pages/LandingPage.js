@@ -25,14 +25,14 @@ export default function LandingPage({ navigation }) {
                     style={styles.button}
                     onPress={() => navigation.navigate("HomePage")}
                 >
-                    <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 18, color: '#FFF' }}>Lets Go!</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#FFF' }}>Lets Go!</Text>
                 </Pressable>
           
         <Pressable  
             style={styles.button}
             onPress={() => navigation.navigate("BusinessSignUp")}
         >
-            <Text style={{ fontFamily: 'OpenSans_700Bold', fontSize: 18, color: '#FFF' }}>Sign Up</Text>
+            <Text style={{ fontWeight: 'bold',fontSize: 18, color: '#FFF' }}>Sign Up</Text>
         </Pressable>
     
       </View>
@@ -52,7 +52,7 @@ export default function LandingPage({ navigation }) {
         <View style={styles.faqView}>
           <Pressable  style={styles.faqButton}>
             <Text 
-            style={{ fontFamily: 'OpenSans_700Bold', fontSize: 15, color: '#FFF' }}
+            style={{ fontWeight: 'bold',fontSize: 15, color: '#FFF' }}
             onPress={() => navigation.navigate("Faq")}>
                 How does it work?
             </Text>
