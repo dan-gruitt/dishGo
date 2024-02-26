@@ -1,4 +1,5 @@
 import { View, Button, Text, Image, StyleSheet } from "react-native";
+import GoogleMapView from "../component/GoogleMapView";
 import React, { useContext } from "react";
 import setUserContext from '../utils/setUserContext';
 import { UserContext } from '../context/UserContext';
