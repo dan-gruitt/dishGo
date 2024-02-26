@@ -37,7 +37,7 @@ export default function LandingPage({ navigation }) {
     
       </View>
 
-        {/* <Button
+        <Button
           title="DEV Test Page"
           onPress={() => navigation.navigate("TestPage")}
         />
@@ -48,7 +48,7 @@ export default function LandingPage({ navigation }) {
         <Button
           title="DEV Add Restaurants Page"
           onPress={() => navigation.navigate("AddRestaurantPage")}
-        /> */}
+        />
         <View style={styles.faqView}>
           <Pressable  style={styles.faqButton}>
             <Text 
