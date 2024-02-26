@@ -1,21 +1,36 @@
 import { View, Button, Text, Image, StyleSheet } from "react-native";
 import GoogleMapView from "../component/GoogleMapView";
-import React from "react";
+import React, { useContext } from "react";
+import setUserContext from '../utils/setUserContext';
+import { UserContext } from '../context/UserContext';
+import { supabase } from '../lib/supabase'
 
 export default function LandingPage({ navigation }) {
-
+  
+  const { user, setUser } = useContext(UserContext)
+  setUserContext()
+  
   return (
     <>
-      <View>
+      <View style={styles.buttons}>
         <Button
           title="DEV Add Restaurants Page"
           onPress={() => navigation.navigate("AddRestaurantPage")}
         />
 
-        <Button
+    { user ? 
+            <Button
+            title="Add Menu"
+            onPress={() => navigation.navigate("BusinessSignUp")}
+          />
+          :
+          <Button
           title="Partners"
           onPress={() => navigation.navigate("BusinessSignUp")}
         />
+    }
+
+
         <View style={styles.imgWrap}>
           <Image style={styles.image} source={require("../assets/food.jpeg")} />
         </View>
@@ -35,11 +50,16 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("TestPage")}
         />
 
-        <Text
+
+        <Button
+          title="Sign Out"
           onPress={() => {
-            console.log("FAQ PAGE");
+            supabase.auth.signOut()
+            setUser(null)
           }}
-        >
+        />
+
+        <Text onPress={() => navigation.navigate("Faq")}>
           How does it work?
         </Text>
       </View>
@@ -54,11 +74,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 250,
-    height: 250,
-    borderRadius: 250 / 2,
+    width: 350,
+    height: 350,
+    borderRadius: 350 / 2,
     overflow: "hidden",
     marginTop: 50,
     marginBottom: 50,
   },
+  buttons: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent:"center",
+    margin: 10,
+    gap: 10,
+  }
 });
+

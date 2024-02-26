@@ -14,10 +14,11 @@ import { UserProvider } from './context/UserContext';
 import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
-const Stack = createNativeStackNavigator()
+import Faq from "./pages/Faq";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
 
 <LocationProvider>

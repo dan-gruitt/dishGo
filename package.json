@@ -44,7 +44,8 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-virtualized-view": "^1.0.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
