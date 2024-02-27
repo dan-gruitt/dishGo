@@ -1,14 +1,20 @@
 import { View, Button, Text, Image, StyleSheet } from "react-native";
 import GoogleMapView from "../component/GoogleMapView";
-import React, { useContext } from "react";
-import setUserContext from '../utils/setUserContext';
-import { UserContext } from '../context/UserContext';
+import React, { useContext, useState, useEffect } from "react";
 import { supabase } from '../lib/supabase'
 
 export default function LandingPage({ navigation }) {
-  
-  const { user, setUser } = useContext(UserContext)
-  setUserContext()
+
+  const [session, setSession] = useState(null)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
   
   return (
     <>
@@ -18,7 +24,7 @@ export default function LandingPage({ navigation }) {
           onPress={() => navigation.navigate("AddRestaurantPage")}
         />
 
-    { user ? 
+    { session ? 
             <Button
             title="Add Menu"
             onPress={() => navigation.navigate("BusinessSignUp")}
@@ -55,7 +61,6 @@ export default function LandingPage({ navigation }) {
           title="Sign Out"
           onPress={() => {
             supabase.auth.signOut()
-            setUser(null)
           }}
         />
 

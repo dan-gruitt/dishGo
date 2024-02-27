@@ -10,7 +10,6 @@ import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import BusinessSignUp from "./pages/BusinessSignUp";
-import { UserProvider } from './context/UserContext';
 import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
@@ -22,7 +21,6 @@ export default function App() {
   return (
 
 <LocationProvider>
-<UserProvider>
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator>
@@ -69,7 +67,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
-    </UserProvider>
     </LocationProvider>
   );
 }

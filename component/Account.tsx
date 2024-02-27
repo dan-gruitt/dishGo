@@ -12,24 +12,10 @@ export default function Account({ session }: { session: Session }) {
   const [username, setUsername] = useState('')
   const [website, setWebsite] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
-  const { user, setUser } = useContext(UserContext)
-
 
   useEffect(() => {
     if (session) getProfile()
-
-    // if (session) setUser(session.user.id)
-    // if (session) getUser()
   }, [session])
-
-  console.log(user, "<<< USER INFO?");
- 
-  // async function getUser() {
-  //   const { data, error, status } = await supabase
-  //   .from('profiles')
-  //   .select(`username, website, avatar_url, id`)
-  //   setUser(data[0])
-  // }
 
   async function getProfile() {
     try {
@@ -49,7 +35,6 @@ export default function Account({ session }: { session: Session }) {
         setUsername(data.username)
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
-        setUser(data);
       }
 
     } catch (error) {
@@ -134,7 +119,6 @@ export default function Account({ session }: { session: Session }) {
         <Button title="Sign Out" onPress={() => {
           console.log("inside onpress");
           supabase.auth.signOut()
-          setUser(null)
         }} />
       </View>
     </View>
@@ -156,18 +140,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 })
-
-
-
-// { 
-//   "app_metadata": { "provider": "email", 
-//   "providers": ["email"] }, 
-//   "aud": "authenticated", 
-//   "confirmed_at": "2024-02-22T14:43:23.473976Z", 
-//   "created_at": "2024-02-22T14:43:23.470234Z", 
-//   "email": "testing123@gmail.com", 
-//   "email_confirmed_at": "2024-02-22T14:43:23.473976Z", 
-//   "id": "051f4f89-6d91-4c4c-8e55-34c2838029eb", 
-//   "identities": [{ "created_at": "2024-02-22T14:43:23.472638Z", 
-//   "email": "testing123@gmail.com", 
-//   "id": "051f4f89-6d91-4c4c-8e55-34c2838029eb", "identity_data": [Object], "identity_id": "066581b2-ed27-4425-a09c-997bc0d47279", "last_sign_in_at": "2024-02-22T14:43:23.472592Z", "provider": "email", "updated_at": "2024-02-22T14:43:23.472638Z", "user_id": "051f4f89-6d91-4c4c-8e55-34c2838029eb" }], "last_sign_in_at": "2024-02-23T09:31:53.974975564Z", "phone": "", "role": "authenticated", "updated_at": "2024-02-23T09:31:53.976517Z", "user_metadata": { } }

@@ -2,23 +2,37 @@ import {ScrollView, View} from 'react-native'
 import React from "react";
 import { Text, TextInput, Button, HelperText, Card } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
-import { postRestaurant, getRestaurantByUserId, patchRestaurantById } from "../utils/api";
-import { UserContext } from "../context/UserContext";
+import { postRestaurant, patchRestaurantById } from "../utils/api";
+
+
+  // ==========
+import { getRestaurantsByUserId } from "../utils/getRestaurantsByUserId";
+import { supabase } from '../lib/supabase'
+import { useState, useEffect } from 'react';
+  // ==========
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 import { restaurantSchema } from "../validation/RestaurantValidation";
 
-import setUserContext from '../utils/setUserContext';
 
 export default function AddRestaurantPage({navigation}) {
-  
-  setUserContext();
+
+  const [session, setSession] = useState(null)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
 
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
   const [cuisine, setCuisine] = React.useState("");
   const [placeId, setPlaceId] = React.useState(null);
-  const { user: user } = React.useContext(UserContext);
 
   const [searcherPlaceHolder, setSearcherPlaceHolder] = React.useState('')
   
@@ -32,12 +46,14 @@ export default function AddRestaurantPage({navigation}) {
   const cuisines = ["Mexican", "Italian", "Asian", "Pub", "Seafood"];
 
   React.useEffect(()=>{
-    if (user){
-      getRestaurantByUserId(user.id).then((restaurantData)=>{
-        setRestaurant(restaurantData)
+    if (session){
+      console.log('2-TESTING SESSION', session.user.id)
+      getRestaurantsByUserId(session.user.id).then((restaurantData)=>{
+        console.log(restaurantData.data[0], "<<<< restaurant data")
+        setRestaurant(restaurantData.data[0])
       })
     }
-  }, [])
+  }, [session])
 
   async function handleSubmit(){
     setIsSubmitting(true)
