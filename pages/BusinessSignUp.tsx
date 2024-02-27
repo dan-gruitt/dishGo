@@ -26,7 +26,6 @@ export default function BusinessSignUp({navigation}) {
     <View>
       {session && session.user ? 
         <>
-          {/* <Account key={session.user.id} session={session} />  */}
           <AddRestaurantPage navigation={navigation} />
           
         </>

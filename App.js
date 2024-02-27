@@ -16,12 +16,15 @@ import Faq from "./pages/Faq";
 import HomePage from "./pages/HomePage";
 import TopBar from "./component/TopBar"
 import HomePageBusiness from "./pages/HomePageBusiness";
+import UserSignUp from './pages/UserSignUp'
+import { CurrentPageProvider } from "./context/CurrentPageContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
 
+    <CurrentPageProvider>
     <LocationProvider>
       <PaperProvider>
         <NavigationContainer>
@@ -83,10 +86,16 @@ export default function App() {
               component={Faq}
               options={{ title: "Faq" }}
             />
+            <Stack.Screen
+              name="UserSignUp"
+              component={UserSignUp}
+              options={{ title: "User Sign Up", headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </LocationProvider>
+    </CurrentPageProvider>
   );
 }
 

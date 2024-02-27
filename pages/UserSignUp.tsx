@@ -6,6 +6,7 @@ import Auth from '../component/Auth'
 import { View, Text } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import AddRestaurantPage from './AddRestaurantPage'
+import HomePage from './HomePage'
 
 export default function BusinessSignUp({navigation}) {
 
@@ -24,17 +25,15 @@ export default function BusinessSignUp({navigation}) {
   }, [])
 
   return (
-    <View>
+   <>
       {session && session.user ? 
         <>
           {/* <AddRestaurantPage navigation={navigation} /> */}
-          {null}
-          <Text>You are a user silly</Text>
-          
+        <HomePage />
         </>
        : 
         <Auth />
       }
-    </View>
+    </>
   )
       }
