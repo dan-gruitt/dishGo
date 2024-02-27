@@ -4,6 +4,7 @@ import { Button, Card, Text} from "react-native-paper";
 import { deleteDishByDishId } from "../utils/api";
 import { getMenuByRestaurantId } from "../utils/api";
 import ConfirmDeletePopUp from "./ConfirmDeletePopUp";
+import ImageThumbnail from "./ImageThumbnail";
 
 export default function MenuList(props) {
   const { menu, setMenu, restaurant } = props;
@@ -35,6 +36,7 @@ export default function MenuList(props) {
       {menu.map((item, index) => {
       return (
             <Card key={index}>
+              <ImageThumbnail item={item} />
               <Card.Title
                 title={item.dish_name}
                 subtitle={`£${item.price.toFixed(2)}`}
