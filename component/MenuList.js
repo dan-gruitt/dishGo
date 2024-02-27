@@ -2,7 +2,7 @@ import { View} from "react-native";
 import React from "react";
 import { Button, Card, Text} from "react-native-paper";
 import { deleteDishByDishId } from "../utils/api";
-import { getMenuByRestaurantID } from "../utils/api";
+import { getMenuByRestaurantId } from "../utils/api";
 import ConfirmDeletePopUp from "./ConfirmDeletePopUp";
 
 export default function MenuList(props) {
@@ -21,7 +21,7 @@ export default function MenuList(props) {
     setIsDialogVisible(false);
     setIsDeleting(true);
     deleteDishByDishId(dishId).then(() => {
-      getMenuByRestaurantID(restaurant.id).then((data) => {
+      getMenuByRestaurantId(restaurant.id).then((data) => {
         setMenu(data);
         setIsDeleting(false);
       });

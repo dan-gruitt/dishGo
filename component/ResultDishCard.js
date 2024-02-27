@@ -1,33 +1,54 @@
-import * as React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Text } from "react-native-paper";
-import mergeDishCardData from "../utils/mergeDishCardData";
 import { Linking, View, ActivityIndicator, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import { calculateDistance } from "../utils/calculateDistance";
+import { LocationContext } from "../context/LocationContext";
+import { mergeDishCardData } from "../utils/mergeDishCardData";
 
-const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
+const ResultDishCard = ({
+  dish,
+  restaurants,
+  restaurantsPlaces,
+  setCardCount,
+  setMapResults,
+  storeMapResults,
+}) => {
   const navigation = useNavigation();
+  const { location } = useContext(LocationContext);
+  const [isVisible, setIsVisible] = useState(false);
+  const [results, setResults] = useState(null);
 
-  if (!dish || !restaurants || !restaurantsPlaces) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+  useEffect(() => {
+    if (location && results) {
+      const distance = calculateDistance(
+        location.coords.latitude,
+        location.coords.longitude,
+        results[2].geometry.location.lat,
+        results[2].geometry.location.lng,
+      );
+      setIsVisible(distance < 1500);
+      if (distance < 1500) {
+        setCardCount((prevCount) => prevCount + 1);
+        storeMapResults(results);
+      }
+    }
+  }, [location, results, setCardCount, setMapResults]);
+
+  useEffect(() => {
+    const mergedResults = mergeDishCardData(
+      dish,
+      restaurants,
+      restaurantsPlaces
     );
+    setResults(mergedResults);
+  }, [dish, restaurants, restaurantsPlaces]);
+
+  if (!isVisible || !results || !results[2]) {
+    return null;
   }
-  const results = mergeDishCardData(dish, restaurants, restaurantsPlaces);
-
-  if (results.length < 3) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  console.log(results[2]);
-
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>
@@ -43,27 +64,27 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
         <Text style={styles.description}>{dish.description}</Text>
       </Card.Content>
       {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
-            <View style={styles.iconContainer}>
-              {dish.vegan && (
-                <View style={styles.iconTextContainer}>
-                  <Icon2 name="leaf" size={20} color="green" />
-                  <Text style={styles.iconText}>Vegan</Text>
-                </View>
-              )}
-              {dish.vegetarian && (
-                <View style={styles.iconTextContainer}>
-                  <Icon2 name="carrot" size={20} color="orange" />
-                  <Text style={styles.iconText}>Vegetarian</Text>
-                </View>
-              )}
-              {dish.pescatarian && (
-                <View style={styles.iconTextContainer}>
-                  <Icon2 name="fish" size={20} color="blue" />
-                  <Text style={styles.iconText}>Pescatarian</Text>
-                </View>
-              )}
+        <View style={styles.iconContainer}>
+          {dish.vegan && (
+            <View style={styles.iconTextContainer}>
+              <Icon2 name="leaf" size={20} color="green" />
+              <Text style={styles.iconText}>Vegan</Text>
             </View>
           )}
+          {dish.vegetarian && (
+            <View style={styles.iconTextContainer}>
+              <Icon2 name="carrot" size={20} color="orange" />
+              <Text style={styles.iconText}>Vegetarian</Text>
+            </View>
+          )}
+          {dish.pescatarian && (
+            <View style={styles.iconTextContainer}>
+              <Icon2 name="fish" size={20} color="blue" />
+              <Text style={styles.iconText}>Pescatarian</Text>
+            </View>
+          )}
+        </View>
+      )}
       <Card.Cover
         source={{
           uri: results[0].img_url
@@ -75,14 +96,14 @@ const ResultDishCard = ({ dish, restaurants, restaurantsPlaces }) => {
       <Card.Actions style={styles.actions}>
         {results[2].url && (
           <Button
-            icon="map"
+            icon="map-marker"
             mode="contained"
             onPress={() => Linking.openURL(`${results[2].url}`)}
             style={styles.button}
             labelStyle={styles.buttonLabel}
             contentStyle={styles.buttonContent}
           >
-            Open in Maps
+            Open In Maps
           </Button>
         )}
         <Button

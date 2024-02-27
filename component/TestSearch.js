@@ -1,14 +1,18 @@
+import * as React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput, FlatList, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import { Ionicons } from '@expo/vector-icons';
 import { getDishes } from '../utils/getDishes';
 import { filterSearch } from '../utils/filterSearch';
+
+import { Searchbar, Surface } from 'react-native-paper';
+
 
 export default function TestSearch({setUserSearch}) {
     const [input, setInput] =  useState('');
     const [dishes, setDishes] =  useState([]);
     const [filterDishes, setFilterDishes] =  useState([]);
+    const [searchQuery, setSearchQuery] = React.useState('');
   
   useEffect(() =>{
     getDishes().then((data)=>{
@@ -16,26 +20,26 @@ export default function TestSearch({setUserSearch}) {
     });
   },[])
  
-    const onChangeText = async (event) =>{
-      setInput(event.nativeEvent.text);
-      setUserSearch(event.nativeEvent.text)
-
-      if (input.length > 1 && filterSearch(dishes, event.nativeEvent.text).length > 0){
-        setFilterDishes(filterSearch(dishes, event.nativeEvent.text));
-      } else {
-        setFilterDishes([]);
-      }
+  const onChangeText = async (e) =>{
+    setSearchQuery(e)
+    setUserSearch(e)
+    if (searchQuery.length > 1 && filterSearch(dishes, searchQuery).length > 0){
+      setFilterDishes(filterSearch(dishes, searchQuery));
+    } else {
+      setFilterDishes([]);
     }
-  
+  }
+
 // Set filtered results to [] to remove options from page
   const dishSelected = (dishName) => {
-      setFilterDishes([]);
+    setFilterDishes([]);
     setUserSearch(dishName)
   }
   
     const getItemText = (item) =>{
       return (
-        <View style={{ 
+        <Surface style={styles.surface} elevation={1}>
+        {/* <View style={{ 
             flexDirect:"row", 
             alignItems:"center", 
             paddingTop:12 , 
@@ -44,37 +48,40 @@ export default function TestSearch({setUserSearch}) {
             borderWidth: 1,
             paddingHorizontal: 10,
             borderRadius: 5,
-        }}>
-          <Ionicons name="search" size={24} color="black" />
-          <View>
+        }}> */}
+          {/* <Ionicons name="search" size={24} color="black" /> */}
+          {/* <View> */}
             <Text style={{fontWeight: "700"}}>{item.dish_name}</Text>
-            <Text style={{fontSize: 12}}>{item.id}</Text>
-          </View>
-        </View>
+            {/* <Text style={{fontSize: 12}}>{item.id}</Text> */}
+          {/* </View> */}
+        {/* </View> */}
+         
+         
+      </Surface>
     )}
   
     return (
-      <><TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Text style={{ marginLeft: 12, marginVertical: 5, fontSize: 18 }}>
-            Search Dishes</Text>
-          <TextInput
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <SafeAreaView style={{ flex: 1, width: "100%" }}>
+          <Searchbar
+            fontWeight="bold"
+            placeholderTextColor="#A9A9AC"
+            mode="bar"
+            elevation={1}
+            iconColor="#3AD6A7"
             placeholder='Find Dish'
-            value={input}
-            onChange={onChangeText}
+            onChangeText={onChangeText}
+            value={searchQuery}
             style={{
-              height: 40,
-              marginHorizontal: 12,
-              marginVertical: 12,
-              borderWidth: 1,
-              paddingHorizontal: 10,
-              borderRadius: 5,
+              marginHorizontal: 26,
+              marginVertical: 26,
+              color:'#FFF'
             }} />
 
           <FlatList
             data={filterDishes}
             renderItem={({ item, index }) => <Pressable onPress={() => {
-              setInput(item.dish_name);
+              setSearchQuery(item.dish_name);
               dishSelected(item.dish_name);
             } }>
               {getItemText(item)}
@@ -83,6 +90,23 @@ export default function TestSearch({setUserSearch}) {
             showsVerticalScrollIndicator={false} />
 
         </SafeAreaView>
-      </TouchableWithoutFeedback></>
+      </TouchableWithoutFeedback>
     )
   }
+
+
+
+
+const styles = StyleSheet.create({
+  surface: {
+    // width: "100%",
+    padding: 8,
+    // height: 80,
+    // width: 80,
+    marginBottom: 12,
+    marginHorizontal: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20
+  },
+});

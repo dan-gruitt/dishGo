@@ -6,14 +6,12 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY; // never save your real api key in a snack!
 
-const TestPlaceIdSearcher = ({setPlaceId}) => {
-
-  const [placeHolder, setPlaceHolder] = useState('')
+const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceHolder}) => {
 
   return (
     <ScrollView keyboardShouldPersistTaps={'handled'}>
       <GooglePlacesAutocomplete
-        placeholder = {placeHolder? placeHolder : "Search for restaurant"}
+        placeholder = {searcherPlaceHolder? searcherPlaceHolder : "Search for restaurant"}
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: 'en', // language of the results
@@ -21,7 +19,7 @@ const TestPlaceIdSearcher = ({setPlaceId}) => {
         onPress={(data, details = null) => {
           console.log(data)
           setPlaceId(data.place_id)
-          setPlaceHolder(data.description)
+          setSearcherPlaceHolder(data.description)
         }
         }
         onFail={(error) => console.error(error)}

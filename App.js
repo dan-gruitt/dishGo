@@ -9,7 +9,8 @@ import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import BusinessSignUp from "./pages/BusinessSignUp";
-import { UserProvider } from "./context/UserContext";
+import { UserProvider } from './context/UserContext';
+import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 import Faq from "./pages/Faq";
@@ -21,6 +22,8 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+
+    <LocationProvider>
     <UserProvider>
       <PaperProvider>
         <NavigationContainer>
@@ -85,7 +88,8 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
-    </UserProvider>
+      </UserProvider>
+    </LocationProvider>
   );
 }
 
