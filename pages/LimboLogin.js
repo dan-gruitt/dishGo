@@ -8,9 +8,6 @@ export default function LimboLogin() {
       <View>
         <Text>You must log in to see this page</Text>
       </View>
-      <View>
-        <Auth></Auth>
-      </View>
     </>
   );
 }
