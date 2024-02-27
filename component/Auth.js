@@ -82,20 +82,26 @@ export default function Auth() {
           autoCapitalize={"none"}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+
+      <View style={styles.signUpView}>
         <Button
+          titleStyle={styles.signUpButtonText}
+          buttonStyle={styles.signUpButton}
+          title="Sign Up"
+          disabled={loading}
+          onPress={() => signUpWithEmail()}
+        />
+      </View>
+      <View style={styles.signInView}>
+        <Text style={styles.signInText}>Already have an account?</Text>
+        <Button
+          buttonStyle={styles.signInButton}
+          titleStyle={styles.signInButtonText}
           title="Sign in"
           disabled={loading}
           onPress={() => {
             signInWithEmail();
           }}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title="Sign up"
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
         />
       </View>
     </View>
@@ -129,7 +135,48 @@ const styles = StyleSheet.create({
     textDecorationLine: "none",
     paddingLeft: 24,
     fontSize: 14,
-
+  },
+  signUpView:{
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 60
+  },
+  signUpButton:{
+    width: 93,
+    backgroundColor: "#3AD6A7",
+    borderRadius: 29,
+  },
+  signUpButtonText:{
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 14,
+    letterSpacing: 0.6,
+  },
+  signInView:{
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 60
+  },
+  signInText:{
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 14,
+    letterSpacing: 0.6,
+  },
+  signInButton:{
+    width: 93,
+    backgroundColor: "#4C5B61",
+    borderRadius: 29,
+  },
+  signInButtonText:{
+    color: "#3AD6A7",
+    fontWeight:"bold",
+    fontSize: 18,
+    letterSpacing: 0.6,
   },
   verticallySpaced: {
     alignSelf: "stretch",
