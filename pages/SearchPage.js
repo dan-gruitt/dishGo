@@ -42,7 +42,6 @@ export default function SearchPage({ navigation }) {
       </View>
       <View>
         <GooglePlacesAutocomplete
-          style={styles.searchField}
           placeholder={(placeholder="SearchArea")}
           query={{
             key: GOOGLE_PLACES_API_KEY,
@@ -58,7 +57,6 @@ export default function SearchPage({ navigation }) {
         <Text style={styles.headerText}>What are you in the mood for?</Text>
       </View>
       <SearchBar
-        style={styles.searchField}
         setUserSearch={setUserSearch}
         userSearch={userSearch}
       />
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     // justifyContent: 'center',
-    alignItems: "center",
+    alignContent: "center",
     backgroundColor: "#3AD6A7",
   },
   image: {
