@@ -1,19 +1,43 @@
 
+
+import GoogleMapView from "../component/GoogleMapView";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Button, Text, Image, StyleSheet, Pressable } from "react-native";
-import React, { useContext } from "react";
 import setUserContext from '../utils/setUserContext';
 import { UserContext } from '../context/UserContext';
 import { supabase } from '../lib/supabase'
 
 
 export default function LandingPage({ navigation }) {
-  
-  const { user, setUser } = useContext(UserContext)
-  setUserContext()
+
+  const [session, setSession] = useState(null)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
   
   return (
 
+
+    { session ? 
+            <Button
+            title="Add Menu"
+            onPress={() => navigation.navigate("BusinessSignUp")}
+          />
+          :
+          <Button
+          title="Partners"
+          onPress={() => navigation.navigate("BusinessSignUp")}
+        />
+    }
+
       <View style={styles.mainContainer}>
+
 
 
         <View style={styles.imgWrap}>
@@ -42,10 +66,7 @@ export default function LandingPage({ navigation }) {
           title="DEV Test Page"
           onPress={() => navigation.navigate("TestPage")}
         />
-        <Button
-          title="DEV Test Home Page"
-          onPress={() => navigation.navigate("HomePage")}
-        />
+
         <Button
           title="DEV Add Restaurants Page"
           onPress={() => navigation.navigate("AddRestaurantPage")}
