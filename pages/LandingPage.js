@@ -1,83 +1,90 @@
-
-
-import GoogleMapView from "../component/GoogleMapView";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Button, Text, Image, StyleSheet, Pressable } from "react-native";
-import setUserContext from '../utils/setUserContext';
-import { UserContext } from '../context/UserContext';
-import { supabase } from '../lib/supabase'
-
+import { supabase } from "../lib/supabase";
+import { useRoute } from "@react-navigation/native";
+import { CurrentPageContext } from "../context/CurrentPageContext";
 
 export default function LandingPage({ navigation }) {
 
-  const [session, setSession] = useState(null)
+  const { setCurrentPage } = useContext(CurrentPageContext);
+  const CurrentScreen = useRoute();
+
+  const [session, setSession] = useState(null);
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+      setSession(session);
+    });
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-  
+      setSession(session);
+    });
+
+    setCurrentPage(CurrentScreen.name)
+  }, []);
+
+
   return (
-
-      <View style={styles.mainContainer}>
-
-        <View style={styles.imgWrap}>
-          <Image style={styles.image} source={require("../assets/landing-image.png")} />
-        </View>
-
-      <View style={styles.introButton}>
-      
-                <Pressable  
-                    style={styles.button}
-                    onPress={() => navigation.navigate("HomePage")}
-                >
-                    <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#FFF' }}>Lets Go!</Text>
-                </Pressable>
-          
-        <Pressable  
-            style={styles.button}
-            onPress={() => navigation.navigate("BusinessSignUp")}
-        >
-            <Text style={{ fontWeight: 'bold',fontSize: 18, color: '#FFF' }}>Sign Up</Text>
-        </Pressable>
-    
+    <View style={styles.mainContainer}>
+      <View style={styles.imgWrap}>
+        <Image
+          style={styles.image}
+          source={require("../assets/landing-image.png")}
+        />
       </View>
 
-      { session ? 
-            <Button
-            title="Add Menu"
-            onPress={() => navigation.navigate("BusinessSignUp")}
-          />
-          :
-          <Button
+      <View style={styles.introButton}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("HomePage")}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+            Lets Go!
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("UserSignUp")}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+            Sign Up
+          </Text>
+        </Pressable>
+      </View>
+
+      {session ? (
+        <Button
+          title="Add Menu"
+          onPress={() => navigation.navigate("BusinessSignUp")}
+        />
+      ) : (
+        <Button
           title="Partners"
           onPress={() => navigation.navigate("BusinessSignUp")}
         />
-    }
+      )}
 
-        <Button
-          title="DEV Test Page"
-          onPress={() => navigation.navigate("TestPage")}
-        />
+      <Button
+        title="DEV Test Page"
+        onPress={() => navigation.navigate("TestPage")}
+      />
 
-        <Button
-          title="DEV Add Restaurants Page"
-          onPress={() => navigation.navigate("AddRestaurantPage")}
-        />
-        <View style={styles.faqView}>
-          <Pressable  style={styles.faqButton}>
-            <Text 
-            style={{ fontWeight: 'bold',fontSize: 15, color: '#FFF' }}
-            onPress={() => navigation.navigate("Faq")}>
-                How does it work?
-            </Text>
-          </Pressable>
-        </View>
+      <Button
+        title="DEV Add Restaurants Page"
+        onPress={() => navigation.navigate("AddRestaurantPage")}
+      />
+      <View style={styles.faqView}>
+        <Pressable style={styles.faqButton}>
+          <Text
+            style={{ fontWeight: "bold", fontSize: 15, color: "#FFF" }}
+            onPress={() => navigation.navigate("Faq")}
+          >
+            How does it work?
+          </Text>
+        </Pressable>
       </View>
+    </View>
   );
 }
 
@@ -98,7 +105,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     justifyContent: "space-between", // Adjust mainContainer to justify content between its children
   },
   introButton: {
@@ -112,7 +119,7 @@ const styles = StyleSheet.create({
   button: {
     width: 139,
     height: 57,
-    backgroundColor: '#4C5B61',
+    backgroundColor: "#4C5B61",
     borderRadius: 29,
     display: "flex",
     flexDirection: "row",
@@ -120,21 +127,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: '#FFF'
+    color: "#FFF",
   },
   faqView: {
-    width: '100%',
+    width: "100%",
     height: 60,
-    backgroundColor: '#3AD6A7',
+    backgroundColor: "#3AD6A7",
   },
   faqButton: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    width: '100%',
-    height: '100%', // Set height to fill the container
-  }
+    width: "100%",
+    height: "100%", // Set height to fill the container
+  },
 });
-
-

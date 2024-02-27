@@ -6,8 +6,10 @@ import Auth from '../component/Auth'
 import { View, Text } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import AddRestaurantPage from './AddRestaurantPage'
+import HomePage from './HomePage'
 
 export default function BusinessSignUp({navigation}) {
+
   const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
@@ -23,15 +25,15 @@ export default function BusinessSignUp({navigation}) {
   }, [])
 
   return (
-    <View>
+   <>
       {session && session.user ? 
         <>
-          <AddRestaurantPage navigation={navigation} />
-          
+          {/* <AddRestaurantPage navigation={navigation} /> */}
+        <HomePage />
         </>
        : 
         <Auth />
       }
-    </View>
+    </>
   )
       }
