@@ -48,18 +48,20 @@ export default function SearchPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
+      {/* <View>
         <Image
           style={styles.image}
           source={require("../assets/white-disgo.png")}
         />
-      </View>
+      </View> */}
+      {/* <View style={styles.headerWrap}>
+        <Text style={styles.headerText}>What are you in the mood for?</Text>
+      </View> */}
+      <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
+
       <View style={styles.locationSearchWrap}>
         <Text style={styles.locationHeaderText}>Enter Your Search Area</Text>
-      </View>
-      <View style={styles.headerWrap}>
-        <Text style={styles.headerText}>What are you in the mood for?</Text>
-        <View>
+         
           <GooglePlacesAutocomplete
             placeholder={(placeholder = "SearchArea")}
             query={{
@@ -71,7 +73,7 @@ export default function SearchPage({ navigation }) {
             }}
             onFail={(error) => console.error(error)}
           />
-          <View>
+          
             <Pressable
               onPress={() => handleUserLocation()}
             >
@@ -79,69 +81,71 @@ export default function SearchPage({ navigation }) {
                 Use my current location
               </Text>
             </Pressable>
-          </View>
-        </View>
+        
+      
       </View>
-      <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
+
+
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    // justifyContent: 'center',
-    alignContent: "center",
-    backgroundColor: "#3AD6A7",
+    // flex: 1,
+    // flexDirection: "column",
+    // // justifyContent: 'center',
+    // alignContent: "center",
+    // backgroundColor: "#3AD6A7",
   },
   image: {
-    width: 70,
-    height: 78,
-    overflow: "hidden",
-    marginTop: 32,
-    marginBottom: 32,
+    // width: 70,
+    // height: 78,
+    // overflow: "hidden",
+    // marginTop: 32,
+    // marginBottom: 32,
   },
   headerWrap: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // display: "flex",
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   locationSearchWrap: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
+ 
   },
   locationHeaderText: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // display: "flex",
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   headerText: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 32,
-    textAlign: "center",
-    width: 260,
+    // color: "#FFF",
+    // fontWeight: "bold",
+    // fontSize: 32,
+    // textAlign: "center",
+    // width: 260,
   },
   searchButton: {
-    width: 139,
-    height: 57,
-    backgroundColor: "#4C5B61",
-    borderRadius: 29,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
+    // width: 139,
+    // height: 57,
+    // backgroundColor: "#4C5B61",
+    // borderRadius: 29,
+    // display: "flex",
+    // flexDirection: "row",
+    // justifyContent: "center",
+    // alignItems: "center",
+    // marginTop: 20,
+    // marginBottom: 20,
   },
   searchButtonText: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 18,
+    // color: "#FFF",
+    // fontWeight: "bold",
+    // fontSize: 18,
   },
 });
