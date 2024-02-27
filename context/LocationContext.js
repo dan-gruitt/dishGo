@@ -5,6 +5,7 @@ export const LocationContext = createContext(null);
 
 export const LocationProvider = ({ children }) => {
     const [location, setLocation] = useState(null);
+    console.log(location);
 
     useEffect(() => {
         const getUserLocation = async () => {
@@ -24,11 +25,13 @@ export const LocationProvider = ({ children }) => {
         getUserLocation();
     }, []);
 
+    const setLocationContext = (newLocation) => {
+        setLocation(newLocation);
+    };
+
     return (
-        <LocationContext.Provider value={{ location }}>
+        <LocationContext.Provider value={{ location, setLocation: setLocationContext }}>
             {children}
         </LocationContext.Provider>
     );
 };
-
-export default LocationContext;
