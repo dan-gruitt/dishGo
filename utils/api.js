@@ -65,7 +65,8 @@ export const postDishByRestaurantId = async (
   description,
   price,
   dietaryObj,
-  restaurantId
+  restaurantId,
+  imgUrl
 ) => {
   const dishToAdd = {
     dish_name: dishName,
@@ -75,6 +76,7 @@ export const postDishByRestaurantId = async (
     vegetarian: dietaryObj.vegetarian,
     pescatarian: dietaryObj.pescatarian,
     restaurant_id: restaurantId,
+    img_url: imgUrl
   };
   const { data, error } = await supabase
     .from("test_dishes")
