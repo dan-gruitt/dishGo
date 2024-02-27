@@ -30,7 +30,7 @@ export const filterSearch = (allDishes, searchDish) => {
     });
   }
 
-  const uniqueDishes = [...new Set(matchDishes)]; // remove duplicates
+  const uniqueDishes = [...new Set(matchDishes)]; 
 
   return uniqueDishes;
 };

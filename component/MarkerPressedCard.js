@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import { Card, ScrollView } from 'react-native-paper';
 
 export const MarkerPressedCard = ({ pressedMarkerArr, pressedMarkerDishes }) => {
-   console.log(pressedMarkerDishes)
     return (
         <View>
             <Text>{pressedMarkerArr.restaurant.name}</Text>
