@@ -21,14 +21,13 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
-export default function Auth({ session }: { session: Session }) {
+export default function Auth(props) {
 
-
+  const {isBusiness} = props
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { User, setUser } = useContext(UserContext);
 
   // pop up
   const [visible, setVisible] = React.useState(false);
@@ -40,31 +39,7 @@ export default function Auth({ session }: { session: Session }) {
 
   //////
 
-  async function getProfile() {
-    try {
-      if (!session?.user) throw new Error("No user on the session!");
-
-      const { data, error, status } = await supabase
-        .from("profiles")
-        .select(`*`)
-        .eq("id", session?.user.id)
-        .single();
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUser(data);
-        setLoading(false);
-        console.log(data, "<<<< user?");
-      }
-    } catch (error) {
-      if (error) {
-        setLoading(false);
-        console.log(error, "<<< inside getProfile catch");
-      }
-    }
-  }
+  
 
   /////
 
@@ -77,9 +52,8 @@ export default function Auth({ session }: { session: Session }) {
 
     if (error) {
       Alert.alert(error.message);
-    } else {
-      getProfile();
-    }
+    } 
+    setLoading(false)
   }
 
   async function signUpWithEmail() {
@@ -87,9 +61,15 @@ export default function Auth({ session }: { session: Session }) {
     const {
       data: { session },
       error,
-    } = await supabase.auth.signUp({
+    } = await supabase.auth.signUp(
+      {
       email: email,
       password: password,
+      options: {
+        data: {
+          isBusiness: isBusiness,
+        },
+      },
     });
 
     if (error) Alert.alert(error.message);

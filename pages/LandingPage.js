@@ -53,18 +53,6 @@ export default function LandingPage({ navigation }) {
         </Pressable>
       </View>
 
-      {session ? (
-        <Button
-          title="Add Menu"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      ) : (
-        <Button
-          title="Partners"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      )}
-
       <Button
         title="DEV Test Page"
         onPress={() => navigation.navigate("TestPage")}

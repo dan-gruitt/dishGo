@@ -4,10 +4,6 @@ import AddRestaurantPage from '../pages/AddRestaurantPage';
 import BusinessMenuPage from '../pages/BusinessMenuPage';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { Text } from 'react-native-paper';
-import TestPage from '../pages/TestPage';
-import SearchPage from '../pages/SearchPage';
-import BusinessSignUp from '../pages/BusinessSignUp';
 import LimboLogin from '../pages/LimboLogin';
 
 const Stack = createNativeStackNavigator();

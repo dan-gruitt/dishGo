@@ -1,14 +1,49 @@
-import React from 'react';
+import React, { useEffect,  useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SearchStack from '../navstack/SearchStack';
 import FavouriteStack from '../navstack/FavouriteStack';
 import SettingStack from '../navstack/SettingStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text } from 'react-native';
+import { UserContext } from '../context/UserContext'
+import { supabase } from '../lib/supabase';
+import { Session } from '@supabase/supabase-js';
 
 const Tab = createBottomTabNavigator();
 
-export default function HomePage() {
+export default function HomePage({ session, isBusiness }: { session: Session, isBusiness: boolean }) {
+
+  const { User, setUser } = useContext(UserContext);
+
+  useEffect(()=>{
+    setUserProfile()
+  }, [])
+
+  async function setUserProfile() {
+    try {
+      const { data, error, status } = await supabase
+        .from("profiles")
+        .upsert({is_business: isBusiness, id: session?.user.id,})
+        .eq("id", session.user.id)
+        .select('*')
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUser(data);
+        console.log(data, "<<<< user??");
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error, "<<< inside getProfile catch");
+      }
+    }
+  }
+
+
   const green = '#3AD6A7';
   const grey = '#4C5B61';
   const tabBarHeight = 70; 
