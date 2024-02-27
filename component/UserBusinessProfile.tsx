@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import Auth from '../component/Auth'
 import Account from '../component/Account'
-import { View, Text } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
 export default function App() {
@@ -20,13 +20,10 @@ export default function App() {
   }, [])
 
   return (
-    <View>
+    <ScrollView>
       {session && session.user ? 
-      <>
-      <Text>USER UPDATE COMPONENT</Text>
       <Account key={session.user.id} session={session} /> 
-      </>
       : <Auth />}
-    </View>
+    </ScrollView>
   )
 }
