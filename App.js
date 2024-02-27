@@ -18,12 +18,13 @@ import TopBar from "./component/TopBar"
 import HomePageBusiness from "./pages/HomePageBusiness";
 import UserSignUp from './pages/UserSignUp'
 import { CurrentPageProvider } from "./context/CurrentPageContext";
+import { UserProvider } from "./context/UserContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-
+<UserProvider>
     <CurrentPageProvider>
     <LocationProvider>
       <PaperProvider>
@@ -96,6 +97,7 @@ export default function App() {
       </PaperProvider>
     </LocationProvider>
     </CurrentPageProvider>
+    </UserProvider>
   );
 }
 

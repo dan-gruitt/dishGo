@@ -7,12 +7,10 @@ import { supabase } from "../lib/supabase";
 import { CurrentPageContext } from "../context/CurrentPageContext";
 
 
-
 export default function TopBar() {
+  //this is the current page context
+  const { CurrentPage } = useContext(CurrentPageContext);
 
-  const {CurrentPage} = useContext(CurrentPageContext)
-
-  console.log(CurrentPage, "<<<?");
 
   const [session, setSession] = useState(null);
 
@@ -24,11 +22,14 @@ export default function TopBar() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      // console.log(session, ' <<< SESSION 2 USER BUSINESS SIGN UP');
+
     });
+
   }, []);
 
+
   const navigation = useNavigation();
+
 
   return (
     <Appbar.Header style={styles.appBar} mode="medium">
