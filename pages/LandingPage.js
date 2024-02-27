@@ -3,8 +3,6 @@
 import GoogleMapView from "../component/GoogleMapView";
 import React, { useContext, useState, useEffect } from "react";
 import { View, Button, Text, Image, StyleSheet, Pressable } from "react-native";
-import setUserContext from '../utils/setUserContext';
-import { UserContext } from '../context/UserContext';
 import { supabase } from '../lib/supabase'
 
 
@@ -40,7 +38,7 @@ export default function LandingPage({ navigation }) {
           
         <Pressable  
             style={styles.button}
-            onPress={() => navigation.navigate("BusinessSignUp")}
+            onPress={() => navigation.navigate("UserSignUp")}
         >
             <Text style={{ fontWeight: 'bold',fontSize: 18, color: '#FFF' }}>Sign Up</Text>
         </Pressable>
