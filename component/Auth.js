@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View, AppState } from "react-native";
+import { Alert, StyleSheet, View, AppState,Text } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
 
@@ -52,10 +52,15 @@ export default function Auth() {
 
   return (
     <View style={styles.container}>
+
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input
+        <Input 
+          inputContainerStyle={styles.inputInnerContainer}
+          inputStyle={styles.input}
+          containerStyle={styles.inputOuterContainer}
+          labelStyle={styles.labels}
           label="Email"
-          leftIcon={{ type: "font-awesome", name: "envelope" }}
+          leftIcon={{ type: "font-awesome", name: "envelope", color:"#FFF", size: 16 }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
@@ -63,9 +68,13 @@ export default function Auth() {
         />
       </View>
       <View style={styles.verticallySpaced}>
-        <Input
+        <Input 
+          inputContainerStyle={styles.inputInnerContainer}
+          inputStyle={styles.input}
+          containerStyle={styles.inputOuterContainer}
+          labelStyle={styles.labels}
           label="Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
+          leftIcon={{ type: "font-awesome", name: "lock", color:"#FFF", size: 16 }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
@@ -95,12 +104,34 @@ export default function Auth() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
-    padding: 12,
+    marginTop: 36,
+    display: 'flex',
+    flex: 1,
+    paddingHorizontal: 28,
+    backgroundColor: "#4C5B61"
+  },
+  labels: {
+    color:"#FFF", 
+    fontSize: 12, 
+    fontWeight: 700, 
+    letterSpacing: 0.8,
+  },
+  inputOuterContainer:{
+    paddingHorizontal: 0,
+    fontSize: 20,
+  },
+  inputInnerContainer:{
+    borderBottomWidth: 2,
+    borderColor: "#FFF"
+  },
+  input: {
+    color: "#FFF",
+    textDecorationLine: "none",
+    paddingLeft: 24,
+    fontSize: 14,
+
   },
   verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
     alignSelf: "stretch",
   },
   mt20: {
