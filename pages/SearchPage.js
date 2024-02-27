@@ -1,33 +1,50 @@
 import * as React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import { Button } from 'react-native-paper';
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import * as Location from 'expo-location';
 import { useState, useEffect, useContext } from "react";
 import SearchBar from "../component/SearchBar";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { getPlacesById } from "../utils/getPlacesById";
-import { LocationContext } from '../context/LocationContext';
+import { LocationContext } from "../context/LocationContext";
 
 export default function SearchPage({ navigation }) {
   const { location, setLocation } = useContext(LocationContext);
   const [userSearch, setUserSearch] = useState("");
   const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
   const [placeId, setPlaceId] = useState("");
-  // const [userLocation, setUserLocation] = useState("");
 
   useEffect(() => {
-    if (placeId) { // Check if placeId is truthy (i.e., not empty or undefined)
+    if (placeId) {
       getPlacesById(placeId)
         .then((response) => {
           const { data } = response;
           const location = data.result.geometry.location;
-          const locationObj = {coords: {latitude: location.lat, longitude: location.lng}};
+          const locationObj = {
+            coords: { latitude: location.lat, longitude: location.lng },
+          };
           setLocation(locationObj);
         })
         .catch((error) => {
           console.error("Error fetching place details:", error);
         });
     }
+    handleUserLocation()
   }, [placeId]);
+
+
+  const handleUserLocation = async () => {
+    try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            console.error('Permission to access location was denied');
+            return;
+        }
+        const currentLocation = await Location.getCurrentPositionAsync({});
+        setLocation(currentLocation.coords);
+    } catch (error) {
+        console.error('Error getting current location:', error);
+    }
+};
 
   return (
     <View style={styles.container}>
@@ -40,26 +57,32 @@ export default function SearchPage({ navigation }) {
       <View style={styles.locationSearchWrap}>
         <Text style={styles.locationHeaderText}>Enter Your Search Area</Text>
       </View>
-      <View>
-        <GooglePlacesAutocomplete
-          placeholder={(placeholder="SearchArea")}
-          query={{
-            key: GOOGLE_PLACES_API_KEY,
-            language: "en", // language of the results
-          }}
-          onPress={(data, details = null) => {
-            setPlaceId(data.place_id);
-          }}
-          onFail={(error) => console.error(error)}
-        />
-      </View>
       <View style={styles.headerWrap}>
         <Text style={styles.headerText}>What are you in the mood for?</Text>
+        <View>
+          <GooglePlacesAutocomplete
+            placeholder={(placeholder = "SearchArea")}
+            query={{
+              key: GOOGLE_PLACES_API_KEY,
+              language: "en", // language of the results
+            }}
+            onPress={(data, details = null) => {
+              setPlaceId(data.place_id);
+            }}
+            onFail={(error) => console.error(error)}
+          />
+          <View>
+            <Pressable
+              onPress={() => handleUserLocation()}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+                Use my current location
+              </Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
-      <SearchBar
-        setUserSearch={setUserSearch}
-        userSearch={userSearch}
-      />
+      <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
     </View>
   );
 }
