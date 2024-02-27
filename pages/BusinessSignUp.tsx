@@ -30,7 +30,7 @@ export default function BusinessSignUp({navigation}) {
           
         </>
        : 
-        <Auth />
+        <Auth session={session} />
       }
     </View>
   )
