@@ -73,9 +73,10 @@ export default function AddRestaurantPage({navigation}) {
         }
         else if (!isEditMode) submitRestaurant();
       } catch (error) {
-        console.log(error.inner)
+        console.log(error, "<<<< error")
         const newError = {}
         error.inner.forEach((err)=>{
+
           newError[err.path] = err.message
         })
         setErrors(newError)
@@ -84,7 +85,8 @@ export default function AddRestaurantPage({navigation}) {
   }
 
   function submitRestaurant(){
-    const input = {restaurantName, restaurantDescription, cuisine, placeId, user};
+    const sessionUser = session.user
+    const input = {restaurantName, restaurantDescription, cuisine, placeId, sessionUser};
     postRestaurant(input)
       .then((restaurantData) => {
         setRestaurant(restaurantData)
