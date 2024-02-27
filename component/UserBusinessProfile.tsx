@@ -31,7 +31,7 @@ export default function App() {
         <View style={styles.subHeaderView}>
           <Text style={styles.subHeaderText}>Sign up and gain access to 1000’s of customers waiting to find your food!</Text>
         </View>
-        <Auth />
+        <Auth session={session}/>
       </> }
     </ScrollView>
   )
