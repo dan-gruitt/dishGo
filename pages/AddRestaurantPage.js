@@ -1,8 +1,10 @@
-import {ScrollView, View} from 'react-native'
+import {View, StyleSheet, SafeAreaView, TouchableWithoutFeedback} from 'react-native'
 import React from "react";
 import { Text, TextInput, Button, HelperText, Card } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant, patchRestaurantById } from "../utils/api";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { ScrollView } from 'react-native-virtualized-view';
 
 
   // ==========
@@ -136,70 +138,212 @@ export default function AddRestaurantPage({navigation}) {
   </Card>
   </View>
   ) : (
-    // <ScrollView>
-    <View>
-      <TextInput
-        label="Restaurant Name"
-        mode="outlined"
-        value={restaurantName}
-        onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
-              {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText type="error">
-        {errors.restaurantName}
-      </HelperText> : null}
-      <TextInput
-        label="Restaurant Description"
-        mode="outlined"
-        value={restaurantDescription}
-        onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
-              {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText type="error">
-        {errors.restaurantDescription}
-      </HelperText> : null}
-      <SelectDropdown
-        data={cuisines}
-        onSelect={(selectedItem, index) => {
-          setCuisine(selectedItem);
-        } }
-        buttonTextAfterSelection={(selectedItem, index) => {
-          // text represented after item is selected
-          // if data array is an array of objects then return selectedItem.property to render after item is selected
-          return selectedItem;
-        } }
-        rowTextForSelection={(item, index) => {
-          // text represented for each item in dropdown
-          // if data array is an array of objects then return item.property to represent item in dropdown
-          return item;
-        } }
-        defaultButtonText="Select a cuisine"
-        defaultValue={cuisine? cuisine : null} />
-              {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText type="error">
-        {errors.cuisine}
-      </HelperText> : null}
+    
+    <ScrollView 
+    style={styles.container}
+    nestedScrollEnabled={true}
+    keyboardShouldPersistTaps='handled'
+    contentContainerStyle={{ flexGrow: 1 }}
+    >
+      {/* <View> */}
+  
+
+      {/* Title */}
+      <View style={styles.headerTextView}>
+        <Text style={styles.headerText}>Now lets add your restaurant</Text>
+      </View>
+
+      {/* Restaurant Name */}
+      <View><Text style={styles.inputLabels}>Restaurant Name</Text>
+        <TextInput
+          underlineColor="#FFF"
+          activeUnderlineColor="#3AD6A7"
+          style={styles.inputsBody}
+          contentStyle={styles.inputs}
+          placeholderTextColor="#A9A9AC"
+          label=""
+          mode="flat"
+          value={restaurantName}
+          onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
+                {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText type="error">
+          {errors.restaurantName}
+        </HelperText> : null}
+      </View>
+
+
+      {/* Restaurant Description */}
+      <View><Text style={styles.inputLabels}>Description</Text>
+        <TextInput
+          underlineColor="#FFF"
+          activeUnderlineColor="#3AD6A7"
+          style={styles.inputsBody}
+          contentStyle={styles.inputsMultiline}
+          placeholderTextColor="#A9A9AC"
+          label=""
+          multiline={true}
+          mode="flat"
+          value={restaurantDescription}
+          onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
+                {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText type="error">
+          {errors.restaurantDescription}
+        </HelperText> : null}
+      </View>
+
+      {/* Cuisine dropdown */}
+      <View style={styles.dropdownContainer}><Text style={styles.inputLabels}>Cuisine</Text>
+        <SelectDropdown
+          data={cuisines}
+          onSelect={(selectedItem, index) => {
+            setCuisine(selectedItem);
+          } }
+          buttonTextAfterSelection={(selectedItem, index) => {
+            // text represented after item is selected
+            // if data array is an array of objects then return selectedItem.property to render after item is selected
+            return (<View style={styles.dropdownButtonView}>
+                <View><Text style={styles.dropdownButtonText}>{selectedItem}</Text></View>
+                <View><Icon style={styles.iconTest} name="caret-down" size={30} color="#4C5B61" /></View>
+              </View>)
+          } }
+          rowTextForSelection={(item, index) => {
+            // text represented for each item in dropdown
+            // if data array is an array of objects then return item.property to represent item in dropdown
+            return item;
+          } }
+
+          defaultButtonText="Select a cuisine"
+          dropdownStyle={styles.dropdownStyle}
+          buttonStyle={styles.dropdownButtonStyle}
+          
+          defaultValue={cuisine? cuisine : null} />
+                {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText type="error">
+          {errors.cuisine}
+        </HelperText> : null}
+      </View>
+      
+           
+      <View><><Text style={styles.inputLabels}>Location</Text></>
         <PlaceIdSearcher setPlaceId={setPlaceId} searcherPlaceHolder = {searcherPlaceHolder} setSearcherPlaceHolder = {setSearcherPlaceHolder}/>
         {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText type="error">
         {errors.placeId}
       </HelperText> : null}
-      <Button
-        mode="contained"
-        onPress={() => {handleSubmit()} }
-        disabled = {isSubmitting}
-      >
-        {isEditMode ? 'Update' : 'Submit'}
-      </Button>
-      {isEditMode?  <Button
-        mode="outlined"
-        onPress={() => {
-          setIsEditMode(false)
-          setRestaurant(restaurantToEdit)
-        } }
-        disabled = {isSubmitting}
-      >
-        Cancel
-      </Button> : null }
-      <HelperText type="error" visible={errors}>
-        Unable to submit form - invalid input(s)
-      </HelperText>
-    </View> 
-    
-    // </ScrollView>
+      </View>
+
+      <View style={styles.buttonWrap}>
+        <Button
+          mode="contained"
+          onPress={() => {handleSubmit()} }
+          disabled = {isSubmitting}
+        >
+          {isEditMode ? 'Update' : 'Submit'}
+
+        </Button>
+        {isEditMode?  <Button
+          mode="outlined"
+          onPress={() => {
+            setIsEditMode(false)
+            setRestaurant(restaurantToEdit)
+          } }
+          disabled = {isSubmitting}
+        >
+          Cancel
+        </Button> : null }
+        <HelperText type="error" visible={errors}>
+          Unable to submit form - invalid input(s)
+        </HelperText>
+      </View>
+
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: "#4C5B61",
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    gap: 12
+  },
+  headerTextView:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText:{
+    color: "#FFF",
+    fontWeight:600,
+    fontSize: 28,
+    textAlign: "center",
+    width: 197,
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+  inputLabels:{
+    fontWeight:600,
+    color:"#FFF",
+    fontSize: 14,
+    marginTop: 12,
+    marginBottom: 12
+  },
+  inputsBody:{
+    borderColor:"#FFF", 
+    borderWidth: 1, 
+    borderRadius: 5, 
+    overflow:"hidden", 
+    backgroundColor: "#FFF",
+    marginBottom: 12,
+  },
+  inputs:{
+    backgroundColor: "#FFF",
+    color: "#4C5B61",
+    height: 52
+  },
+  inputsMultiline:{
+    backgroundColor: "#FFF",
+    color: "#4C5B61",
+    height: 82
+  },
+  dropdownContainer:{
+    flex: 1,
+    alignItems: 'flex-start',
+    width: "100%"
+  },
+  dropdownStyle:{
+    backgroundColor: '#ffffff',
+    borderRadius: 5,
+    textAlign: "left",
+    width: "90%",
+    color: "#4C5B61",
+  },
+  dropdownButtonStyle:{
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 5,
+    width: "100%",
+    textAlign:"left",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent:"center",
+    alignItems: 'center',
+    height: 46,
+    fontSize: 14,
+  },
+  dropdownButtonView:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent:"center",
+    alignItems: 'center',
+    width: "100%",
+  },
+  dropdownButtonText:{
+    fontWeight:"bold",
+    fontSize: 16,
+    color: "#4C5B61",
+    marginRight: 12
+  },
+  buttonWrap:{
+    marginBottom:300
+  }
+})
