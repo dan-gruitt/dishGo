@@ -15,7 +15,7 @@ export default function ResultsPage({ navigation, route }) {
   const [mapView, setMapView] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapResults, setMapResults] = useState([]);
-
+  const [results, setResults] = useState([null])
 
 
   useEffect(() => {
@@ -51,11 +51,11 @@ export default function ResultsPage({ navigation, route }) {
       });
   }, []);
 
-  const storeMapResults = (result) => {
+  const storeMapResults = (results) => {
     const resultObj = {
-      dish: result[0],
-      restaurant: result[1],
-      place: result[2],
+      dish: results[0],
+      restaurant: results[1],
+      place: results[2],
     };
 
     const exists = mapResults && mapResults.some((r) => (
@@ -65,6 +65,7 @@ export default function ResultsPage({ navigation, route }) {
     ));
     if (!exists) {
       setMapResults((prevResults) => [...prevResults, resultObj]);
+      setResults(results)
     }
   };
 
@@ -78,7 +79,7 @@ export default function ResultsPage({ navigation, route }) {
           {mapView ? "Show List View" : "Show Map View"}
         </Button>
         {mapView ? (
-          <GoogleMapView mapResults={mapResults} />
+          <GoogleMapView mapResults={mapResults} results={results} />
         ) : dataLoaded ? (
           dishesToShow.map((dish) => (
             <ResultDishCard
