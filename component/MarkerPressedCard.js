@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 export const MarkerPressedCard = ({
   pressedMarkerArr,
   pressedMarkerDishes,
+  results
 }) => {
   const navigation = useNavigation();
   return (
@@ -39,7 +40,7 @@ export const MarkerPressedCard = ({
         )}
         <Button
           mode="contained"
-          onPress={() => navigation.navigate("RestaurantsPage", { results })}
+          onPress={() => navigation.navigate("RestaurantPage", { results })}
           style={styles.button}
           labelStyle={styles.buttonLabel}
           contentStyle={styles.buttonContent}

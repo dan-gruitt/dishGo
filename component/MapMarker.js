@@ -4,7 +4,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export const MapMarkers = ({ mapResults, markerPressed }) => {
     
-    const markerResults = mapResults.map((result, index) => {
+    return mapResults.map((result, index) => {
         const markerLat = result.place.geometry.location.lat
         const markerLng = result.place.geometry.location.lng
         const restaurantName = result.restaurant.name
@@ -17,8 +17,6 @@ export const MapMarkers = ({ mapResults, markerPressed }) => {
           />)
 
     })
-    const uniqueMarkers = [...new Set(markerResults)]
-    return uniqueMarkers
 }
 export default MapMarkers;
 

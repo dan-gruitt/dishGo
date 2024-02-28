@@ -7,7 +7,7 @@ import {MarkerPressedCard} from "./MarkerPressedCard";
 import { ScrollView } from "react-native";
 
 
-export const GoogleMapView = ({mapResults}) => {
+export const GoogleMapView = ({mapResults, results}) => {
   const [mapRegion, setMapRegion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pressedMarkerArr, setPressedMarkerArr] = useState(null);
@@ -60,7 +60,7 @@ export const GoogleMapView = ({mapResults}) => {
       >
         <MapMarkers mapResults={mapResults} markerPressed={markerPressed} />
       </MapView>
-      {pressedMarkerArr? <MarkerPressedCard pressedMarkerArr={pressedMarkerArr} pressedMarkerDishes={pressedMarkerDishes} /> : null}
+      {pressedMarkerArr? <MarkerPressedCard pressedMarkerArr={pressedMarkerArr} pressedMarkerDishes={pressedMarkerDishes} results={results} /> : null}
     </View>
     </ScrollView>
   );
