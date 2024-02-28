@@ -18,10 +18,12 @@ import HomePageBusiness from "./pages/HomePageBusiness";
 import UserSignUp from './pages/UserSignUp'
 import { CurrentPageProvider } from "./context/CurrentPageContext";
 import { UserProvider } from "./context/UserContext";
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.'])
   return (
 <UserProvider>
     <CurrentPageProvider>
