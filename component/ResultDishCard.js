@@ -23,15 +23,17 @@ const ResultDishCard = ({
   const [isVisible, setIsVisible] = useState(false);
   const [results, setResults] = useState(null);
 
-  const [imgUri, setImgUri] = useState(null)
+  const [imgUri, setImgUri] = useState(null);
 
-  useEffect(()=>{
-    if(results && results[0].img_url){
-      getDishImageByUrl(results[0].img_url, 'business_images', setImgUri).then(()=>{
-        console.log('imgUri retrieved')
-      })
+  useEffect(() => {
+    if (results && results[0].img_url) {
+      getDishImageByUrl(results[0].img_url, "business_images", setImgUri).then(
+        () => {
+          console.log("imgUri retrieved");
+        }
+      );
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (location && results && radius) {
@@ -60,42 +62,43 @@ const ResultDishCard = ({
   if (!isVisible || !results || !results[2]) {
     return null;
   }
- return (
+  return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>
         <View style={styles.container}>
           <View style={styles.leftSide}>
             <Card.Cover
-              source={{
-                uri: results[0].img_url
-                ? results[0].img_url
-                : "https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg",
-              }}
+              source={
+                imgUri
+                  ? { uri: imgUri }
+                  : require("../assets/tempfoodimage.jpg")
+              }
               style={styles.cover}
-              />
-              {dish.vegan || dish.vegetarian || dish.pescatarian ? (
-                <View style={styles.iconContainer}>
-                  {dish.vegan && (
-                    <View style={styles.individualIconContainer}>
-                      <Icon2 name="leaf" size={15} color="green" />
-                      <Text style={styles.iconText}>Vegan</Text>
-                    </View>
-                  )}
-                  {dish.vegetarian && (
-                    <View style={styles.individualIconContainer}>
-                      <Icon2 name="carrot" size={15} color="orange" />
-                      <Text style={styles.iconText}>Vegetarian</Text>
-                    </View>
-                  )}
-                  {dish.pescatarian && (
-                    <View style={styles.individualIconContainer}>
-                      <Icon2 name="fish" size={15} color="blue" />
-                      <Text style={styles.iconText}>Pescatarian</Text>
-                    </View>
-                  )}
-                </View>
-              ) : <View style={styles.EmptyIconContainer}></View>}
-            </View>
+            />
+            {dish.vegan || dish.vegetarian || dish.pescatarian ? (
+              <View style={styles.iconContainer}>
+                {dish.vegan && (
+                  <View style={styles.individualIconContainer}>
+                    <Icon2 name="leaf" size={15} color="green" />
+                    <Text style={styles.iconText}>Vegan</Text>
+                  </View>
+                )}
+                {dish.vegetarian && (
+                  <View style={styles.individualIconContainer}>
+                    <Icon2 name="carrot" size={15} color="orange" />
+                    <Text style={styles.iconText}>Vegetarian</Text>
+                  </View>
+                )}
+                {dish.pescatarian && (
+                  <View style={styles.individualIconContainer}>
+                    <Icon2 name="fish" size={15} color="blue" />
+                    <Text style={styles.iconText}>Pescatarian</Text>
+                  </View>
+                )}
+              </View>
+            ) : (
+              <View style={styles.EmptyIconContainer}></View>
+            )}
           </View>
           <View style={styles.rightSide}>
             <View style={styles.textContainer}>
@@ -114,44 +117,37 @@ const ResultDishCard = ({
                       2
                     )}`}</Text>
                   </View>
-                <Text style={styles.description}>{dish.description}</Text>
+                  <Text style={styles.description}>{dish.description}</Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
       </Card.Content>
       <View style={styles.buttonsContainer}>
-      )}
-      <Card.Cover
-        source={ imgUri?
-          {
-          uri: imgUri
-        } : require('../assets/tempfoodimage.jpg')}
-        style={styles.cover}
-      />
-      <Card.Actions style={styles.actions}>
-
-        {results[2].url && (
+        <Card.Actions style={styles.actions}>
+          {results[2].url && (
+            <Button
+              icon="map-marker"
+              mode="contained"
+              onPress={() => Linking.openURL(`${results[2].url}`)}
+              style={[styles.button, styles.mapButton]}
+              labelStyle={[styles.buttonLabel, styles.mapButton]}
+              contentStyle={styles.buttonContent}
+            >
+              Open In Maps
+            </Button>
+          )}
           <Button
-            icon="map-marker"
             mode="contained"
-            onPress={() => Linking.openURL(`${results[2].url}`)}
-            style={[styles.button, styles.mapButton]}
-            labelStyle={[styles.buttonLabel, styles.mapButton]}
+            onPress={() => navigation.navigate("RestaurantPage", { results })}
+            style={[styles.button, styles.restaurantButton]}
+            labelStyle={[styles.buttonLabel, styles.restaurantButton]}
             contentStyle={styles.buttonContent}
           >
-            Open In Maps
+            Restaurant
           </Button>
-        )}
-        <Button
-          mode="contained"
-          onPress={() => navigation.navigate("RestaurantPage", { results })}
-          style={[styles.button, styles.restaurantButton]}
-          labelStyle={[styles.buttonLabel, styles.restaurantButton]}
-          contentStyle={styles.buttonContent}
-        >
-          Restaurant
-        </Button>
+        </Card.Actions>
       </View>
     </Card>
   );
@@ -277,7 +273,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 10,
     alignItems: "center",
-    marginTop: 5, 
+    marginTop: 5,
     marginBottom: 5,
   },
   iconText: {
@@ -287,7 +283,7 @@ const styles = StyleSheet.create({
   individualIconContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 10, 
+    marginRight: 10,
   },
   contentContainer: {
     flexDirection: "row",
@@ -331,7 +327,7 @@ const styles = StyleSheet.create({
     padding: 5,
     width: "40%",
     marginLeft: 5,
-  }
+  },
 });
 
 export default ResultDishCard;
