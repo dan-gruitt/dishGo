@@ -92,7 +92,7 @@ const SearchArea = () => {
       </View>
       <View>
         <Pressable onPress={handleUserLocation}>
-          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF",  }}>
             Use My Current Location
           </Text>
         </Pressable>

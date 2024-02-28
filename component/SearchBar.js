@@ -32,7 +32,6 @@ export default function SearchBar({userSearch, setUserSearch}) {
     }
   }
 
-// Set filtered results to [] to remove options from page
   const dishSelected = (dishName) => {
     setFilterDishes([]);
     setUserSearch(dishName)
