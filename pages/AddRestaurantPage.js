@@ -49,11 +49,11 @@ export default function AddRestaurantPage({navigation}) {
 
   React.useEffect(()=>{
     if (session){
-      console.log('2-TESTING SESSION', session.user.id)
-      getRestaurantsByUserId(session.user.id).then((restaurantData)=>{
-        console.log(restaurantData.data[0], "<<<< restaurant data")
+      setIsSubmitting(false)
+      getRestaurantsByUserId(session.user.id)
+      .then((restaurantData)=>{
         setRestaurant(restaurantData.data[0])
-      })
+      }).catch((error)=>{console.log(error)})
     }
   }, [session])
 
@@ -71,7 +71,9 @@ export default function AddRestaurantPage({navigation}) {
         await restaurantSchema.validate(formInput, {abortEarly: false})
         setErrors(null)
         if(isEditMode){
-          updateRestaurantById();
+          updateRestaurantById().catch((error)=>{
+            console.log(error)
+          });
         }
         else if (!isEditMode) submitRestaurant();
       } catch (error) {
@@ -103,7 +105,8 @@ export default function AddRestaurantPage({navigation}) {
 
   function updateRestaurantById(){
     const restaurantId = restaurantToEdit.id
-    const input = {restaurantName, restaurantDescription, cuisine, placeId, user};
+    const sessionUser = session.user
+    const input = {restaurantName, restaurantDescription, cuisine, placeId, sessionUser};
     patchRestaurantById(input, restaurantId)
       .then((restaurantData) => {
         setIsEditMode(false)
@@ -117,7 +120,7 @@ export default function AddRestaurantPage({navigation}) {
       });
   }
 
-  return restaurant ? (
+  return restaurant && !isEditMode ? (
   <View>
   <Card>
     <Card.Title subtitle={restaurant.cuisine} />
@@ -132,7 +135,9 @@ export default function AddRestaurantPage({navigation}) {
             <Button onPress = {()=>{
               setIsEditMode(true)
           setRestaurantToEdit(restaurant)
-          setRestaurant(null)
+          setRestaurantName(restaurant.name)
+          setRestaurantDescription(restaurant.description)
+          setCuisine(restaurant.cuisine)
       }}>Edit</Button>
     </Card.Actions>
   </Card>
@@ -151,7 +156,7 @@ export default function AddRestaurantPage({navigation}) {
 
       {/* Title */}
       <View style={styles.headerTextView}>
-        <Text style={styles.headerText}>Now lets add your restaurant</Text>
+        <Text style={styles.headerText}>{isEditMode? 'Edit your restaurant': `Now let's add your restaurant`}</Text>
       </View>
 
       {/* Restaurant Name */}
@@ -230,6 +235,7 @@ export default function AddRestaurantPage({navigation}) {
       </View>
 
       <View style={styles.buttonWrap}>
+        <View style ={ styles.buttonRow}>
         <Button
           style={styles.mainButton}
           mode="elevated"
@@ -245,11 +251,17 @@ export default function AddRestaurantPage({navigation}) {
           onPress={() => {
             setIsEditMode(false)
             setRestaurant(restaurantToEdit)
+            console.log(restaurantToEdit)
+            setRestaurantName(restaurantToEdit.name)
+            setRestaurantDescription(restaurantToEdit.description)
+            setCuisine(restaurantToEdit.cuisine)
+            setPlaceId(restaurantToEdit.place_id)
           } }
           disabled = {isSubmitting}
         >
           Cancel
         </Button> : null }
+        </View>
         <HelperText style={styles.errorMsg} type="error" visible={errors}>
           Unable to submit form - invalid input(s)
         </HelperText>
@@ -352,6 +364,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+  },
+  buttonRow:{
+    flexDirection: "row"
   },
   mainButton: {
     width: 139,

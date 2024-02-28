@@ -8,7 +8,6 @@ export const getRestaurantsByUserId = (userId) => {
     .select()
     .eq('user_id', userId)
     .then((data) => {
-        console.log(data, "<<<< data")
         return data
     })
     .catch((err) => {
