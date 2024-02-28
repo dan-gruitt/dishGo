@@ -5,12 +5,11 @@ import { useRoute } from "@react-navigation/native";
 import { CurrentPageContext } from "../context/CurrentPageContext";
 
 export default function LandingPage({ navigation }) {
-
   const { setCurrentPage } = useContext(CurrentPageContext);
   const CurrentScreen = useRoute();
 
   const [session, setSession] = useState(null);
-  
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -20,7 +19,7 @@ export default function LandingPage({ navigation }) {
       setSession(session);
     });
 
-    setCurrentPage(CurrentScreen.name)
+    setCurrentPage(CurrentScreen.name);
   }, []);
 
   return (
@@ -42,41 +41,29 @@ export default function LandingPage({ navigation }) {
           </Text>
         </Pressable>
 
-{session && session.user ? 
-        <>
-       
-       <Pressable
-          style={styles.button}
-          onPress={() => supabase.auth.signOut()}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            Sign Out
-          </Text>
-        </Pressable>
-        </>
-       : 
-       <Pressable
-       style={styles.button}
-       onPress={() => navigation.navigate("UserSignUp")}
-     >
-       <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-         Sign Up
-       </Text>
-     </Pressable>
-      }
-
-
+        {session && session.user ? (
+          <>
+            <Pressable
+              style={styles.button}
+              onPress={() => supabase.auth.signOut()}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+                Sign Out
+              </Text>
+            </Pressable>
+          </>
+        ) : (
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate("UserSignUp")}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+              Sign Up
+            </Text>
+          </Pressable>
+        )}
       </View>
 
-      <Button
-        title="DEV Test Page"
-        onPress={() => navigation.navigate("TestPage")}
-      />
-
-      <Button
-        title="DEV Add Restaurants Page"
-        onPress={() => navigation.navigate("AddRestaurantPage")}
-      />
       <View style={styles.faqView}>
         <Pressable style={styles.faqButton}>
           <Text

@@ -9,7 +9,7 @@ const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY; // never s
 const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceHolder}) => {
 
   return (
-    <ScrollView 
+    <View 
     listMode="SCROLLVIEW"
     keyboardShouldPersistTaps={'handled'}>
       <GooglePlacesAutocomplete
@@ -26,7 +26,7 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
         }
         onFail={(error) => console.error(error)}
       />
-    </ScrollView>
+    </View>
   );
 };
 

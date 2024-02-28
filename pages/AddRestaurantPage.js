@@ -66,7 +66,7 @@ export default function AddRestaurantPage({navigation}) {
       cuisine: cuisine,
       placeId: placeId
     }
-
+    console.log(placeId, "<<<<<< place ID")
       try{
         await restaurantSchema.validate(formInput, {abortEarly: false})
         setErrors(null)
@@ -107,6 +107,7 @@ export default function AddRestaurantPage({navigation}) {
     const restaurantId = restaurantToEdit.id
     const sessionUser = session.user
     const input = {restaurantName, restaurantDescription, cuisine, placeId, sessionUser};
+
     patchRestaurantById(input, restaurantId)
       .then((restaurantData) => {
         setIsEditMode(false)
@@ -121,19 +122,37 @@ export default function AddRestaurantPage({navigation}) {
   }
 
   return restaurant && !isEditMode ? (
-  <View>
-  <Card>
-    <Card.Title subtitle={restaurant.cuisine} />
+  <View style={styles.container}>
+      <View style={styles.headerTextView}>
+        <Text style={[styles.headerText, styles.yourRestaurantText]}>Your restaurants</Text>
+      </View>
+
+  <Card contentStyle={styles.mainCard}>
+    <Card.Title titleStyle={styles.cardTitle} titleVariant="headlineLarge"  title={restaurant.name} />
+
     <Card.Content>
-      <Text variant="titleLarge">{restaurant.name}</Text>
-      <Text variant="bodyMedium">{restaurant.description}</Text>
+      <Text style={styles.cardDesc} variant="bodyMedium">{restaurant.description}</Text>
+      <View style={styles.cardCuisineWrap}><Text style={styles.cardCuisine} variant="bodyMedium">{restaurant.cuisine}</Text></View>
     </Card.Content>
     <Card.Actions>
-      <Button onPress = {()=>{
+      <Button 
+          mode="elevated"
+          style={{ borderColor: "#FFF" }}
+          borderColor="#FFF"
+          textColor="#FFF"
+          buttonColor="#3AD6A7"
+          onPress = {()=>{
           navigation.navigate("BusinessMenuPage", {restaurant: restaurant})
       }}>Manage Menu</Button>
-            <Button onPress = {()=>{
-              setIsEditMode(true)
+
+      <Button 
+      mode="elevated"
+      style={{ borderColor: "#FFF" }}
+      borderColor="#FFF"
+      textColor="#FFF"
+      buttonColor="#4C5B61"
+      onPress = {()=>{
+          setIsEditMode(true)
           setRestaurantToEdit(restaurant)
           setRestaurantName(restaurant.name)
           setRestaurantDescription(restaurant.description)
@@ -246,8 +265,11 @@ export default function AddRestaurantPage({navigation}) {
 
         </Button>
         {isEditMode?  <Button
+          borderColor="#3AD6A7"
+          textColor="#3AD6A7"
+          buttonColor="#4C5B61"
           style={styles.editButton}
-          mode="outlined"
+          mode="elevated"
           onPress={() => {
             setIsEditMode(false)
             setRestaurant(restaurantToEdit)
@@ -273,6 +295,36 @@ export default function AddRestaurantPage({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  mainCard:{
+    backgroundColor:"#FFF", 
+    borderRadius: 8,
+    padding: 12
+  },
+  cardTitle:{
+    fontSize: 20,
+    color: "#3AD6A7",
+    fontWeight: "bold",
+  },
+  cardDesc:{
+    fontSize: 14,
+    color: "#4C5B61",
+    marginBottom: 12
+  },
+  cardCuisineWrap:{
+    borderWidth: 1,
+    borderColor: "#3AD6A7",
+    padding: 3,
+    width: 100,
+    display:"flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12
+  },
+  cardCuisine:{
+    fontSize: 14,
+    color: "#3AD6A7",
+    width:"auto"
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -286,6 +338,12 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  yourRestaurantText:{
+    width: 250,
+    textShadowColor: 'black',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
   headerText:{
     color: "#FFF",
@@ -382,6 +440,14 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold', 
     fontSize: 14,
+  },
+  editButton:{
+    width: 139,
+    height: 48,
+    borderRadius: 29,
+    borderColor: "#3AD6A7", 
+    borderWidth: 1, 
+    marginTop: 16
   },
   errorMsg:{
     marginTop: 8,
