@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { supabase } from '../lib/supabase'
 import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
 import Avatar from './Avatar'
+import { UserContext } from '../context/UserContext'
 
 export default function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState('')
   const [website, setWebsite] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
+  const {User, setUser} = useContext(UserContext)
+
 
   useEffect(() => {
     if (session) getProfile()
@@ -65,7 +68,12 @@ export default function Account({ session }: { session: Session }) {
         updated_at: new Date(),
       }
 
-      const { error } = await supabase.from('profiles').upsert(updates)
+      const { data, error } = await supabase.from('profiles')
+      .upsert(updates)
+      .select()
+
+      setUser(data[0])
+      
 
       if (error) {
         throw error
@@ -76,6 +84,7 @@ export default function Account({ session }: { session: Session }) {
       }
     } finally {
       setLoading(false)
+      
     }
   }
 
@@ -117,6 +126,7 @@ export default function Account({ session }: { session: Session }) {
         <Button title="Sign Out" onPress={() => {
           console.log("inside onpress");
           supabase.auth.signOut()
+          setUser(null)
         }} />
       </View>
     </View>
