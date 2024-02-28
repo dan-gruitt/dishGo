@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet, View, AppState} from "react-native";
-import { Modal, Portal, Text} from 'react-native-paper';
+import React, { useContext, useState } from "react";
+import { Alert, StyleSheet, View, AppState } from "react-native";
+import { Modal, Portal, Text } from "react-native-paper";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
+import { UserContext } from "../context/UserContext";
+import { Session } from '@supabase/supabase-js'
+
+
+
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -16,8 +21,10 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
+export default function Auth(props) {
 
-export default function Auth() {
+  const {isBusiness} = props
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,6 +37,11 @@ export default function Auth() {
   const [signInPassword, setSignInPassword] = useState("");
   // pop up
 
+  //////
+
+  
+
+  /////
 
   async function signInWithEmail() {
     setLoading(true);
@@ -38,10 +50,10 @@ export default function Auth() {
       password: signInPassword,
     });
 
-    if (error) Alert.alert(error.message);
-
-    setLoading(false);   
-    
+    if (error) {
+      Alert.alert(error.message);
+    } 
+    setLoading(false)
   }
 
   async function signUpWithEmail() {
@@ -49,13 +61,18 @@ export default function Auth() {
     const {
       data: { session },
       error,
-    } = await supabase.auth.signUp({
+    } = await supabase.auth.signUp(
+      {
       email: email,
       password: password,
+      options: {
+        data: {
+          isBusiness: isBusiness,
+        },
+      },
     });
 
-    if (error) Alert.alert(error.message)
-  
+    if (error) Alert.alert(error.message);
 
     if (!session)
       Alert.alert("Please check your inbox for email verification!");
@@ -64,47 +81,64 @@ export default function Auth() {
 
   return (
     <>
-        <Portal>
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.popUpContainer}>
-        <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Text style={styles.signInText}>Welcome back!</Text>
-          <Input
-            inputContainerStyle={styles.inputInnerContainer}
-            inputStyle={styles.input}
-            containerStyle={styles.inputOuterContainer}
-            labelStyle={styles.labels}
-            label="Email"
-            leftIcon={{ type: "font-awesome", name: "envelope", color: "#FFF", size: 16 }}
-            onChangeText={(text) => setSignInEmail(text)}
-            value={signInEmail}
-            placeholder="email@address.com"
-            autoCapitalize={"none"} />
-        </View>
-        <View style={styles.verticallySpaced}>
-          <Input
-            inputContainerStyle={styles.inputInnerContainer}
-            inputStyle={styles.input}
-            containerStyle={styles.inputOuterContainer}
-            labelStyle={styles.labels}
-            label="Password"
-            leftIcon={{ type: "font-awesome", name: "lock", color: "#FFF", size: 16 }}
-            onChangeText={(text) => setSignInPassword(text)}
-            value={signInPassword}
-            secureTextEntry={true}
-            placeholder="Password"
-            autoCapitalize={"none"} />
-        </View>
-        <View>
-          <Button
-            titleStyle={styles.signUpButtonText}
-            buttonStyle={styles.signInButton}
-            title="Sign In"
-            disabled={loading}
-            onPress={() => signInWithEmail()} />
-        </View>
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          contentContainerStyle={styles.popUpContainer}
+        >
+          <View style={[styles.verticallySpaced, styles.mt20]}>
+            <Text style={styles.signInText}>Welcome back!</Text>
+            <Input
+              inputContainerStyle={styles.inputInnerContainer}
+              inputStyle={styles.input}
+              containerStyle={styles.inputOuterContainer}
+              labelStyle={styles.labels}
+              label="Email"
+              leftIcon={{
+                type: "font-awesome",
+                name: "envelope",
+                color: "#FFF",
+                size: 16,
+              }}
+              onChangeText={(text) => setSignInEmail(text)}
+              value={signInEmail}
+              placeholder="email@address.com"
+              autoCapitalize={"none"}
+            />
+          </View>
+          <View style={styles.verticallySpaced}>
+            <Input
+              inputContainerStyle={styles.inputInnerContainer}
+              inputStyle={styles.input}
+              containerStyle={styles.inputOuterContainer}
+              labelStyle={styles.labels}
+              label="Password"
+              leftIcon={{
+                type: "font-awesome",
+                name: "lock",
+                color: "#FFF",
+                size: 16,
+              }}
+              onChangeText={(text) => setSignInPassword(text)}
+              value={signInPassword}
+              secureTextEntry={true}
+              placeholder="Password"
+              autoCapitalize={"none"}
+            />
+          </View>
+          <View>
+            <Button
+              titleStyle={styles.signUpButtonText}
+              buttonStyle={styles.signInButton}
+              title="Sign In"
+              disabled={loading}
+              onPress={() => signInWithEmail()}
+            />
+          </View>
         </Modal>
       </Portal>
-    <View style={styles.container}>
+      <View style={styles.container}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
@@ -112,11 +146,17 @@ export default function Auth() {
             containerStyle={styles.inputOuterContainer}
             labelStyle={styles.labels}
             label="Email"
-            leftIcon={{ type: "font-awesome", name: "envelope", color: "#FFF", size: 16 }}
+            leftIcon={{
+              type: "font-awesome",
+              name: "envelope",
+              color: "#FFF",
+              size: 16,
+            }}
             onChangeText={(text) => setEmail(text)}
             value={email}
             placeholder="email@address.com"
-            autoCapitalize={"none"} />
+            autoCapitalize={"none"}
+          />
         </View>
         <View style={styles.verticallySpaced}>
           <Input
@@ -125,12 +165,18 @@ export default function Auth() {
             containerStyle={styles.inputOuterContainer}
             labelStyle={styles.labels}
             label="Password"
-            leftIcon={{ type: "font-awesome", name: "lock", color: "#FFF", size: 16 }}
+            leftIcon={{
+              type: "font-awesome",
+              name: "lock",
+              color: "#FFF",
+              size: 16,
+            }}
             onChangeText={(text) => setPassword(text)}
             value={password}
             secureTextEntry={true}
             placeholder="Password"
-            autoCapitalize={"none"} />
+            autoCapitalize={"none"}
+          />
         </View>
 
         <View style={styles.signUpView}>
@@ -139,7 +185,8 @@ export default function Auth() {
             buttonStyle={styles.signUpButton}
             title="Sign Up"
             disabled={loading}
-            onPress={() => signUpWithEmail()} />
+            onPress={() => signUpWithEmail()}
+          />
         </View>
         <View style={styles.signInView}>
           <Text style={styles.signInText}>Already have an account?</Text>
@@ -149,39 +196,41 @@ export default function Auth() {
             title="Sign in"
             disabled={loading}
             onPress={() => {
-              showModal()
-            } } />
+              showModal();
+            }}
+          />
         </View>
-      </View></>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 36,
-    display: 'flex',
+    display: "flex",
     flex: 1,
     paddingHorizontal: 28,
-    backgroundColor: "#4C5B61"
+    backgroundColor: "#4C5B61",
   },
   popUpContainer: {
     padding: 28,
     borderRadius: 38,
-    backgroundColor: "#3AD6A7"
+    backgroundColor: "#3AD6A7",
   },
   labels: {
-    color:"#FFF", 
-    fontSize: 12, 
-    fontWeight: 700, 
+    color: "#FFF",
+    fontSize: 12,
+    fontWeight: "700",
     letterSpacing: 0.8,
   },
-  inputOuterContainer:{
+  inputOuterContainer: {
     paddingHorizontal: 0,
     fontSize: 20,
   },
-  inputInnerContainer:{
+  inputInnerContainer: {
     borderBottomWidth: 2,
-    borderColor: "#FFF"
+    borderColor: "#FFF",
   },
   input: {
     color: "#FFF",
@@ -189,45 +238,45 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     fontSize: 14,
   },
-  signUpView:{
+  signUpView: {
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 60
+    marginBottom: 60,
   },
-  signUpButton:{
+  signUpButton: {
     width: 93,
     backgroundColor: "#3AD6A7",
     borderRadius: 29,
   },
-  signUpButtonText:{
+  signUpButtonText: {
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 14,
     letterSpacing: 0.6,
   },
-  signInView:{
+  signInView: {
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 60
+    marginBottom: 60,
   },
-  signInText:{
+  signInText: {
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 14,
     letterSpacing: 0.6,
   },
-  signInButton:{
+  signInButton: {
     width: 93,
     backgroundColor: "#4C5B61",
     borderRadius: 29,
   },
-  signInButtonText:{
+  signInButtonText: {
     color: "#3AD6A7",
-    fontWeight:"bold",
+    fontWeight: "bold",
     fontSize: 18,
     letterSpacing: 0.6,
   },

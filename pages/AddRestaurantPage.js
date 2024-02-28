@@ -257,6 +257,7 @@ export default function AddRestaurantPage({navigation}) {
 
     </ScrollView>
   );
+
 }
 
 const styles = StyleSheet.create({

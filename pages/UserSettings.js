@@ -8,9 +8,11 @@ import Auth from "../component/Auth";
 
 export default function UserSettings() {
   const [session, setSession] = useState(null);
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      console.log(session)
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {

@@ -67,7 +67,7 @@ export default function ResultsPage({ navigation, route }) {
   return (
     <View>
       <Text>
-        {cardCount} Result{cardCount > 1 ? "s" : ""} for: {route.params.dish}
+        {cardCount} Result's for: {route.params.dish}
       </Text>
       <ScrollView>
         <Button mode="contained" onPress={() => setMapView(!mapView)}>

@@ -13,14 +13,14 @@ export const GoogleMapView = ({mapResults}) => {
   const [pressedMarkerArr, setPressedMarkerArr] = useState(null);
   const [pressedMarkerDishes, setPressedMarkerDishes] = useState(null);
 
-  const { location } = useContext(LocationContext); 
+  const { location, radius } = useContext(LocationContext); 
   useEffect(() => {
     if (location) {
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.5 * 0.03,
-        longitudeDelta: 0.5 * 0.03,
+        latitudeDelta: radius * 0.035,
+        longitudeDelta: radius * 0.035,
       });
       setLoading(false);
     }
