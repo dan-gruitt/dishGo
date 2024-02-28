@@ -43,27 +43,44 @@ export default function LandingPage({ navigation }) {
           </Text>
         </Pressable>
 
-        <Pressable
+
+{/* //////////////// */}
+
+
+{session && session.user ? 
+        <>
+       
+       <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("UserSignUp")}
+          onPress={() => supabase.auth.signOut()}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            Sign Up
+            Sign Out
           </Text>
         </Pressable>
-      </View>
+        </>
+       : 
+       <Pressable
+       style={styles.button}
+       onPress={() => navigation.navigate("UserSignUp")}
+     >
+       <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+         Sign Up
+       </Text>
+     </Pressable>
+      }
 
-      {session ? (
-        <Button
-          title="Add Menu"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      ) : (
-        <Button
-          title="Partners"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      )}
+
+
+
+
+
+
+
+
+{/* //////////////// */}
+
+      </View>
 
       <Button
         title="DEV Test Page"

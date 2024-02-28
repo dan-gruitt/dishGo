@@ -8,7 +8,6 @@ import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
-import BusinessSignUp from "./pages/BusinessSignUp";
 import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
@@ -60,11 +59,6 @@ export default function App() {
               name="SearchPage"
               component={SearchPage}
               options={{ title: "Search Page" }}
-            />
-            <Stack.Screen
-              name="BusinessSignUp"
-              component={BusinessSignUp}
-              options={{ title: "Business SignUp" }}
             />
             <Stack.Screen
               name="TestPage"

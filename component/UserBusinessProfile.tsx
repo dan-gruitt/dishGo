@@ -6,8 +6,10 @@ import Account from '../component/Account'
 import { ScrollView, Text, View, StyleSheet } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
-export default function App() {
+export default function UserBusinessProfile() {
   const [session, setSession] = useState<Session | null>(null)
+
+  const isBusiness = true
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -31,7 +33,7 @@ export default function App() {
         <View style={styles.subHeaderView}>
           <Text style={styles.subHeaderText}>Sign up and gain access to 1000’s of customers waiting to find your food!</Text>
         </View>
-        <Auth />
+        <Auth isBusiness={isBusiness}/>
       </> }
     </ScrollView>
   )
