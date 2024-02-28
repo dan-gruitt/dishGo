@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { Button, ActivityIndicator } from "react-native-paper";
 import { getDishes } from "../utils/getDishes";
 import ResultDishCard from "../component/ResultDishCard";
@@ -15,8 +15,7 @@ export default function ResultsPage({ navigation, route }) {
   const [mapView, setMapView] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapResults, setMapResults] = useState([]);
-  const [results, setResults] = useState([null])
-
+  const [results, setResults] = useState([null]);
 
   useEffect(() => {
     getDishes()
@@ -58,24 +57,34 @@ export default function ResultsPage({ navigation, route }) {
       place: results[2],
     };
 
-    const exists = mapResults && mapResults.some((r) => (
-      r.dish.id === resultObj.dish.id &&
-      r.restaurant.id === resultObj.restaurant.id &&
-      r.place.id === resultObj.place.id
-    ));
+    const exists =
+      mapResults &&
+      mapResults.some(
+        (r) =>
+          r.dish.id === resultObj.dish.id &&
+          r.restaurant.id === resultObj.restaurant.id &&
+          r.place.id === resultObj.place.id
+      );
     if (!exists) {
       setMapResults((prevResults) => [...prevResults, resultObj]);
-      setResults(results)
+      setResults(results);
     }
   };
 
   return (
-    <View>
-      <Text>
-      Result's for: {route.params.dish}
-      </Text>
+    <View style={styles.resultsContainer}>
+     <View style={styles.resultHeader}>
+     <Text style={styles.resultHeader}>
+  Result's for: <Text style={{ color: "#3AD6A7" }}>{route.params.dish}</Text>
+</Text>
+</View>
       <ScrollView>
-        <Button mode="contained" onPress={() => setMapView(!mapView)}>
+        <Button
+          style={styles.mapViewButton}
+          labelStyle={styles.buttonLabel}
+          mode="contained"
+          onPress={() => setMapView(!mapView)}
+        >
           {mapView ? "Show List View" : "Show Map View"}
         </Button>
         {mapView ? (
@@ -101,3 +110,34 @@ export default function ResultsPage({ navigation, route }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  resultsContainer: {
+    marginBottom: 25,
+  },
+  resultHeader: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#4C5B61",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  mapViewButton: {
+    borderRadius: 45,
+    backgroundColor: "#4C5B61",
+    color: "#3AD6A7",
+    width: '50%',
+    marginLeft: '25%',
+    marginBottom: 15,
+    marginTop: 10,
+  },
+  buttonLabel: {
+    fontSize: 14,
+    fontWeight: "bold",
+    width: "65%",
+    color: "white",
+  },
+});
+// 

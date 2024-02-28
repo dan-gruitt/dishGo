@@ -1,6 +1,5 @@
 import { Marker } from "react-native-maps";
 import React from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export const MapMarkers = ({ mapResults, markerPressed }) => {
     
@@ -10,9 +9,10 @@ export const MapMarkers = ({ mapResults, markerPressed }) => {
         const restaurantName = result.restaurant.name
 
         return (<Marker
-            key={index}
+            key={`marker-${index}`}
             coordinate={{ latitude: markerLat, longitude: markerLng }}
             title={restaurantName}
+            pinColor="#3AD6A7" 
             onPress={() => markerPressed(result)}
           />)
 

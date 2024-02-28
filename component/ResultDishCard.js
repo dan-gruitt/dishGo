@@ -244,8 +244,8 @@ const styles = StyleSheet.create({
     color: "white",
   },
   buttonLabel: {
-    // fontSize: 14,
-    // fontWeight: "bold",
+    fontSize: 14,
+    fontWeight: "bold",
     width: "65%",
   },
   buttonContent: {
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     justifyContent: "space-around",
     flexDirection: "row",
+    marginRight: 10,
   },
   iconContainer: {
     flexDirection: "column",

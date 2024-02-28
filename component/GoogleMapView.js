@@ -44,11 +44,11 @@ export const GoogleMapView = ({mapResults, results}) => {
 
   return (
     <ScrollView>
-    <View style={{ marginTop: 20, borderRadius: 50, overflow: "hidden", justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <View style={{ marginTop: 20, borderRadius: 45, overflow: "hidden", justifyContent: "center", alignItems: "center", flex: 1 }}>
       <MapView
         style={{
           flex: 1,
-          width: Dimensions.get("screen").width * 0.9,
+          width: Dimensions.get("screen").width * 1,
           height: Dimensions.get("screen").height * 0.5, 
         }}
         clusteringEnabled={true}
