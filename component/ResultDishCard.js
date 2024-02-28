@@ -17,20 +17,20 @@ const ResultDishCard = ({
   storeMapResults,
 }) => {
   const navigation = useNavigation();
-  const { location } = useContext(LocationContext);
+  const { location, radius } = useContext(LocationContext);
   const [isVisible, setIsVisible] = useState(false);
   const [results, setResults] = useState(null);
 
   useEffect(() => {
-    if (location && results) {
+    if (location && results && radius) {
       const distance = calculateDistance(
         location.coords.latitude,
         location.coords.longitude,
         results[2].geometry.location.lat,
         results[2].geometry.location.lng,
       );
-      setIsVisible(distance < 1500);
-      if (distance < 1500) {
+      setIsVisible(distance < ( radius * 1609));
+      if (distance < (radius * 1609)) {
         setCardCount((prevCount) => prevCount + 1);
         storeMapResults(results);
       }

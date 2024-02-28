@@ -10,7 +10,7 @@ export default function LandingPage({ navigation }) {
   const CurrentScreen = useRoute();
 
   const [session, setSession] = useState(null);
-
+  
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -22,7 +22,6 @@ export default function LandingPage({ navigation }) {
 
     setCurrentPage(CurrentScreen.name)
   }, []);
-
 
   return (
     <View style={styles.mainContainer}>
@@ -42,10 +41,6 @@ export default function LandingPage({ navigation }) {
             Lets Go!
           </Text>
         </Pressable>
-
-
-{/* //////////////// */}
-
 
 {session && session.user ? 
         <>
@@ -70,15 +65,6 @@ export default function LandingPage({ navigation }) {
      </Pressable>
       }
 
-
-
-
-
-
-
-
-
-{/* //////////////// */}
 
       </View>
 
