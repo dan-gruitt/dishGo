@@ -11,8 +11,8 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
   return (
     <ScrollView 
     // style={styles.container}
-    nestedScrollEnabled={true}
-    contentContainerStyle={{ flexGrow: 1 }}
+    // nestedScrollEnabled={true}
+    // contentContainerStyle={{ flexGrow: 1 }}
     keyboardShouldPersistTaps={'handled'}>
       <GooglePlacesAutocomplete
         placeholder = {searcherPlaceHolder? searcherPlaceHolder : "Search for restaurant"}

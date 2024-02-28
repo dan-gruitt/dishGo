@@ -141,9 +141,9 @@ export default function AddRestaurantPage({navigation}) {
     
     <ScrollView 
     style={styles.container}
-    nestedScrollEnabled={true}
-    keyboardShouldPersistTaps='handled'
-    contentContainerStyle={{ flexGrow: 1 }}
+    // nestedScrollEnabled={true}
+    // keyboardShouldPersistTaps={'handled'}
+    // contentContainerStyle={{ flexGrow: 1 }}
     >
       {/* <View> */}
   
@@ -154,7 +154,7 @@ export default function AddRestaurantPage({navigation}) {
       </View>
 
       {/* Restaurant Name */}
-      <View><Text style={styles.inputLabels}>Restaurant Name</Text>
+      <Text style={styles.inputLabels}>Restaurant Name</Text>
         <TextInput
           underlineColor="#FFF"
           activeUnderlineColor="#3AD6A7"
@@ -165,10 +165,10 @@ export default function AddRestaurantPage({navigation}) {
           mode="flat"
           value={restaurantName}
           onChangeText={(restaurantName) => setRestaurantName(restaurantName)} />
-                {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText type="error">
+                {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText style={styles.errorMsg} type="error">
           {errors.restaurantName}
         </HelperText> : null}
-      </View>
+      
 
 
       {/* Restaurant Description */}
@@ -184,7 +184,7 @@ export default function AddRestaurantPage({navigation}) {
           mode="flat"
           value={restaurantDescription}
           onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
-                {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText type="error">
+                {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText style={styles.errorMsg} type="error">
           {errors.restaurantDescription}
         </HelperText> : null}
       </View>
@@ -213,9 +213,9 @@ export default function AddRestaurantPage({navigation}) {
           defaultButtonText="Select a cuisine"
           dropdownStyle={styles.dropdownStyle}
           buttonStyle={styles.dropdownButtonStyle}
-          
+
           defaultValue={cuisine? cuisine : null} />
-                {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText type="error">
+                {!errors ? null : Object.hasOwn(errors, 'cuisine') ? <HelperText style={styles.errorMsg} type="error">
           {errors.cuisine}
         </HelperText> : null}
       </View>
@@ -223,21 +223,23 @@ export default function AddRestaurantPage({navigation}) {
            
       <View><><Text style={styles.inputLabels}>Location</Text></>
         <PlaceIdSearcher setPlaceId={setPlaceId} searcherPlaceHolder = {searcherPlaceHolder} setSearcherPlaceHolder = {setSearcherPlaceHolder}/>
-        {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText type="error">
+        {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText style={styles.errorMsg} type="error">
         {errors.placeId}
       </HelperText> : null}
       </View>
 
       <View style={styles.buttonWrap}>
         <Button
-          mode="contained"
+          style={styles.mainButton}
+          mode="elevated"
           onPress={() => {handleSubmit()} }
           disabled = {isSubmitting}
         >
-          {isEditMode ? 'Update' : 'Submit'}
+          {isEditMode ? <Text style={styles.mainButtonText} > Update </Text> : <Text style={styles.mainButtonText} > Submit </Text>}
 
         </Button>
         {isEditMode?  <Button
+          style={styles.editButton}
           mode="outlined"
           onPress={() => {
             setIsEditMode(false)
@@ -247,7 +249,7 @@ export default function AddRestaurantPage({navigation}) {
         >
           Cancel
         </Button> : null }
-        <HelperText type="error" visible={errors}>
+        <HelperText style={styles.errorMsg} type="error" visible={errors}>
           Unable to submit form - invalid input(s)
         </HelperText>
       </View>
@@ -284,8 +286,8 @@ const styles = StyleSheet.create({
     fontWeight:600,
     color:"#FFF",
     fontSize: 14,
-    marginTop: 12,
-    marginBottom: 12
+    marginTop: 18,
+    marginBottom: 6
   },
   inputsBody:{
     borderColor:"#FFF", 
@@ -293,7 +295,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     overflow:"hidden", 
     backgroundColor: "#FFF",
-    marginBottom: 12,
+    // marginBottom: 12,
   },
   inputs:{
     backgroundColor: "#FFF",
@@ -313,7 +315,6 @@ const styles = StyleSheet.create({
   dropdownStyle:{
     backgroundColor: '#ffffff',
     borderRadius: 5,
-    textAlign: "left",
     width: "90%",
     color: "#4C5B61",
   },
@@ -322,7 +323,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     width: "100%",
-    textAlign:"left",
     display: "flex",
     flexDirection: "column",
     justifyContent:"center",
@@ -344,6 +344,33 @@ const styles = StyleSheet.create({
     marginRight: 12
   },
   buttonWrap:{
-    marginBottom:300
+    marginTop: 40,
+    marginBottom: 125,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mainButton: {
+    width: 139,
+    height: 48,
+    backgroundColor: '#3AD6A7',
+    borderRadius: 29,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mainButtonText:{
+    color: '#FFF',
+    fontWeight: 'bold', 
+    fontSize: 14,
+  },
+  errorMsg:{
+    marginTop: 8,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#C54E65",
+    backgroundColor: '#EFD2D8',
   }
 })
