@@ -76,7 +76,7 @@ export default function HomePage({ session, isBusiness }: { session: Session, is
         }} 
         component={SearchStack}
       />
-      <Tab.Screen 
+      {/* <Tab.Screen 
         name="Favourites" 
         options={{
           headerShown: false,
@@ -92,7 +92,7 @@ export default function HomePage({ session, isBusiness }: { session: Session, is
           ),
         }}
         component={FavouriteStack} 
-      />
+      /> */}
       <Tab.Screen 
         name="Settings" 
         options={{

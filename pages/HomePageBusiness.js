@@ -32,7 +32,7 @@ export default function HomePageBusiness() {
           ),
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons 
-              name="magnify" 
+              name="account" 
               color={focused ? green : grey} 
               size={size} 
             />
@@ -49,7 +49,7 @@ export default function HomePageBusiness() {
           ),
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons 
-              name="garage-variant" 
+              name="store-marker-outline" 
               color={focused ? green : grey} 
               size={size} 
             />
