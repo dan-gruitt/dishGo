@@ -1,11 +1,11 @@
-import { View, Text, Button } from "react-native";
+import { ScrollView, View, Text, Button } from "react-native";
 import React from "react";
 import { Pressable, StyleSheet, Line } from "react-native";
 
 export default function Faq({ navigation }) {
   return (
-    <View style={styles.container}>
-      <View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style = {styles.titleContainer}>
         <Text style={styles.title}>How does it work?</Text>
       </View>
 
@@ -50,7 +50,7 @@ export default function Faq({ navigation }) {
           </Text>
         </Pressable>
       </>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: "#4C5B61",
     marginTop: 20,
-    marginBottom: 10
+    marginBottom: 10,
+  },
+  titleContainer:{
+    borderBottomColor: "#3AD6A7",
+    borderBottomWidth: 4,
+    marginBottom: 10,
   },
   text: {
     fontSize: 16,
@@ -80,15 +85,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   button: {
-    width: 93,
-    height: 38,
+    width: 109,
+    height: 45,
     backgroundColor: "#4C5B61",
     borderRadius: 29,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30
+    marginTop: 30,
   },
   buttonText: {
     color: "#FFF",
