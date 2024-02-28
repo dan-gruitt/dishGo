@@ -12,7 +12,6 @@ export default function ResultsPage({ navigation, route }) {
   const [dishesToShow, setDishesToShow] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantsPlaces, setRestaurantsPlaces] = useState([]);
-  const [cardCount, setCardCount] = useState(0);
   const [mapView, setMapView] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [mapResults, setMapResults] = useState([]);
@@ -58,16 +57,21 @@ export default function ResultsPage({ navigation, route }) {
       restaurant: result[1],
       place: result[2],
     };
-    setMapResults((prevResults) => [
-      ...prevResults,
-      resultObj
-    ]);
+
+    const exists = mapResults && mapResults.some((r) => (
+      r.dish.id === resultObj.dish.id &&
+      r.restaurant.id === resultObj.restaurant.id &&
+      r.place.id === resultObj.place.id
+    ));
+    if (!exists) {
+      setMapResults((prevResults) => [...prevResults, resultObj]);
+    }
   };
 
   return (
     <View>
       <Text>
-        {cardCount} Result's for: {route.params.dish}
+      Result's for: {route.params.dish}
       </Text>
       <ScrollView>
         <Button mode="contained" onPress={() => setMapView(!mapView)}>
@@ -81,8 +85,6 @@ export default function ResultsPage({ navigation, route }) {
               setMapResults={setMapResults}
               mapResults={mapResults}
               storeMapResults={storeMapResults}
-              setCardCount={setCardCount}
-              cardCount={cardCount}
               key={dish.id}
               dish={dish}
               restaurants={restaurants}

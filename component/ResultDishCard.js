@@ -12,7 +12,7 @@ const ResultDishCard = ({
   dish,
   restaurants,
   restaurantsPlaces,
-  setCardCount,
+  // setCardCount,
   setMapResults,
   storeMapResults,
 }) => {
@@ -31,11 +31,10 @@ const ResultDishCard = ({
       );
       setIsVisible(distance < ( radius * 1609));
       if (distance < (radius * 1609)) {
-        setCardCount((prevCount) => prevCount + 1);
         storeMapResults(results);
       }
     }
-  }, [location, results, setCardCount, setMapResults]);
+  }, [location, results, setMapResults]);
 
   useEffect(() => {
     const mergedResults = mergeDishCardData(
