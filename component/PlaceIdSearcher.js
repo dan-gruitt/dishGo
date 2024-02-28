@@ -9,7 +9,9 @@ const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY; // never s
 const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceHolder}) => {
 
   return (
-    <ScrollView keyboardShouldPersistTaps={'handled'}>
+    <ScrollView 
+    listMode="SCROLLVIEW"
+    keyboardShouldPersistTaps={'handled'}>
       <GooglePlacesAutocomplete
         placeholder = {searcherPlaceHolder? searcherPlaceHolder : "Search for restaurant"}
         query={{
@@ -27,14 +29,5 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#ecf0f1',
-    height: "100%"
-  },
-});
 
 export default TestPlaceIdSearcher;
