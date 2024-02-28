@@ -28,7 +28,7 @@ export default function UserSettings() {
         <>
                <><View style = {{backgroundColor: "#000000"}}>
           <Text style={styles.headerText}>Sign Up Today!</Text>
-        </View><Auth /></>
+        </View></>
           <Auth />
         </>
       )}
