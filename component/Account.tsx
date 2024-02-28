@@ -5,8 +5,11 @@ import { Button, Input } from "react-native-elements";
 import { Session } from "@supabase/supabase-js";
 import Avatar from "./Avatar";
 import { UserContext } from "../context/UserContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Account({ session }: { session: Session }) {
+
+  const navigation = useNavigation()
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [website, setWebsite] = useState("");
@@ -138,6 +141,7 @@ export default function Account({ session }: { session: Session }) {
           onPress={() => {
             supabase.auth.signOut();
             setUser(null);
+            navigation.getParent()?.goBack()
           }}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>

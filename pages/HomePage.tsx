@@ -98,11 +98,11 @@ export default function HomePage({ session, isBusiness }: { session: Session, is
         options={{
           headerShown: false,
           tabBarLabel: ({ color }) => (
-            <Text style={{ color }}>Settings</Text>
+            <Text style={{ color }}>Account</Text>
           ),
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons 
-              name="cog" 
+              name="account" 
               color={focused ? green : grey} 
               size={size} 
             />

@@ -28,7 +28,7 @@ export default function HomePageBusiness() {
         options={{
           headerShown: false,
           tabBarLabel: ({ color }) => (
-            <Text style={{ color }}>Profile</Text>
+            <Text style={{ color }}>Account</Text>
           ),
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons 
@@ -45,7 +45,7 @@ export default function HomePageBusiness() {
         options={{
           headerShown: false,
           tabBarLabel: ({ color }) => (
-            <Text style={{ color }}>Locations</Text>
+            <Text style={{ color }}>Restaurants</Text>
           ),
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons 

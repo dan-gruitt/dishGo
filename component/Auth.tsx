@@ -144,7 +144,7 @@ export default function Auth(props) {
         </Modal>
       </Portal>
       {/* if current page is business, render business background, else user background */}
-      {/* NB: if you edit background colour for either business or user sign in: also edit View backgroundColour on UserBusinessProfile or UserSignUp.tsx respectively */}
+      {/* NB: if you edit background colour for either business or user sign in: also edit View backgroundColour on UserBusinessProfile or UserSignUp.tsx + UserSettings respectively */}
       <View style={{backgroundColor: `${currentPage.name === "Profile" ? "#4C5B61" : "#000000"}`, ...styles.container}}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
