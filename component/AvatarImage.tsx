@@ -51,7 +51,7 @@ const AvatarImage = (props) => {
       {User && imageUri ? (
         <Image style={{ width: 60, height: 60, borderRadius: 60 }} source={{ uri: imageUri }} />
       ) : (
-        <Image style={{ width: 60, height: 60, borderRadius: 60 }} source={require("../assets/profile-default.png")} />
+        <Image style={{ width: 60, height: 60, borderRadius: 60 }} source={require("../assets/blank-profile.png")} />
         
       )}
     </View>
