@@ -8,7 +8,6 @@ import AddRestaurantPage from "./pages/AddRestaurantPage";
 import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
-import BusinessSignUp from "./pages/BusinessSignUp";
 import { LocationProvider } from './context/LocationContext';
 import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
@@ -16,12 +15,16 @@ import Faq from "./pages/Faq";
 import HomePage from "./pages/HomePage";
 import TopBar from "./component/TopBar"
 import HomePageBusiness from "./pages/HomePageBusiness";
+import UserSignUp from './pages/UserSignUp'
+import { CurrentPageProvider } from "./context/CurrentPageContext";
+import { UserProvider } from "./context/UserContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-
+<UserProvider>
+    <CurrentPageProvider>
     <LocationProvider>
       <PaperProvider>
         <NavigationContainer>
@@ -58,11 +61,6 @@ export default function App() {
               options={{ title: "Search Page" }}
             />
             <Stack.Screen
-              name="BusinessSignUp"
-              component={BusinessSignUp}
-              options={{ title: "Business SignUp" }}
-            />
-            <Stack.Screen
               name="TestPage"
               component={TestPage}
               options={{ title: "Test Page" }}
@@ -83,10 +81,17 @@ export default function App() {
               component={Faq}
               options={{ title: "Faq" }}
             />
+            <Stack.Screen
+              name="UserSignUp"
+              component={UserSignUp}
+              options={{ title: "User Sign Up", headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </LocationProvider>
+    </CurrentPageProvider>
+    </UserProvider>
   );
 }
 

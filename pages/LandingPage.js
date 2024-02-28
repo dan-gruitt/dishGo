@@ -1,12 +1,16 @@
-import GoogleMapView from "../component/GoogleMapView";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Button, Text, Image, StyleSheet, Pressable } from "react-native";
-import setUserContext from "../utils/setUserContext";
-import { UserContext } from "../context/UserContext";
 import { supabase } from "../lib/supabase";
+import { useRoute } from "@react-navigation/native";
+import { CurrentPageContext } from "../context/CurrentPageContext";
 
 export default function LandingPage({ navigation }) {
+
+  const { setCurrentPage } = useContext(CurrentPageContext);
+  const CurrentScreen = useRoute();
+
   const [session, setSession] = useState(null);
+  
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -15,6 +19,8 @@ export default function LandingPage({ navigation }) {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+
+    setCurrentPage(CurrentScreen.name)
   }, []);
 
   return (
@@ -36,27 +42,31 @@ export default function LandingPage({ navigation }) {
           </Text>
         </Pressable>
 
-        <Pressable
+{session && session.user ? 
+        <>
+       
+       <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("BusinessSignUp")}
+          onPress={() => supabase.auth.signOut()}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            Sign Up
+            Sign Out
           </Text>
         </Pressable>
-      </View>
+        </>
+       : 
+       <Pressable
+       style={styles.button}
+       onPress={() => navigation.navigate("UserSignUp")}
+     >
+       <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+         Sign Up
+       </Text>
+     </Pressable>
+      }
 
-      {session ? (
-        <Button
-          title="Add Menu"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      ) : (
-        <Button
-          title="Partners"
-          onPress={() => navigation.navigate("BusinessSignUp")}
-        />
-      )}
+
+      </View>
 
       <Button
         title="DEV Test Page"
