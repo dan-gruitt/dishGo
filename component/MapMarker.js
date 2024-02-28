@@ -9,7 +9,7 @@ export const MapMarkers = ({ mapResults, markerPressed }) => {
         const restaurantName = result.restaurant.name
 
         return (<Marker
-            key={`marker-${index}`}
+            key={`marker-${restaurantName}-${index}`}
             coordinate={{ latitude: markerLat, longitude: markerLng }}
             title={restaurantName}
             pinColor="#3AD6A7" 
