@@ -36,27 +36,21 @@ export const postRestaurant = async (input) => {
 };
 
 export const patchRestaurantById = async (input, restaurantId) => {
-  let { restaurantName, cuisine, restaurantDescription, placeId, user } = input;
-  let userId
-
-  if (!user){
-     userId = null
-  } else userId = user.id
-// userId defaults to null if no user logged in, to prevent errors while fixing user login
-// once fixed, simply set userId = user.id
+  let { restaurantName, cuisine, restaurantDescription, placeId, sessionUser} = input;
 
   const restaurantToUpdate = {
     name: restaurantName,
     cuisine: cuisine,
     description: restaurantDescription,
     place_id: placeId,
-    user_id: userId,
+    user_id: sessionUser.id,
     id: restaurantId,
   };
   const { data, error } = await supabase
     .from("test_restaurants")
     .upsert(restaurantToUpdate)
     .select();
+    console.log(error)
   return data[0];
 };
 

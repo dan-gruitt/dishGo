@@ -5,12 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect, useContext } from "react";
 import { supabase } from "../lib/supabase";
 import { CurrentPageContext } from "../context/CurrentPageContext";
-
+import { UserContext } from "../context/UserContext";
+import AvatarImage from "./AvatarImage";
 
 export default function TopBar() {
   //this is the current page context
   const { CurrentPage } = useContext(CurrentPageContext);
+  const { User } = useContext(UserContext);
 
+  console.log(User, "<<<<<<");
 
   const [session, setSession] = useState(null);
 
@@ -22,14 +25,10 @@ export default function TopBar() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-
     });
-
   }, []);
 
-
   const navigation = useNavigation();
-
 
   return (
     <Appbar.Header style={styles.appBar} mode="medium">
@@ -46,7 +45,7 @@ export default function TopBar() {
         <View>
           {session && session.user ? (
             <>
-              <Text>User Profile Pic</Text>
+               <AvatarImage User={User} />
             </>
           ) : (
             <Pressable

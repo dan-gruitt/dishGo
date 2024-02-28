@@ -79,7 +79,7 @@ export default function App() {
             <Stack.Screen
               name="Faq"
               component={Faq}
-              options={{ title: "Faq" }}
+              options={{ title: "Faq", headerShown: false }}
             />
             <Stack.Screen
               name="UserSignUp"

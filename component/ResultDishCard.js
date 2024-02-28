@@ -8,6 +8,7 @@ import { calculateDistance } from "../utils/calculateDistance";
 import { LocationContext } from "../context/LocationContext";
 import { mergeDishCardData } from "../utils/mergeDishCardData";
 import { initialWindowMetrics } from "react-native-safe-area-context";
+import { getDishImageByUrl } from "../utils/getDishImageByUrl";
 
 const ResultDishCard = ({
   dish,
@@ -21,6 +22,16 @@ const ResultDishCard = ({
   const { location, radius } = useContext(LocationContext);
   const [isVisible, setIsVisible] = useState(false);
   const [results, setResults] = useState(null);
+
+  const [imgUri, setImgUri] = useState(null)
+
+  useEffect(()=>{
+    if(results && results[0].img_url){
+      getDishImageByUrl(results[0].img_url, 'business_images', setImgUri).then(()=>{
+        console.log('imgUri retrieved')
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (location && results && radius) {
@@ -110,6 +121,16 @@ const ResultDishCard = ({
         </View>
       </Card.Content>
       <View style={styles.buttonsContainer}>
+      )}
+      <Card.Cover
+        source={ imgUri?
+          {
+          uri: imgUri
+        } : require('../assets/tempfoodimage.jpg')}
+        style={styles.cover}
+      />
+      <Card.Actions style={styles.actions}>
+
         {results[2].url && (
           <Button
             icon="map-marker"
