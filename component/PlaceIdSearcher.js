@@ -10,9 +10,7 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
 
   return (
     <ScrollView 
-    // style={styles.container}
-    // nestedScrollEnabled={true}
-    // contentContainerStyle={{ flexGrow: 1 }}
+    listMode="SCROLLVIEW"
     keyboardShouldPersistTaps={'handled'}>
       <GooglePlacesAutocomplete
         placeholder = {searcherPlaceHolder? searcherPlaceHolder : "Search for restaurant"}
@@ -31,14 +29,5 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
     </ScrollView>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10,
-//     backgroundColor: '#ecf0f1',
-//     height: "100%"
-//   },
-// });
 
 export default TestPlaceIdSearcher;

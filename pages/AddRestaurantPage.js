@@ -1,10 +1,10 @@
-import {View, StyleSheet, SafeAreaView, TouchableWithoutFeedback} from 'react-native'
+import {ScrollView, View, StyleSheet, SafeAreaView, TouchableWithoutFeedback} from 'react-native'
 import React from "react";
 import { Text, TextInput, Button, HelperText, Card } from "react-native-paper";
 import SelectDropdown from "react-native-select-dropdown";
 import { postRestaurant, patchRestaurantById } from "../utils/api";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-virtualized-view';
+// import { ScrollView } from 'react-native-virtualized-view';
 
 
   // ==========
@@ -141,9 +141,10 @@ export default function AddRestaurantPage({navigation}) {
     
     <ScrollView 
     style={styles.container}
-    // nestedScrollEnabled={true}
-    // keyboardShouldPersistTaps={'handled'}
-    // contentContainerStyle={{ flexGrow: 1 }}
+    nestedScrollEnabled={true}
+    keyboardShouldPersistTaps={'handled'}
+    contentContainerStyle={{ flexGrow: 1 }}
+    listMode="SCROLLVIEW"
     >
       {/* <View> */}
   
@@ -154,7 +155,7 @@ export default function AddRestaurantPage({navigation}) {
       </View>
 
       {/* Restaurant Name */}
-      <Text style={styles.inputLabels}>Restaurant Name</Text>
+      <View><Text style={styles.inputLabels}>Restaurant Name</Text>
         <TextInput
           underlineColor="#FFF"
           activeUnderlineColor="#3AD6A7"
@@ -168,7 +169,7 @@ export default function AddRestaurantPage({navigation}) {
                 {!errors ? null : Object.hasOwn(errors, 'restaurantName') ? <HelperText style={styles.errorMsg} type="error">
           {errors.restaurantName}
         </HelperText> : null}
-      
+      </View>
 
 
       {/* Restaurant Description */}
