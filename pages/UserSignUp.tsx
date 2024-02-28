@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import Auth from '../component/Auth'
 // import Account from '../component/Account'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import AddRestaurantPage from './AddRestaurantPage'
 import HomePage from './HomePage'
@@ -34,8 +34,21 @@ export default function UserSignUp({navigation}) {
         <HomePage session = {session} isBusiness = {isBusiness}/>
         </>
        : 
-        <Auth />
+       <><View style = {{backgroundColor: "#000000"}}>
+          <Text style={styles.headerText}>Sign Up Today!</Text>
+        </View><Auth /></>
       }
     </>
   )
       }
+
+      const styles = StyleSheet.create({
+        headerText:{
+          marginTop: 20,
+          color: "#FFF",
+          fontWeight: "bold",
+          fontSize: 28,
+          textAlign: "center",
+          paddingVertical: 28,
+        },
+      })
