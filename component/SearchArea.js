@@ -8,8 +8,7 @@ import { LocationContext } from "../context/LocationContext";
 import { ScrollView } from "react-native-virtualized-view";
 
 const SearchArea = () => {
-  const { location, setLocation, radius, setRadius } =
-    useContext(LocationContext);
+  const { location, setLocation, radius, setRadius } = useContext(LocationContext);
   const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
   const [placeId, setPlaceId] = useState("");
   const [distance, setDistance] = useState(1);
@@ -65,9 +64,19 @@ const SearchArea = () => {
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.locationSearchWrap}>
-        <Text style={styles.locationHeaderText}>Enter Your Search Area</Text>
-        <View style={styles.distancePickerContainer}>
-          <Text style={styles.distancePickerLabel}>Distance:</Text>
+        <View style={styles.searchBarContainer}>
+          <GooglePlacesAutocomplete
+            placeholder={placeholder}
+            query={{
+              key: GOOGLE_PLACES_API_KEY,
+              language: "en",
+            }}
+            onPress={(data, details = null) => {
+              setPlaceId(data.place_id);
+            }}
+            onFail={(error) => console.error(error)}
+            styles={autocompleteStyles}
+          />
           <Picker
             selectedValue={radius}
             style={styles.distancePicker}
@@ -81,17 +90,6 @@ const SearchArea = () => {
           </Picker>
         </View>
       </View>
-      <GooglePlacesAutocomplete
-        placeholder={placeholder}
-        query={{
-          key: GOOGLE_PLACES_API_KEY,
-          language: "en",
-        }}
-        onPress={(data, details = null) => {
-          setPlaceId(data.place_id);
-        }}
-        onFail={(error) => console.error(error)}
-      />
       <View>
         <Pressable onPress={handleUserLocation}>
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
@@ -113,23 +111,47 @@ const styles = StyleSheet.create({
   locationSearchWrap: {
     marginBottom: 10,
   },
-  locationHeaderText: {
-    fontWeight: "bold",
-    fontSize: 18,
-    color: "#FFF",
-  },
-  distancePickerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  distancePickerLabel: {
-    marginRight: 10,
-    color: "#FFF",
+  searchBarContainer: {
+    marginTop: 10,
+    position: "relative",
+    // height: 53,
+    backgroundColor: "#fff",
+    borderRadius: 50,
+    width: 330,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   distancePicker: {
-    width: 120,
-    color: "#FFF",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    height: "90%",
+    width: 100,
+    color: "#000",
+    borderRadius: 50,
+    backgroundColor: "#abd1c6",
   },
 });
+
+const autocompleteStyles = {
+  container: {
+    flex: 1,
+  },
+  textInputContainer: {
+    backgroundColor: "transparent",
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  textInput: {
+    marginLeft: 0,
+    marginRight: 0,
+    height: 38,
+    color: "#5d5d5d",
+    fontSize: 16,
+  },
+  predefinedPlacesDescription: {
+    color: "#1faadb",
+  },
+};
 
 export default SearchArea;

@@ -99,30 +99,30 @@ export default function SearchBar({userSearch, setUserSearch}) {
 
 const styles = StyleSheet.create({
   surface: {
-    // marginTop: -56,
-    // paddingTop: 60,
-    // marginBottom: 110,
-    // marginHorizontal: 26,
-    // alignItems: 'left',
-    // justifyContent: 'center',
-    // borderRadius: 26,
-    // overflow: 'hidden',
-    // backgroundColor:'#FFFFFF',
+    marginTop: -56,
+    paddingTop: 60,
+    marginBottom: 110,
+    marginHorizontal: 26,
+    alignItems: 'left',
+    justifyContent: 'center',
+    borderRadius: 26,
+    overflow: 'hidden',
+    backgroundColor:'#FFFFFF',
   },
   listItem:{
-    // padding: 12,
-    // paddingHorizontal: 16,
-    // display: "flex",
-    // flexDirection: "row",
-    // justifyContent: "left",
-    // alignItems: "center",
+    padding: 12,
+    paddingHorizontal: 16,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "left",
+    alignItems: "center",
   },
   listText:{
-    // paddingLeft: 16,
-    // fontWeight: "bold",
-    // color: "#A6A6A6",
+    paddingLeft: 16,
+    fontWeight: "bold",
+    color: "#A6A6A6",
   },
   evenItem:{
-    // backgroundColor: "#EBFCF6"
+    backgroundColor: "#EBFCF6"
   }
 });
