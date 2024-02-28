@@ -3,11 +3,16 @@ import { Linking, View, StyleSheet, ScrollView } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+
+
+
 
 export const MarkerPressedCard = ({
   pressedMarkerArr,
   pressedMarkerDishes,
 }) => {
+  const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={styles.restaurantInfoContainer}>
@@ -34,7 +39,7 @@ export const MarkerPressedCard = ({
         )}
         <Button
           mode="contained"
-          onPress={() => navigation.navigate("RestaurantPage", { results })}
+          onPress={() => navigation.navigate("RestaurantsPage", { results })}
           style={styles.button}
           labelStyle={styles.buttonLabel}
           contentStyle={styles.buttonContent}
