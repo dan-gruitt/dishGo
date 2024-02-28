@@ -9,7 +9,7 @@ export default function SearchPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
+      {/* <View>
         <Image
           style={styles.image}
           source={require("../assets/white-disgo.png")}
@@ -17,11 +17,11 @@ export default function SearchPage({ navigation }) {
       </View>
       <View style={styles.headerWrap}>
         <Text style={styles.headerText}>What are you in the mood for?</Text>
-      </View>
-      <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
+      </View> */}
       <View>
       <SearchArea />
       </View>
+      <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
     </View>
   );
 }

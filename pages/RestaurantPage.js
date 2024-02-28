@@ -4,6 +4,7 @@ import RestaurantInfo from "../component/RestaurantInfo";
 import RenderStarRating from "../component/RenderStarRating";
 import RenderReviews from "../component/RenderReviews";
 import RenderMenu from "../component/RenderMenu";
+import UrlLink from "../component/UrlLink.js";
 import { getMenuByRestaurantId } from "../utils/getMenuByRestaurantId";
 
 export default function RestaurantPage({ route }) {
@@ -29,31 +30,40 @@ export default function RestaurantPage({ route }) {
     getMenuByRestaurantId([restaurant.id]).then((data) => {
       setMenu(data);
     });
-  }, [restaurant.id]); 
+  }, [restaurant.id]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.restaurant_name}>{restaurant.name}</Text>
-      <View style={styles.starContainer}>
-        <RenderStarRating rating={restaurantPlace.rating} />
+      <View style={styles.innerContainer}>
+        <View style={styles.restaurant_name_view}><Text style={styles.restaurant_name}>{restaurant.name}</Text></View>
+        <Text style={styles.restaurant_description}>
+          {restaurant.description}
+        </Text>
+        <View style={styles.starContainer}>
+          <View style={styles.ratingView}><RenderStarRating rating={restaurantPlace.rating} /></View>
+          <UrlLink styles={styles} website={restaurantPlace.website}/>
+        </View>
+        {/* <RestaurantInfo
+          styles={styles}
+          open_now={restaurantPlace.current_opening_hours.open_now}
+          weekday_text={restaurantPlace.current_opening_hours.weekday_text}
+          website={restaurantPlace.website}
+          address={restaurantPlace.formatted_address}
+          restaurantName={restaurant.name}
+        /> */}
+        {/* <Text style={styles.sectionTitle}>Photos</Text> */}
+        <View style={styles.photoView}>
+          <ScrollView style={styles.photScroll} horizontal={true}>{renderPhotos()}</ScrollView>
+        </View>
+
+        <Text style={styles.sectionTitle}>Full Menu</Text>
+        {menu && <RenderMenu menu={menu} styles={styles} />}
+      
+        <Text style={styles.sectionTitle}>Recent Reviews</Text>
+        <RenderReviews reviews={restaurantPlace.reviews} styles={styles} />
+        <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text>
+
       </View>
-      <Text style={styles.restaurant_description}>
-        {restaurant.description}
-      </Text>
-      <RestaurantInfo
-        styles={styles}
-        open_now={restaurantPlace.current_opening_hours.open_now}
-        weekday_text={restaurantPlace.current_opening_hours.weekday_text}
-        website={restaurantPlace.website}
-        address={restaurantPlace.formatted_address}
-        restaurantName={restaurant.name}
-      />
-      <Text style={styles.sectionTitle}>Photos</Text>
-      <ScrollView horizontal={true}>{renderPhotos()}</ScrollView>
-      <Text style={styles.sectionTitle}>Recent Reviews</Text>
-      <RenderReviews reviews={restaurantPlace.reviews} styles={styles} />
-      <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text>
-      {menu && <RenderMenu menu={menu} styles={styles} />}
     </ScrollView>
   );
 }
@@ -61,23 +71,47 @@ export default function RestaurantPage({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#3AD6A7"
+  },
+  innerContainer:{
+    backgroundColor:"#FFF",
+    margin: 26,
+    overflow: "hidden",
+    borderRadius: 31
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
+  restaurant_name_view:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   restaurant_name: {
-    fontSize: 25,
+    fontSize: 19,
     fontWeight: "bold",
     marginTop: 30,
     marginBottom: 15,
-    textAlign: "center",
+    color: "#4C5B61",
+    width: 184,
+    textAlign:"center"
   },
   restaurant_description: {
     fontSize: 20,
-    margin: 20,
+    marginHorizontal: 20,
+    marginBottom: 18,
     textAlign: "center",
+    color: "#4C5B61",
+    fontSize: 16
+  },
+  ratingView:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 12,
   },
   opening_hours: {
     fontSize: 16,
@@ -105,18 +139,26 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     marginTop: 10,
   },
+  photoView:{
+    marginBottom: 26,
+    paddingHorizontal: 20
+  },
+  photScroll:{
+    paddingBottom: 10,
+  },
   photo: {
-    width: 200,
-    height: 200,
+    width: 134,
+    height: 134,
     margin: 5,
-    borderRadius: 10,
+    borderRadius: 31,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 20,
-    marginBottom: 10,
+    color: "#4C5B61",
+    // marginTop: 20,
+    marginBottom: 12,
   },
   card: {
     margin: 10,
@@ -135,10 +177,13 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   starContainer: {
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     marginBottom: 5,
+    paddingHorizontal: 26,
+    marginBottom: 26
   },
   menuContainer: {
     justifyContent: "center",

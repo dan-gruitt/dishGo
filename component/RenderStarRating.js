@@ -8,18 +8,18 @@ export const RenderStarRating = ({ rating }) => {
     let stars = [];
   
     for (let i = 0; i < filledStars; i++) {
-      stars.push(<Icon key={i} name="star" size={24} color="gold" />);
+      stars.push(<Icon key={i} name="star" size={24} color="#3AD6A7" />);
     }
   
     if (halfStars === 1) {
       stars.push(
-        <Icon key="half" name="star-half-full" size={24} color="gold" />
+        <Icon key="half" name="star-half-full" size={24} color="#3AD6A7" />
       );
     }
   
     for (let i = 0; i < emptyStars; i++) {
       stars.push(
-        <Icon key={`empty${i}`} name="star-o" size={24} color="gray" />
+        <Icon key={`empty${i}`} name="star-o" size={24} color="#3AD6A7" />
       );
     }
   
