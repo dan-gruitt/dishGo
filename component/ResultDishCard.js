@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { calculateDistance } from "../utils/calculateDistance";
 import { LocationContext } from "../context/LocationContext";
 import { mergeDishCardData } from "../utils/mergeDishCardData";
+import { getDishImageByUrl } from "../utils/getDishImageByUrl";
 
 const ResultDishCard = ({
   dish,
@@ -20,6 +21,16 @@ const ResultDishCard = ({
   const { location, radius } = useContext(LocationContext);
   const [isVisible, setIsVisible] = useState(false);
   const [results, setResults] = useState(null);
+
+  const [imgUri, setImgUri] = useState(null)
+
+  useEffect(()=>{
+    if(results && results[0].img_url){
+      getDishImageByUrl(results[0].img_url, 'business_images', setImgUri).then(()=>{
+        console.log('imgUri retrieved')
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (location && results && radius) {
@@ -86,8 +97,8 @@ const ResultDishCard = ({
       )}
       <Card.Cover
         source={{
-          uri: results[0].img_url
-            ? results[0].img_url
+          uri: imgUri
+            ? imgUri
             : "https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg",
         }}
         style={styles.cover}
