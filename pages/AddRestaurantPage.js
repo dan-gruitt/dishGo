@@ -79,11 +79,15 @@ export default function AddRestaurantPage({navigation}) {
       } catch (error) {
         console.log(error, "<<<< error")
         const newError = {}
-        error.inner.forEach((err)=>{
+        if(error.inner) {
+          error.inner.forEach((err)=>{
 
-          newError[err.path] = err.message
-        })
-        setErrors(newError)
+            newError[err.path] = err.message
+            setErrors(newError)
+          })
+        }
+
+
         setIsSubmitting(false)
       }
   }
