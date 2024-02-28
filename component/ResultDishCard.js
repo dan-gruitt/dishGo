@@ -96,11 +96,10 @@ const ResultDishCard = ({
         </View>
       )}
       <Card.Cover
-        source={{
+        source={ imgUri?
+          {
           uri: imgUri
-            ? imgUri
-            : "https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg",
-        }}
+        } : require('../assets/tempfoodimage.jpg')}
         style={styles.cover}
       />
       <Card.Actions style={styles.actions}>
