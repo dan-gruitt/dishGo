@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { LogBox } from 'react-native';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { getPlacesById } from "../utils/getPlacesById";
 import { LocationContext } from "../context/LocationContext";
 import { ScrollView } from "react-native-virtualized-view";
 import { CurrentRenderContext } from "@react-navigation/native";
+
 
 const SearchArea = () => {
   const { location, setLocation, radius, setRadius } =
@@ -17,9 +17,12 @@ const SearchArea = () => {
   const [distance, setDistance] = useState(1);
   const [placeholder, setPlaceholder] = useState("Search Location...");
 
+  console.log(placeId)
+
   useEffect(() => {
     if (placeId) {
       getPlacesById(placeId)
+      console.log(placeId)
         .then((response) => {
           const { data } = response;
           const location = data.result.geometry.location;
@@ -79,6 +82,7 @@ const SearchArea = () => {
         language: "en",
       }}
       onPress={(data, details = null) => {
+        console.log(data.place_id)
         setPlaceId(data.place_id);
       }}
       onFail={(error) => console.error(error)}
@@ -214,7 +218,5 @@ const autocompleteStyles = {
     color: "#1faadb",
   },
 };
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 export default SearchArea;

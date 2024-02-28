@@ -5,7 +5,8 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  LogBox
 } from "react-native";
 import { useState } from "react";
 import SearchBar from "../component/SearchBar";
@@ -21,9 +22,9 @@ export default function SearchPage({ navigation }) {
         style={styles.image}
         source={require("../assets/white-disgo.png")}
       />
-      <View>
+      {/* <View>
         <Text style={styles.locationHeaderText}>Where Would You Like To Search?</Text>
-      </View>
+      </View> */}
       <View>
         <SearchArea />
       </View>
@@ -97,3 +98,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
