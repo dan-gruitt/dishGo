@@ -75,7 +75,7 @@ export default function ResultsPage({ navigation, route }) {
     <View style={styles.resultsContainer}>
      <View style={styles.resultHeader}>
      <Text style={styles.resultHeader}>
-  Result's for: <Text style={{ color: "#3AD6A7" }}>{route.params.dish}</Text>
+  Results for: <Text style={{ color: "#3AD6A7" }}>{route.params.dish}</Text>
 </Text>
 </View>
       <ScrollView>
