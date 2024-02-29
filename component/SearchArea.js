@@ -84,7 +84,7 @@ const SearchArea = () => {
           width: 52,
           paddingTop: 13,
         }}>
-        <List.Icon color="#4C5B61" icon="crosshairs" />
+        <List.Icon color="#3AD6A7" icon="crosshairs" />
     </Pressable>
     <GooglePlacesAutocomplete
       placeholder={placeholder}
