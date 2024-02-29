@@ -109,7 +109,11 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
           style={[avatarSize, styles.avatar, styles.image]}
         />
       ) : (
-        <View style={[avatarSize, styles.avatar, styles.noImage]} />
+        <Image
+          source={ require('../assets/blank-profile.png') }
+          accessibilityLabel="Avatar"
+          style={[avatarSize, styles.avatar, styles.image]}
+        />
       )}
 
       
@@ -142,8 +146,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   button: {
-    width: 120,
-    height: 38,
+    width: 110,
+    height: 45,
     backgroundColor: "#3AD6A7",
     borderRadius: 29,
     // display: "flex",
