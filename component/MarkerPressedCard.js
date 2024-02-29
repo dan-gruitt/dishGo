@@ -5,21 +5,18 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
-
-
-
 export const MarkerPressedCard = ({
   pressedMarkerArr,
   pressedMarkerDishes,
-  results
+  results,
 }) => {
   const navigation = useNavigation();
   return (
-    <ScrollView>
+    <View style={{marginBottom: 40, marginTop: 10}}>
       <View style={styles.restaurantInfoContainer}>
-        <Text style={styles.restaurantName}>
-          {pressedMarkerArr.restaurant.name}
-        </Text>
+          <Text style={styles.restaurantName}>
+            {pressedMarkerArr.restaurant.name}
+          </Text>
         <Text style={styles.restaurantRating}>
           <Icon name="star" size={20} color="#FFD700" />{" "}
           {pressedMarkerArr.place.rating}
@@ -92,7 +89,7 @@ export const MarkerPressedCard = ({
           </Card.Content>
         </Card>
       ))}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -121,13 +118,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginBottom: 10,
+    width: 250,
+    marginLeft: 75,
   },
   restaurantName: {
-    fontSize: 25,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 10,
     marginRight: 5,
+    color: "#4C5B61",
   },
   restaurantRating: {
-    fontSize: 25,
+    color: "#4C5B61",
+    fontWeight: 'bold',
+    fontSize: 20,
     flexDirection: "row",
     alignItems: "center",
   },

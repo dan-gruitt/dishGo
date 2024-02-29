@@ -85,7 +85,7 @@ export default function SearchBar({userSearch, setUserSearch}) {
                         {getItemText(item,index)}
                         </Pressable>}
                         keyExtractor={item => item.id}
-                        showsVerticalScrollIndicator={false} 
+                        showsVerticalScrollIndicator={true} 
                     />
                 </Surface>
                     : null

@@ -44,26 +44,26 @@ export const GoogleMapView = ({mapResults, results}) => {
 
   return (
     <ScrollView>
-    <View style={{ marginTop: 20, borderRadius: 50, overflow: "hidden", justifyContent: "center", alignItems: "center", flex: 1 }}>
-      <MapView
-        style={{
-          flex: 1,
-          width: Dimensions.get("screen").width * 0.9,
-          height: Dimensions.get("screen").height * 0.5, 
-        }}
-        clusteringEnabled={true}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
-        region={mapRegion}
-        scrollEnabled={true}
-        zoomEnabled={true}
-      >
-        <MapMarkers mapResults={mapResults} markerPressed={markerPressed} />
-      </MapView>
-      {pressedMarkerArr? <MarkerPressedCard pressedMarkerArr={pressedMarkerArr} pressedMarkerDishes={pressedMarkerDishes} results={results} /> : null}
-    </View>
+      <View style={{ marginTop: 10, borderRadius: 45, overflow: "hidden", borderColor: "#3AD6A7" , borderWidth: 2, margin: 2 }}>
+        <MapView
+          style={{
+            flex: 1,
+            width: Dimensions.get("screen").width * 1,
+            height: Dimensions.get("screen").height * 0.35, 
+          }}
+          clusteringEnabled={true}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          region={mapRegion}
+          scrollEnabled={true}
+          zoomEnabled={true}
+        >
+          <MapMarkers mapResults={mapResults} markerPressed={markerPressed} />
+        </MapView>
+      </View>
+        {pressedMarkerArr? <MarkerPressedCard pressedMarkerArr={pressedMarkerArr} pressedMarkerDishes={pressedMarkerDishes} results={results} /> : null}
     </ScrollView>
   );
-};
+        }
 
 export default GoogleMapView;
