@@ -26,9 +26,16 @@ export default function ConfirmDeletePopUp(props) {
         <Text variant="bodySmall">{itemToDelete.description} {itemToDelete.name} </Text>
       </Dialog.Content>
       <Dialog.Actions>
-      <Button onPress={handleDismiss} disabled = {isDeleting}>Cancel</Button>
+      <Button 
+             textColor="#4C5B61"
+         
+             style={styles.cancelButton}
+      onPress={handleDismiss} disabled = {isDeleting}>Cancel</Button>
         <Button onPress={()=>{
-          handleDelete(itemToDelete.id)}} disabled = {isDeleting}  textColor="crimson">Delete</Button>
+          handleDelete(itemToDelete.id)}} disabled = {isDeleting}  
+         
+          style={styles.deleteButton}
+          textColor="crimson">Delete</Button>
       </Dialog.Actions>
     </Dialog>
     </Portal>
@@ -40,5 +47,21 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  cancelButton:{
+    width: 139,
+    height: 48,
+    borderRadius: 29,
+    borderColor: "#4C5B61",
+    borderWidth: 1, 
+    marginTop:20
+  },
+  deleteButton:{
+    width: 139,
+    height: 48,
+    borderRadius: 29,
+    borderColor: "crimson",
+    borderWidth: 1, 
+    marginTop:20
   }
 })
