@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import Account from "../component/Account";
 import { useState, useEffect } from "react";
@@ -26,12 +26,23 @@ export default function UserSettings() {
         <Account key={session.user.id} session={session} />
       ) : (
         <>
-          <View>
-            <Text>No account? Sign up now</Text>
-          </View>
+               <><View style = {{backgroundColor: "#000000"}}>
+          <Text style={styles.headerText}>Sign Up Today!</Text>
+        </View></>
           <Auth />
         </>
       )}
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  headerText:{
+    marginTop: 20,
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 28,
+    textAlign: "center",
+    paddingVertical: 28,
+  },
+})

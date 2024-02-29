@@ -3,7 +3,8 @@ import { Alert, StyleSheet, View, AppState } from "react-native";
 import { Modal, Portal, Text } from "react-native-paper";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
-import { UserContext } from "../context/UserContext";
+import { CurrentPageContext } from "../context/CurrentPageContext";
+import { useRoute } from "@react-navigation/native";
 import { Session } from '@supabase/supabase-js'
 
 
@@ -22,6 +23,8 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function Auth(props) {
+
+  const currentPage = useRoute()
 
   const {isBusiness} = props
 
@@ -57,6 +60,8 @@ export default function Auth(props) {
   }
 
   async function signUpWithEmail() {
+    const currentPage = useRoute()
+
     setLoading(true);
     const {
       data: { session },
@@ -138,7 +143,9 @@ export default function Auth(props) {
           </View>
         </Modal>
       </Portal>
-      <View style={styles.container}>
+      {/* if current page is business, render business background, else user background */}
+      {/* NB: if you edit background colour for either business or user sign in: also edit View backgroundColour on UserBusinessProfile or UserSignUp.tsx + UserSettings respectively */}
+      <View style={{backgroundColor: `${currentPage.name === "Profile" ? "#4C5B61" : "#000000"}`, ...styles.container}}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
@@ -207,11 +214,9 @@ export default function Auth(props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 36,
     display: "flex",
     flex: 1,
     paddingHorizontal: 28,
-    backgroundColor: "#4C5B61",
   },
   popUpContainer: {
     padding: 28,
@@ -268,10 +273,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     letterSpacing: 0.6,
+    marginBottom: 10,
   },
   signInButton: {
     width: 93,
-    backgroundColor: "#4C5B61",
+    backgroundColor: "rgba(0, 0, 0, 1)",
     borderRadius: 29,
   },
   signInButtonText: {
