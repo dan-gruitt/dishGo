@@ -1,16 +1,19 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { Card } from "react-native-paper";
+import { getDishImageByUrl } from "../utils/getDishImageByUrl";
+import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const RenderMenu = ({ location, menu, styles }) => {
-  console.log(location)
+
+  const [imgUri, setImgUri] = useState(null);
     return menu.map((dish, index) => (
   
     
       <Card key={index} style={styles.card}>
         <Card.Content style={styles.menuContainer}>
-          {dish.description && <Text style={styles.dishDescription}>{dish.description}</Text>}
+          {/* {dish.description && <Text style={styles.dishDescription}>{dish.description}</Text>}
           {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
             <View style={styles.iconContainer}>
               {dish.vegan && (
@@ -32,15 +35,15 @@ export const RenderMenu = ({ location, menu, styles }) => {
                 </View>
               )}
             </View>
-          )}
+          )} */}
           <Card.Cover
-            source={{
-              uri: dish.img_url
-                ? dish.img_url
-                : "https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg",
-            }}
-            style={styles.cover}
-          />
+              source={
+                imgUri
+                  ? { uri: imgUri }
+                  : require("../assets/tempfoodimage.jpg")
+              }
+              style={styles.cover}
+            />
           <View style={styles.dishHeader}>
             <Text style={styles.dishName}>{dish.dish_name}</Text>
             <Text style={styles.dishLocation}>{location}</Text>
