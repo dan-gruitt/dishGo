@@ -1,11 +1,9 @@
 import { View} from "react-native";
 import React from "react";
 import { HelperText, TextInput, Button, Text, List} from "react-native-paper";
-
 import ChipList from "./ChipList";
 import ImageUploader from "./ImageUploader";
 import { dishSchema } from "../validation/DishValidation";
-
 import { postDishByRestaurantId } from "../utils/api";
 
 export default function DishUploadForm(props) {

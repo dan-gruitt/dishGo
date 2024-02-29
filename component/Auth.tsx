@@ -60,7 +60,7 @@ export default function Auth(props) {
   }
 
   async function signUpWithEmail() {
-    const currentPage = useRoute()
+
 
     setLoading(true);
     const {
