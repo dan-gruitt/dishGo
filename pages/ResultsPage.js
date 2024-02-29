@@ -113,7 +113,7 @@ export default function ResultsPage({ navigation, route }) {
 
 const styles = StyleSheet.create({
   resultsContainer: {
-    marginBottom: 25,
+    marginBottom: 70,
   },
   resultHeader: {
     fontSize: 20,

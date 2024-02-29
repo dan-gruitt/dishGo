@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cover: {
-    width: 150, // Adjust width as needed
+    width: 160, // Adjust width as needed
     height: 175,
     borderRadius: 45,
     marginBottom: 0,
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 15,
     padding: 5,
-    width: "40%",
+    width: "43%",
     marginLeft: 5,
   },
   iconTextContainer: {
@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
   },
   leftSide: {
     marginBottom: 10,
+    marginLeft: 10
   },
   EmptyIconContainer: {
     flexDirection: "column",
