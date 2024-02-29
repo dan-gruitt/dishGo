@@ -345,9 +345,6 @@ const styles = StyleSheet.create({
   },
   yourRestaurantText:{
     width: 250,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 4,
   },
   headerText:{
     color: "#FFF",
@@ -420,15 +417,18 @@ const styles = StyleSheet.create({
     marginRight: 12
   },
   buttonWrap:{
+    display:"flex",
     marginTop: 40,
     marginBottom: 125,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
   },
   buttonRow:{
-    flexDirection: "row"
+    flexDirection: "row",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent:"space-between",
+    alignItems: 'space-around',
+    gap: 18
   },
   mainButton: {
     width: 139,
