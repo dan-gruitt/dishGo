@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import { List } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { getPlacesById } from "../utils/getPlacesById";
@@ -71,6 +72,20 @@ const SearchArea = () => {
     >
 <View style={styles.locationSearchWrap}>
   <View style={styles.searchBar}>
+  <Pressable onPress={handleUserLocation}  style={{
+          marginLeft: 0,
+          fontWeight: "bold",
+          fontSize: 12,
+          color: "#3AD6A7",
+          backgroundColor: "white",
+          height: 52,
+          borderRadius: 50,
+          textAlign: "center",
+          width: 52,
+          paddingTop: 13,
+        }}>
+        <List.Icon color="#4C5B61" icon="crosshairs" />
+    </Pressable>
     <GooglePlacesAutocomplete
       placeholder={placeholder}
       placeholderTextColor="#A9A9AC" // Set placeholder text color
@@ -93,16 +108,18 @@ const SearchArea = () => {
           flex: 1,
         },
         textInputContainer: {
-          paddingTop: 10,
-          height: 70,
-          backgroundColor: "transparent",
+          paddingTop: 0,
+          marginLeft: -5,
+          height: 52,
+          backgroundColor: "rgba(0,0,0,0)",
         },
         textInput: {
           borderRadius: 50,
           height: 52,
           color: "#5d5d5d",
           fontSize: 16,
-          marginBottom: 15,
+          marginBottom: 0,
+          backgroundColor: "rgba(0,0,0,0)",
         },
         predefinedPlacesDescription: {
           color: "#1faadb",
@@ -110,10 +127,12 @@ const SearchArea = () => {
       }}
     />
   </View>
-  <View style={styles.pickerContainer}>
     <View style={styles.distancePickerView}>
-      <Picker
-        style={{color: "#4C5B61",  fontWeight: "bolder", borderRadius: 20, width: 160}}
+    </View>
+</View>
+<View>
+<Picker
+        style={{color: "#4C5B61",  fontWeight: "bolder", marginBottom: -20}}
         selectedValue={radius}
         onValueChange={(itemValue, itemIndex) => setRadius(itemValue)}
       >
@@ -123,29 +142,6 @@ const SearchArea = () => {
         <Picker.Item label="+5 miles" value={5} />
         <Picker.Item label="+10 miles" value={10} />
       </Picker>
-    </View>
-  </View>
-  <View style={{width: 300, marginTop: 20}}>
-    <Pressable onPress={handleUserLocation}>
-      <Text
-        style={{
-          marginLeft: 0,
-          fontWeight: "bold",
-          fontSize: 12,
-          marginTop: -18,
-          color: "#3AD6A7",
-          backgroundColor: "white",
-          height: 52,
-          borderRadius: 50,
-          textAlign: "center",
-          width: 150,
-          paddingTop: 10,
-        }}
-      >
-        Use My Current Location
-      </Text>
-    </Pressable>
-  </View>
 </View>
 
     </ScrollView>
@@ -157,10 +153,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#4C5B61",
     marginTop: -50,
     paddingBottom: 15,
     paddingTop: 10,
+    width: "100%",
   },
   locationSearchWrap: {
     marginBottom: -50,
@@ -168,10 +164,8 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     marginTop: 10,
     position: "relative",
-    // height: 53,
-    backgroundColor: "#fff",
     borderRadius: 50,
-    width: 330,
+    width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
@@ -184,12 +178,14 @@ const styles = StyleSheet.create({
     width: 160,
     color: "green",
     borderRadius: 5,
-    backgroundColor: "white",
     fontWeight: "bold"
   },
   searchBar: {
     marginTop: 100,
-    marginBottom: -50,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 50,
   },
 });
 
@@ -202,17 +198,18 @@ const autocompleteStyles = {
   textInputContainer: {
     textAlign: "center",
     borderRadius: 45,
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0)",
     borderTopWidth: 0,
     borderBottomWidth: 0,
+    height: "100%",
   },
   textInput: {
     borderRadius: 50,
     marginLeft: 0,
     marginRight: 0,
-    height: 40,
     color: "#5d5d5d",
     fontSize: 16,
+    backgroundColor: "rgba(0, 0, 0, 0)",
   },
   predefinedPlacesDescription: {
     color: "#1faadb",

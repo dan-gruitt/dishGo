@@ -18,21 +18,19 @@ export default function SearchPage({ navigation }) {
   return (
     <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
-      <Image
+      {/* <Image
         style={styles.image}
         source={require("../assets/white-disgo.png")}
-      />
+      /> */}
       {/* <View>
         <Text style={styles.locationHeaderText}>Where Would You Like To Search?</Text>
       </View> */}
-      <View>
+      <View style = {{justifyContent: "flex-start"}}>
         <SearchArea />
+          <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
       </View>
       <View style={styles.headerWrap}>
         <Text style={styles.headerText}>What are you in the mood for?</Text>
-      </View>
-      <View>
-          <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
       </View>
         </KeyboardAvoidingView>
     </ScrollView>

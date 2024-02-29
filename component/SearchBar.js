@@ -67,10 +67,11 @@ export default function SearchBar({userSearch, setUserSearch}) {
                 value={searchQuery}
                 style={{
                 marginHorizontal: 26,
-                marginTop: 26,
+                marginTop: 10,
                 color:'#FFF',
                 zIndex: 10,
                 backgroundColor:'#FFFFFF',
+                height: 52,
                 }} />
 
                 {
