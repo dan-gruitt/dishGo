@@ -34,7 +34,7 @@ export default function UserSignUp({navigation}) {
         <HomePage session = {session} isBusiness = {isBusiness}/>
         </>
        : 
-       <><View style = {{backgroundColor: "#000000"}}>
+       <><View style = {{backgroundColor: "#4C5B61"}}>
           <Text style={styles.headerText}>Sign Up Today!</Text>
         </View><Auth /></>
       }

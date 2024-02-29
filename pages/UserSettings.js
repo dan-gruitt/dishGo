@@ -26,7 +26,7 @@ export default function UserSettings() {
         <Account key={session.user.id} session={session} />
       ) : (
         <>
-               <><View style = {{backgroundColor: "#000000"}}>
+               <><View style = {{backgroundColor: "#4C5B61"}}>
           <Text style={styles.headerText}>Sign Up Today!</Text>
         </View></>
           <Auth />
