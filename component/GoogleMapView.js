@@ -19,8 +19,8 @@ export const GoogleMapView = ({mapResults, results}) => {
       setMapRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: radius * 0.035,
-        longitudeDelta: radius * 0.035,
+        latitudeDelta: radius * 0.5,
+        longitudeDelta: radius * 0.5,
       });
       setLoading(false);
     }
