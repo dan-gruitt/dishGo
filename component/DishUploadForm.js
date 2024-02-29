@@ -155,8 +155,8 @@ export default function DishUploadForm(props) {
       disabled = {isSubmitting}
       >
     <Text style={styles.mainButtonText} >Add dish</Text>
-  </Button>
-<HelperText type="error" style={styles.errorMsg} visible={errors}>
+    </Button>
+      <HelperText type="error" style={styles.errorMsg} visible={errors}>
         Unable to submit form - invalid input(s)
       </HelperText>
       </View>

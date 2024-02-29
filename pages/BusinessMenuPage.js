@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import DishUploadForm from "../component/DishUploadForm";
 import MenuList from "../component/MenuList";
@@ -15,9 +15,16 @@ export default function BusinessMenuPage({ route }) {
     })
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
       <MenuList menu = {menu} setMenu = {setMenu} restaurant = {restaurant} /> 
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor:"#4C5B61"
+  }
+});
