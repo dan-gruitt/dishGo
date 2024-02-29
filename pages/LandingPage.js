@@ -55,7 +55,7 @@ export default function LandingPage({ navigation }) {
         ) : (
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate("UserSignUp")}
+            onPress={() => navigation.navigate("HomePage",{ screen: 'Account' })}
           >
             <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
               Sign Up
