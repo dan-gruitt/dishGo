@@ -5,6 +5,7 @@ import RenderStarRating from "../component/RenderStarRating";
 import RenderReviews from "../component/RenderReviews";
 import RenderMenu from "../component/RenderMenu";
 import UrlLink from "../component/UrlLink.js";
+import OpeningHours from '../component/OpeningHours';
 import { getMenuByRestaurantId } from "../utils/getMenuByRestaurantId";
 
 export default function RestaurantPage({ route }) {
@@ -54,6 +55,14 @@ export default function RestaurantPage({ route }) {
         {/* <Text style={styles.sectionTitle}>Photos</Text> */}
         <View style={styles.photoView}>
           <ScrollView style={styles.photScroll} horizontal={true}>{renderPhotos()}</ScrollView>
+        </View>
+
+        <View>
+          <OpeningHours 
+          styles={styles}
+          restaurantPlace={restaurantPlace} 
+          restaurant={restaurant}
+          />
         </View>
 
         <Text style={styles.sectionTitle}>Full Menu</Text>
@@ -140,7 +149,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   photoView:{
-    marginBottom: 26,
     paddingHorizontal: 20
   },
   photScroll:{

@@ -345,9 +345,6 @@ const styles = StyleSheet.create({
   },
   yourRestaurantText:{
     width: 250,
-    textShadowColor: 'black',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 4,
   },
   headerText:{
     color: "#FFF",
