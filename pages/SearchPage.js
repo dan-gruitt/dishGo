@@ -6,7 +6,8 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
-  LogBox
+  LogBox, 
+  ImageBackground
 } from "react-native";
 import { useState } from "react";
 import SearchBar from "../component/SearchBar";
@@ -17,22 +18,26 @@ export default function SearchPage({ navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior="padding">
-      {/* <Image
-        style={styles.image}
-        source={require("../assets/white-disgo.png")}
-      /> */}
-      {/* <View>
-        <Text style={styles.locationHeaderText}>Where Would You Like To Search?</Text>
-      </View> */}
-      <View style = {{justifyContent: "flex-start"}}>
-        <SearchArea />
+      <KeyboardAvoidingView behavior="padding">
+        {/* <Image
+      style={styles.image}
+      source={require("../assets/white-disgo.png")}
+    /> */}
+        {/* <View>
+      <Text style={styles.locationHeaderText}>Where Would You Like To Search?</Text>
+    </View> */}
+        <View style={{ justifyContent: "flex-start" }}>
+          <SearchArea />
           <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
+        </View>
+        <View style={styles.headerWrap}>
+          <Text style={styles.headerText}>What are you in the mood for?</Text>
+        </View>
+        <View style ={{alignItems: "center"}}>
+        <Image
+      source={require("../assets/donut-lady.png")} style={{width: 335, height:294}} />
       </View>
-      <View style={styles.headerWrap}>
-        <Text style={styles.headerText}>What are you in the mood for?</Text>
-      </View>
-        </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 }
@@ -59,7 +64,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom: 30,
   },
   locationHeaderText: {
     marginLeft: 60,
