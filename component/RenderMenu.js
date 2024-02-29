@@ -3,14 +3,14 @@ import { Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const RenderMenu = ({ menu, styles }) => {
+export const RenderMenu = ({ location, menu, styles }) => {
+  console.log(location)
     return menu.map((dish, index) => (
+  
+    
       <Card key={index} style={styles.card}>
         <Card.Content style={styles.menuContainer}>
-          <View style={styles.dishHeader}>
-            <Text style={styles.dishName}>{dish.dish_name} - £{dish.price}</Text>
-          </View>
-          {dish.description && <Text style={styles.dishDescription}>{dish.description}</Text>}
+          {/* {dish.description && <Text style={styles.dishDescription}>{dish.description}</Text>}
           {(dish.vegan || dish.vegetarian || dish.pescatarian) && (
             <View style={styles.iconContainer}>
               {dish.vegan && (
@@ -32,7 +32,7 @@ export const RenderMenu = ({ menu, styles }) => {
                 </View>
               )}
             </View>
-          )}
+          )} */}
           <Card.Cover
             source={{
               uri: dish.img_url
@@ -41,9 +41,15 @@ export const RenderMenu = ({ menu, styles }) => {
             }}
             style={styles.cover}
           />
+          <View style={styles.dishHeader}>
+            <Text style={styles.dishName}>{dish.dish_name}</Text>
+            <Text style={styles.dishLocation}>{location}</Text>
+            <Text style={styles.dishPrice}>£{dish.price.toFixed(2)}</Text>
+          </View>
         </Card.Content>
       </Card>
-    ));
+
+      ));
   };
 
 export default RenderMenu;
