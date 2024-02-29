@@ -12,7 +12,7 @@ export default function Account({ session }: { session: Session }) {
   const navigation = useNavigation()
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
-  const [website, setWebsite] = useState("");
+  // const [website, setWebsite] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const { User, setUser } = useContext(UserContext);
 
@@ -36,7 +36,7 @@ export default function Account({ session }: { session: Session }) {
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
+        // setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
         setUser(data)
       }
@@ -51,11 +51,11 @@ export default function Account({ session }: { session: Session }) {
 
   async function updateProfile({
     username,
-    website,
+    // website,
     avatar_url,
   }: {
     username: string;
-    website: string;
+    // website: string;
     avatar_url: string;
   }) {
     try {
@@ -65,7 +65,7 @@ export default function Account({ session }: { session: Session }) {
       const updates = {
         id: session?.user.id,
         username,
-        website,
+        // website,
         avatar_url,
         updated_at: new Date(),
       };
@@ -96,7 +96,7 @@ export default function Account({ session }: { session: Session }) {
           url={avatarUrl}
           onUpload={(url: string) => {
             setAvatarUrl(url);
-            updateProfile({ username, website, avatar_url: url });
+            updateProfile({ username, avatar_url: url });
           }}
         />
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -109,13 +109,13 @@ export default function Account({ session }: { session: Session }) {
           onChangeText={(text) => setUsername(text)}
         />
       </View>
-      <View style={styles.verticallySpaced}>
+      {/* <View style={styles.verticallySpaced}>
         <Input
           label="Website"
           value={website || ""}
           onChangeText={(text) => setWebsite(text)}
         />
-      </View>
+      </View> */}
 
 <View style={styles.buttonContainer}>
 
@@ -123,12 +123,12 @@ export default function Account({ session }: { session: Session }) {
         <Pressable
           style={styles.button}
           onPress={() =>
-            updateProfile({ username, website, avatar_url: avatarUrl })
+            updateProfile({ username, avatar_url: avatarUrl })
           }
           disabled={loading}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            {"Update"}
+            {loading? "Loading..." : "Update"}
           </Text>
         </Pressable>
       </View>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   button2: {
     width: 110,
     height: 45,
-    backgroundColor: "#4C5B61",
+    backgroundColor: "#DC143C",
     borderRadius: 29,
     justifyContent: "center",
     alignItems: "center",
