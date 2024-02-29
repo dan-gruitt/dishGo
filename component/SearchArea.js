@@ -127,8 +127,6 @@ const SearchArea = () => {
       }}
     />
   </View>
-    <View style={styles.distancePickerView}>
-    </View>
 </View>
 <View>
 <Picker
@@ -159,7 +157,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   locationSearchWrap: {
-    marginBottom: -50,
+    width: 300,
+    fontWeight: "bold"
   },
   searchBarContainer: {
     marginTop: 10,
@@ -168,17 +167,6 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 5,
-  },
-  distancePickerView: {
-    // position: "absolute",
-    top: 52,
-    marginLeft: 160,
-    right: 0,
-    height: 52,
-    width: 160,
-    color: "green",
-    borderRadius: 5,
-    fontWeight: "bold"
   },
   searchBar: {
     marginTop: 100,
