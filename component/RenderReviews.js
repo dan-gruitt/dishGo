@@ -10,7 +10,7 @@ export const RenderReviews = ({reviews, styles}) => {
           <View style={styles.reviewHeader}>
             <Text style={styles.reviewAuthor}>{review.author_name}</Text>
           </View>
-          <View style={styles.starContainer}>
+          <View style={styles.starContainerReview}>
             <RenderStarRating starColor="#FFF" rating={review.rating} />
           </View>
           <Text style={styles.reviewText}>{review.text}</Text>

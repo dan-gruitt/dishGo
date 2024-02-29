@@ -194,6 +194,15 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: "#FFF"
   },
+  starContainerReview:{
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "left",
+    // justifyContent: "space-between",
+    marginTop: 5,
+    paddingHorizontal: 12,
+    marginBottom: -8,
+  },
   starContainer: {
     display: "flex",
     flexDirection: "row",
@@ -246,7 +255,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   reviewText: {
-    fontSize: 15,
+    fontSize: 11,
     margin: 20,
     textAlign: "center",
     color: "#FFF"
