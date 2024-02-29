@@ -38,6 +38,7 @@ export default function Account({ session }: { session: Session }) {
         setUsername(data.username);
         setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
+        setUser(data)
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -90,7 +91,6 @@ export default function Account({ session }: { session: Session }) {
 
   return (
     <View style={styles.container}>
-      <View>
         <Avatar
           size={160}
           url={avatarUrl}
@@ -99,7 +99,6 @@ export default function Account({ session }: { session: Session }) {
             updateProfile({ username, website, avatar_url: url });
           }}
         />
-      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
@@ -129,7 +128,7 @@ export default function Account({ session }: { session: Session }) {
           disabled={loading}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            {loading ? "Loading..." : "Update"}
+            {"Update"}
           </Text>
         </Pressable>
       </View>
@@ -186,8 +185,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    width: 120,
-    height: 38,
+    width: 110,
+    height: 45,
     backgroundColor: "#3AD6A7",
     borderRadius: 29,
     justifyContent: "center",
@@ -197,8 +196,8 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   button2: {
-    width: 120,
-    height: 38,
+    width: 110,
+    height: 45,
     backgroundColor: "#4C5B61",
     borderRadius: 29,
     justifyContent: "center",
