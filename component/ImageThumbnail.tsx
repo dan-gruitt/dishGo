@@ -14,7 +14,7 @@ const [isLoading, setIsLoading] = useState(false)
 
   useEffect(()=>{
     loadImage(imgUrl)
-  }, [])
+  }, [item])
 
   const loadImage = async (filePath) => {
     setIsLoading(true)
