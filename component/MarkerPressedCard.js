@@ -1,15 +1,30 @@
 import React from "react";
+import {useEffect, useState} from 'react'
 import { Linking, View, StyleSheet, ScrollView } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { CurrentRenderContext, useNavigation } from "@react-navigation/native";
+import { getDishImageByUrl } from "../utils/getDishImageByUrl";
 
 export const MarkerPressedCard = ({
   pressedMarkerArr,
   pressedMarkerDishes,
   results,
 }) => {
+
+  useEffect(() => {
+    if (results && results[0].img_url) {
+      getDishImageByUrl(results[0].img_url, "business_images", setImgUri).then(
+        () => {
+          console.log("imgUri retrieved");
+        }
+      );
+    }
+  }, []);
+
+  const [imgUri, setImgUri] = useState(null);
+
   const navigation = useNavigation();
   return (
     <View style={{ marginBottom: 40, marginTop: 10 }}>
@@ -30,7 +45,7 @@ export const MarkerPressedCard = ({
             style={[styles.button, styles.mapButton]}
             labelStyle={[styles.buttonLabel, styles.mapButtonLabel]}
             contentStyle={styles.buttonContent}
-            >
+          >
             Open In Maps
           </Button>
         )}
@@ -49,59 +64,59 @@ export const MarkerPressedCard = ({
           <Card.Content style={styles.cardContent}>
             <View style={styles.coverContainer}>
               <Card.Cover
-                source={{
-                  uri: dish.img_url
-                    ? dish.img_url
-                    : "https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg",
-                }}
+                source={
+                  imgUri
+                    ? { uri: imgUri }
+                    : require("../assets/tempfoodimage.jpg")
+                }
                 style={styles.cover}
-                />
+              />
             </View>
             <View style={styles.rightSide}>
               <View style={styles.headerText}>
-                <Text style={styles.title}>
-                  {dish.dish_name}
-                </Text>
+                <Text style={styles.title}>{dish.dish_name}</Text>
               </View>
               <View style={styles.price}>
-                    <Text style={styles.priceContent}>{`£${dish.price.toFixed(
-                      2
-                    )}`}</Text>
-                  </View>
-              {((dish.vegan || dish.vegetarian || dish.pescatarian) && (
-                  <View style={styles.iconContainer}>
-                    {dish.vegan && (
-                      <View style={styles.iconTextContainer}>
-                        <Icon2 name="leaf" size={15} color="green" />
-                        <Text style={styles.iconText}>Vegan</Text>
-                      </View>
-                    )}
-                    {dish.vegetarian && (
-                      <View style={styles.iconTextContainer}>
-                        <Icon2 name="carrot" size={15} color="orange" />
-                        <Text style={styles.iconText}>Vegetarian</Text>
-                      </View>
-                    )}
-                    {dish.pescatarian && (
-                      <View style={styles.iconTextContainer}>
-                        <Icon2 name="fish" size={15} color="blue" />
-                        <Text style={styles.iconText}>Pescatarian</Text>
-                      </View>
-                    )}
-                  </View>
-                )) || (
-                  <View style={[styles.iconContainer, styles.emptyIconContainer]} />
-                )}
-            </View>
-              <View style={styles.descriptionContainer}>
-                <Text style={styles.description}>{dish.description}</Text>
+                <Text style={styles.priceContent}>{`£${dish.price.toFixed(
+                  2
+                )}`}</Text>
               </View>
+              {((dish.vegan || dish.vegetarian || dish.pescatarian) && (
+                <View style={styles.iconContainer}>
+                  {dish.vegan && (
+                    <View style={styles.iconTextContainer}>
+                      <Icon2 name="leaf" size={15} color="green" />
+                      <Text style={styles.iconText}>Vegan</Text>
+                    </View>
+                  )}
+                  {dish.vegetarian && (
+                    <View style={styles.iconTextContainer}>
+                      <Icon2 name="carrot" size={15} color="orange" />
+                      <Text style={styles.iconText}>Vegetarian</Text>
+                    </View>
+                  )}
+                  {dish.pescatarian && (
+                    <View style={styles.iconTextContainer}>
+                      <Icon2 name="fish" size={15} color="blue" />
+                      <Text style={styles.iconText}>Pescatarian</Text>
+                    </View>
+                  )}
+                </View>
+              )) || (
+                <View
+                  style={[styles.iconContainer, styles.emptyIconContainer]}
+                />
+              )}
+            </View>
+            <View style={styles.descriptionContainer}>
+              <Text style={styles.description}>{dish.description}</Text>
+            </View>
           </Card.Content>
         </Card>
       ))}
     </View>
   );
-}  
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -122,13 +137,13 @@ const styles = StyleSheet.create({
     textAlign: "center", // Center the text horizontally
   },
   descriptionContainer: {
-    marginTop: 40,
+    marginTop: 25,
     marginBottom: 5,
   },
   description: {
     fontSize: 16,
     textAlign: "center",
-    color: 'white',
+    color: "white",
   },
   button: {
     width: "407%",
@@ -251,7 +266,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: "100%",
   },
-  
+
   iconTextContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -275,7 +290,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "white",
     backgroundColor: "#4C5B61",
-    textAlign: 'center',
+    textAlign: "center",
     borderRadius: 45,
     padding: 4,
     // width: '100%'
