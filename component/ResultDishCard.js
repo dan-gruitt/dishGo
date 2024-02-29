@@ -33,7 +33,7 @@ const ResultDishCard = ({
         }
       );
     }
-  }, []);
+  }, [results]);
 
   useEffect(() => {
     if (location && results && radius) {

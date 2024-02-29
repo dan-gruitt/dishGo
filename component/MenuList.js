@@ -40,7 +40,9 @@ export default function MenuList(props) {
       return (
             <Card key={index} contentStyle={styles.card}>
                 <Card.Content style={styles.cardContent}>
+                  <View>
                 <ImageThumbnail item={item} />
+                </View>
                 <View>
                 {/* <Card.Title
                   style={styles.cardTitle}

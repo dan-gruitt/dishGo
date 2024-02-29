@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export const getRestaurants = async () => {
-  const { data, error } = await supabase.from("test_restaurants").select();
+  const { data, error } = await supabase.from("restaurants").select();
 };
 
 export const postRestaurant = async (input) => {
@@ -28,7 +28,7 @@ export const postRestaurant = async (input) => {
     user_id: userId
   };
   const { data, error } = await supabase
-    .from("test_restaurants")
+    .from("restaurants")
     .insert(restaurantToAdd)
     .select();
     console.log(error)
@@ -47,7 +47,7 @@ export const patchRestaurantById = async (input, restaurantId) => {
     id: restaurantId,
   };
   const { data, error } = await supabase
-    .from("test_restaurants")
+    .from("restaurants")
     .upsert(restaurantToUpdate)
     .select();
     console.log(error)
@@ -73,7 +73,7 @@ export const postDishByRestaurantId = async (
     img_url: imgUrl
   };
   const { data, error } = await supabase
-    .from("test_dishes")
+    .from("dishes")
     .insert(dishToAdd)
     .select();
   console.log(error);
@@ -82,7 +82,7 @@ export const postDishByRestaurantId = async (
 
 export const getMenuByRestaurantId = async (restaurantId) => {
   const { data, error } = await supabase
-  .from("test_dishes")
+  .from("dishes")
   .select()
   .eq("restaurant_id", restaurantId)
   console.log(error)
@@ -96,7 +96,7 @@ export const getMenuByRestaurantId = async (restaurantId) => {
 
 export const deleteDishByDishId = async (dishId) => {
   const { data, error } = await supabase
-  .from("test_dishes")
+  .from("dishes")
   .delete()
   .eq("id", dishId)
   console.log('Dish deleted successfully')

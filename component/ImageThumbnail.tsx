@@ -36,7 +36,7 @@ const [isLoading, setIsLoading] = useState(false)
   return (
     <View style={{ flexDirection: 'row', margin: 1, justifyContent: 'center', gap: 5 }}>
     {/*checks if imgUrl exists, otherwise renders an empty placeholder square*/}
-      {imgUrl && imageUri ? <Image style={{ borderRadius:8, width: 100, height: 100 }} source={{ uri: imageUri }} /> : <View style={{ width: 100, height: 100, backgroundColor: '#1A1A1A' }} />}
+      {imgUrl && imageUri ? <Image style={{ borderRadius:8, width: 100, height: 100, objectFit: "cover" }} source={{ uri: imageUri }} /> : <Image style={{ borderRadius:8, width: 100, height: 100 }} source={require('../assets/tempfoodimage.jpg')} />}
     </View>
   );
 };
