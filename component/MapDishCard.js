@@ -3,6 +3,7 @@ import { Card } from 'react-native-paper';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { getDishImageByUrl } from '../utils/getDishImageByUrl';
+import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function MapDishCard(props) {
 
