@@ -57,11 +57,11 @@ export default function RestaurantPage({ route }) {
         </View>
 
         <Text style={styles.sectionTitle}>Full Menu</Text>
-        {menu && <RenderMenu menu={menu} styles={styles} />}
+        {menu && <RenderMenu location={restaurant.name} menu={menu} styles={styles} />}
       
-        <Text style={styles.sectionTitle}>Recent Reviews</Text>
+        <Text style={styles.sectionTitle}>Reviews</Text>
         <RenderReviews reviews={restaurantPlace.reviews} styles={styles} />
-        <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text>
+        {/* <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text> */}
 
       </View>
     </ScrollView>
@@ -157,11 +157,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     color: "#4C5B61",
-    // marginTop: 20,
-    marginBottom: 12,
+    marginTop: 20,
+    marginBottom: 8,
   },
   card: {
-    margin: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#4C5B61",
+    marginVertical: 12,
+    marginHorizontal: 20,
+    borderRadius:31
+  },
+  reviewCard:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#3AD6A7",
+    marginVertical: 12,
+    marginHorizontal: 20,
+    borderRadius:31
   },
   reviewContainer: {
     alignItems: "center",
@@ -175,6 +192,7 @@ const styles = StyleSheet.create({
   reviewAuthor: {
     fontWeight: "bold",
     marginRight: 5,
+    color: "#FFF"
   },
   starContainer: {
     display: "flex",
@@ -186,20 +204,41 @@ const styles = StyleSheet.create({
     marginBottom: 26
   },
   menuContainer: {
+    display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
   dishHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 5,
+    display:"flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "space-evenly",
+    // marginBottom: 5,
+    width:"50%",
   },
   dishName: {
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: "bold",
-    marginBottom: 5,
-    textAlign: "center",
+    marginLeft: 5,
+    textAlign: "right",
+    color: "#FFF",
+    marginBottom:30
+  },
+  dishLocation:{
+    fontSize: 13,
+    // fontWeight: "bold",
+    marginLeft: 5,
+    textAlign: "right",
+    color: "#FFF",
+    marginBottom:30
+  },
+  dishPrice:{
+    fontSize: 13,
+    fontWeight: "bold",
+    marginLeft: 5,
+    textAlign: "right",
+    color: "#FFF",
   },
   dishDescription: {
     fontSize: 15,
@@ -210,10 +249,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     margin: 20,
     textAlign: "center",
+    color: "#FFF"
   },
   cover: {
-    height: 200,
-    width: 200,
+    // height: 200,
+    width: "50%",
   },
   iconContainer: {
     flexDirection: "row",
