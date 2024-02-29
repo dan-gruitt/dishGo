@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import { getDishImageByUrl } from "../utils/getDishImageByUrl";
