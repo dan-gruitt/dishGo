@@ -34,9 +34,10 @@ export default function ChipList({setDietary, dietary }) {
       {dietaryNames.map((name, index) => {
         return (
           <Chip
+          selectedColor="#FFF"
             key={index}
             icon={dietary[name]? icons.checked : icons[name]}
-            style = {dietary[name]? styles.selected : null}
+            style = {dietary[name]? styles.selected : styles.unSelected }
             onPress={() => {
                return handleOnPress(name);
             }}
@@ -55,10 +56,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent:"center",
-    margin: 10,
+    marginTop: 30,
+    marginBottom:20,
     gap: 10
   },
   selected:{
-    backgroundColor: "green",
+    backgroundColor: "#3AD6A7",
+    borderWidth: 1,
+    borderColor:"#3AD6A7",
+  },
+  unSelected:{
+    backgroundColor: "#4C5B61",
+    borderWidth: 1,
+    borderColor:"#3AD6A7",
   }
 })

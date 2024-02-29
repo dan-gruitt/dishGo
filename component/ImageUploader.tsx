@@ -1,12 +1,11 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import { ActivityIndicator, MD2Colors, Button } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { decode } from "base64-arraybuffer";
 import { supabase } from "../lib/supabase";
 import ImageItem from "./ImagePreview";
-import { Button } from "react-native-paper";
 
 export default function ImageUploader(props) {
   const { restaurant, imgUrl, setImgUrl } = props;
@@ -74,13 +73,14 @@ export default function ImageUploader(props) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator animating={true} color={MD2Colors.red800} />
+        <ActivityIndicator animating={true} color="#3AD6A7" />
       ) : (
-        <ScrollView>
+        <ScrollView style={styles.dishImage}>
           {imgUrl ? (
             <ImageItem
+              
               previewImage={previewImage}
               restaurantId={restaurant!.id}
               imgUrl={imgUrl}
@@ -92,9 +92,35 @@ export default function ImageUploader(props) {
       )}
 
       {/* FAB to add images */}
-      <Button onPress={onSelectImage} mode="outlined">
+      <Button 
+         
+          textColor="#3AD6A7"
+          buttonColor="#4C5B61"
+          style={styles.addImageButton}
+      onPress={onSelectImage} 
+      mode="outlined">
         Add image
       </Button>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container:{
+    display:"flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom:20
+  },
+  dishImage:{
+    backgroundColor: "#FFF",
+  },
+  addImageButton:{
+    width: 139,
+    height: 48,
+    borderRadius: 29,
+    borderColor: "#3AD6A7", 
+    borderWidth: 1, 
+    marginTop:20
+  },
+})
