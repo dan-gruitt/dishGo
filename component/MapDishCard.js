@@ -43,7 +43,7 @@ export default function MapDishCard(props) {
                   2
                 )}`}</Text>
               </View>
-              {((dish.vegan || dish.vegetarian || dish.pescatarian) && (
+              {((dish.vegan || dish.vegetarian || dish.pescaterian) && (
                 <View style={styles.iconContainer}>
                   {dish.vegan && (
                     <View style={styles.iconTextContainer}>
