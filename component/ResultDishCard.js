@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "white",
     backgroundColor: "#4C5B61",
-    marginLeft: 15,
+    textAlign: 'center',
     borderRadius: 45,
     padding: 4,
     // width: '100%'
