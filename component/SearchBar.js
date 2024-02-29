@@ -99,7 +99,7 @@ export default function SearchBar({userSearch, setUserSearch}) {
 
 const styles = StyleSheet.create({
   surface: {
-    marginTop: -56,
+    marginTop: -53,
     paddingTop: 60,
     marginBottom: 110,
     marginHorizontal: 26,
