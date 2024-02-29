@@ -128,7 +128,7 @@ const SearchArea = () => {
     />
   </View>
 </View>
-<View>
+{/* <View>
 <Picker
         style={{color: "#4C5B61",  fontWeight: "bolder", marginBottom: -20}}
         selectedValue={radius}
@@ -140,7 +140,7 @@ const SearchArea = () => {
         <Picker.Item label="+5 miles" value={5} />
         <Picker.Item label="+10 miles" value={10} />
       </Picker>
-</View>
+</View> */}
 
     </ScrollView>
   );
