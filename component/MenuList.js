@@ -38,7 +38,7 @@ export default function MenuList(props) {
       </View>
       {menu.map((item, index) => {
       return (
-            <Card key={index} contentStyle={styles.card}>
+            <Card key={index} style={{marginBottom:16}} contentStyle={styles.card}>
                 <Card.Content style={styles.cardContent}>
                   <View>
                 <ImageThumbnail item={item} />
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   card:{
     backgroundColor:"#FFF",
-    borderRadius: 8
+    borderRadius: 8,
   },
   cardContent:{
     display: "flex",
