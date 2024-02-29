@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   locationSearchWrap: {
-    width: 300,
-    fontWeight: "bold"
+    width: 355,
+    fontWeight: "bold",
   },
   searchBarContainer: {
     marginTop: 10,
