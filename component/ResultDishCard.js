@@ -62,6 +62,7 @@ const ResultDishCard = ({
   if (!isVisible || !results || !results[2]) {
     return null;
   }
+  console.log(dish)
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>
@@ -92,7 +93,7 @@ const ResultDishCard = ({
                 {dish.pescatarian && (
                   <View style={styles.individualIconContainer}>
                     <Icon2 name="fish" size={15} color="blue" />
-                    <Text style={styles.iconText}>Pescatarian</Text>
+                    <Text style={styles.iconText}>Pescaterian</Text>
                   </View>
                 )}
               </View>
