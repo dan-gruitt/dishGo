@@ -38,6 +38,7 @@ export default function Account({ session }: { session: Session }) {
         setUsername(data.username);
         setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
+        setUser(data)
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -90,7 +91,6 @@ export default function Account({ session }: { session: Session }) {
 
   return (
     <View style={styles.container}>
-      <View>
         <Avatar
           size={160}
           url={avatarUrl}
@@ -99,7 +99,6 @@ export default function Account({ session }: { session: Session }) {
             updateProfile({ username, website, avatar_url: url });
           }}
         />
-      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
