@@ -92,18 +92,21 @@ export default function Auth(props) {
           onDismiss={hideModal}
           contentContainerStyle={styles.popUpContainer}
         >
-          <View style={[styles.verticallySpaced, styles.mt20]}>
-            <Text style={styles.signInText}>Welcome back!</Text>
+          <View style={[styles.verticallySpaced2, styles.mt202]}>
+            <View style={styles.textContainer}>
+            <Text style={{color: "#4C5B61", fontWeight: "bold", fontSize: 23}}>Welcome back!</Text>
+            </View>
+  
             <Input
-              inputContainerStyle={styles.inputInnerContainer}
-              inputStyle={styles.input}
-              containerStyle={styles.inputOuterContainer}
-              labelStyle={styles.labels}
+              // inputContainerStyle={styles.inputInnerContainer}
+              // inputStyle={styles.input}
+              // containerStyle={styles.inputOuterContainer}
+              // labelStyle={styles.labels}
               label="Email"
               leftIcon={{
                 type: "font-awesome",
                 name: "envelope",
-                color: "#FFF",
+                color: "#4C5B61",
                 size: 16,
               }}
               onChangeText={(text) => setSignInEmail(text)}
@@ -114,15 +117,15 @@ export default function Auth(props) {
           </View>
           <View style={styles.verticallySpaced}>
             <Input
-              inputContainerStyle={styles.inputInnerContainer}
-              inputStyle={styles.input}
-              containerStyle={styles.inputOuterContainer}
-              labelStyle={styles.labels}
+              // inputContainerStyle={styles.inputInnerContainer}
+              // inputStyle={styles.input}
+              // containerStyle={styles.inputOuterContainer}
+              // labelStyle={styles.labels}
               label="Password"
               leftIcon={{
                 type: "font-awesome",
                 name: "lock",
-                color: "#FFF",
+                color: "#4C5B61",
                 size: 16,
               }}
               onChangeText={(text) => setSignInPassword(text)}
@@ -135,7 +138,7 @@ export default function Auth(props) {
           <View>
             <Button
               titleStyle={styles.signUpButtonText}
-              buttonStyle={styles.signInButton}
+              buttonStyle={styles.signInButton2}
               title="Sign In"
               disabled={loading}
               onPress={() => signInWithEmail()}
@@ -145,7 +148,7 @@ export default function Auth(props) {
       </Portal>
       {/* if current page is business, render business background, else user background */}
       {/* NB: if you edit background colour for either business or user sign in: also edit View backgroundColour on UserBusinessProfile or UserSignUp.tsx + UserSettings respectively */}
-      <View style={{backgroundColor: `${currentPage.name === "Profile" ? "#4C5B61" : "#000000"}`, ...styles.container}}>
+      <View style={{backgroundColor: `${currentPage.name === "Profile" ? "#4C5B61" : "#4C5B61"}`, ...styles.container}}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
@@ -219,9 +222,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
   },
   popUpContainer: {
-    padding: 28,
+    padding: 35,
     borderRadius: 38,
-    backgroundColor: "#3AD6A7",
+    backgroundColor: "white",
   },
   labels: {
     color: "#FFF",
@@ -266,7 +269,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 60,
+    marginBottom: 200,
   },
   signInText: {
     color: "#FFF",
@@ -277,7 +280,7 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     width: 93,
-    backgroundColor: "rgba(0, 0, 0, 1)",
+    backgroundColor: "rgba(0, 0, 0, 0)",
     borderRadius: 29,
   },
   signInButtonText: {
@@ -292,4 +295,20 @@ const styles = StyleSheet.create({
   mt20: {
     marginTop: 20,
   },
+  signInButton2: {
+    width: 93,
+    backgroundColor: "#4C5B61",
+    borderRadius: 29,
+  },
+  verticallySpaced2: {
+    alignSelf: "stretch",
+  },
+  mt202: {
+    marginTop: 20,
+
+  },
+  textContainer: {
+    marginBottom: 20,
+    marginTop: -10
+  }
 });
