@@ -4,7 +4,7 @@ const supabase = createClient(process.env.EXPO_PUBLIC_SUPABASE_URL, process.env.
 
 
 export const getRestaurantsByUserId = (userId) => {
-    return supabase.from("test_restaurants")
+    return supabase.from("restaurants")
     .select()
     .eq('user_id', userId)
     .then((data) => {

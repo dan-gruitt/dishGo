@@ -5,7 +5,7 @@ const supabase = createClient(process.env.EXPO_PUBLIC_SUPABASE_URL, process.env.
 
 export const getMenuByRestaurantId = (id) => {
     return supabase
-        .from("test_dishes")
+        .from("dishes")
         .select()
         .in('restaurant_id', id)
         .then((data) => {
