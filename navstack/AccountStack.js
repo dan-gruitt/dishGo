@@ -1,15 +1,15 @@
 import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import UserSettings from '../pages/UserSettings';
+import UserSignUp from '../pages/UserSignUp';
 
 const Stack = createNativeStackNavigator();
 
-export default function SettingStack() {
+export default function AccountStack() {
   return (
     <Stack.Navigator>
        <Stack.Screen
-        name="UserSettings"
-        component={UserSettings}
+        name="UserSignUp"
+        component={UserSignUp}
         options={{ title: '' , headerShown: false}}
         />
   </Stack.Navigator>

@@ -6,7 +6,7 @@ import { supabase } from "../lib/supabase";
 import { ScrollView } from "react-native-virtualized-view";
 import Auth from "../component/Auth";
 
-export default function UserSettings() {
+export default function UserSignUp() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function UserSettings() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style = {styles.container}>
       {session && session.user ? (
         <Account key={session.user.id} session={session} />
       ) : (
@@ -36,12 +36,16 @@ export default function UserSettings() {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#4C5B61',
+  },
   headerText:{
-    marginTop: 20,
+    padding: 28,
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 28,
     textAlign: "center",
-    paddingVertical: 28,
   },
 })

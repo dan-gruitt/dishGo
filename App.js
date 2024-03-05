@@ -14,7 +14,7 @@ import Faq from "./pages/Faq";
 import HomePage from "./pages/HomePage";
 import TopBar from "./component/TopBar"
 import HomePageBusiness from "./pages/HomePageBusiness";
-import UserSignUp from './pages/UserSignUp'
+// import UserSignUp from './pages/UserSignUp'
 import { CurrentPageProvider } from "./context/CurrentPageContext";
 import { UserProvider } from "./context/UserContext";
 import { LogBox } from 'react-native';
@@ -77,11 +77,11 @@ export default function App() {
               component={Faq}
               options={{ title: "Faq", headerShown: false }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               name="UserSignUp"
               component={UserSignUp}
               options={{ title: "User Sign Up", headerShown: false }}
-            />
+            /> */}
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

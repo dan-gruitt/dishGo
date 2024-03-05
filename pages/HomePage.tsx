@@ -2,7 +2,7 @@ import React, { useEffect,  useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SearchStack from '../navstack/SearchStack';
 import FavouriteStack from '../navstack/FavouriteStack';
-import SettingStack from '../navstack/SettingStack';
+import AccountStack from '../navstack/AccountStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text } from 'react-native';
 import { UserContext } from '../context/UserContext'
@@ -107,7 +107,7 @@ export default function HomePage({ session, isBusiness }: { session: Session, is
             />
           ),
         }} 
-        component={SettingStack} 
+        component={AccountStack} 
       />
     </Tab.Navigator>
   );

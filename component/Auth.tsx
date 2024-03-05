@@ -146,9 +146,8 @@ export default function Auth(props) {
           </View>
         </Modal>
       </Portal>
-      {/* if current page is business, render business background, else user background */}
-      {/* NB: if you edit background colour for either business or user sign in: also edit View backgroundColour on UserBusinessProfile or UserSignUp.tsx + UserSettings respectively */}
-      <View style={{backgroundColor: `${currentPage.name === "Profile" ? "#4C5B61" : "#4C5B61"}`, ...styles.container}}>
+      
+      <View style={styles.container}>
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
@@ -219,7 +218,8 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
+    paddingBottom: 20
   },
   popUpContainer: {
     padding: 35,
@@ -251,12 +251,13 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 60,
   },
   signUpButton: {
     width: 93,
     backgroundColor: "#3AD6A7",
     borderRadius: 29,
+    marginTop: 20,
+    marginBottom: 30,
   },
   signUpButtonText: {
     color: "#FFF",
@@ -269,14 +270,12 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 200,
   },
   signInText: {
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 14,
     letterSpacing: 0.6,
-    marginBottom: 10,
   },
   signInButton: {
     width: 93,
@@ -305,7 +304,6 @@ const styles = StyleSheet.create({
   },
   mt202: {
     marginTop: 20,
-
   },
   textContainer: {
     marginBottom: 20,
