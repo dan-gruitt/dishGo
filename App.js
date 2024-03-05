@@ -12,7 +12,7 @@ import { LocationProvider } from './context/LocationContext';
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 import Faq from "./pages/Faq";
 import HomePage from "./pages/HomePage";
-import TopBar from "./component/TopBar"
+import Header from "./component/Header"
 import HomePageBusiness from "./pages/HomePageBusiness";
 // import UserSignUp from './pages/UserSignUp'
 import { CurrentPageProvider } from "./context/CurrentPageContext";
@@ -29,7 +29,7 @@ export default function App() {
     <LocationProvider>
       <PaperProvider>
         <NavigationContainer>
-        <TopBar />
+        <Header />
           <Stack.Navigator>
             <Stack.Screen
               name="LandingPage"

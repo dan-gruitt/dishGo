@@ -6,7 +6,7 @@ import Account from '../component/Account'
 import { ScrollView, Text, View, StyleSheet } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
-export default function UserBusinessProfile() {
+export default function BusinessSignUp() {
   const [session, setSession] = useState<Session | null>(null)
 
   const isBusiness = true
@@ -27,11 +27,8 @@ export default function UserBusinessProfile() {
       <Account key={session.user.id} session={session} /> 
       : 
       <>
-        <View>
-          <Text style={styles.headerText}>Welcome!</Text>
-        </View>
         <View style={styles.subHeaderView}>
-          <Text style={styles.subHeaderText}>Sign up and gain access to 1000’s of customers waiting to find your food!</Text>
+          <Text style={styles.subHeaderText}>Sign up and gain access to customers waiting to find your food!</Text>
         </View>
         <Auth isBusiness={isBusiness}/>
       </> }
@@ -43,16 +40,10 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    backgroundColor: "#4C5B61"
-  },
-  headerText:{
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 28,
-    textAlign: "center",
-    paddingVertical: 28,
+    backgroundColor: "#4C5B61",
   },
   subHeaderView:{
+    marginTop: 30,
     backgroundColor: "#FFF",
     width: "100%",
     display: "flex",
