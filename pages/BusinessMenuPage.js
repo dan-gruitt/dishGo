@@ -10,7 +10,6 @@ export default function BusinessMenuPage({ route }) {
 
   React.useEffect(() => {
     getMenuByRestaurantId(restaurant.id).then((menuData)=>{
-      console.log('loading menu')
       setMenu(menuData)
     })
   }, []);

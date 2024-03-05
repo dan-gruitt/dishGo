@@ -9,7 +9,6 @@ import ResultsPage from "./pages/ResultsPage";
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import { LocationProvider } from './context/LocationContext';
-import TestPage from "./pages/TestPage";
 import BusinessMenuPage from "./pages/BusinessMenuPage";
 import Faq from "./pages/Faq";
 import HomePage from "./pages/HomePage";
@@ -61,11 +60,6 @@ export default function App() {
               name="SearchPage"
               component={SearchPage}
               options={{ title: "Search Page" }}
-            />
-            <Stack.Screen
-              name="TestPage"
-              component={TestPage}
-              options={{ title: "Test Page" }}
             />
             <Stack.Screen
               name="HomePageBusiness"

@@ -27,11 +27,7 @@ const ResultDishCard = ({
 
   useEffect(() => {
     if (results && results[0].img_url) {
-      getDishImageByUrl(results[0].img_url, "business_images", setImgUri).then(
-        () => {
-          console.log("imgUri retrieved");
-        }
-      );
+      getDishImageByUrl(results[0].img_url, "business_images", setImgUri)
     }
   }, [results]);
 
@@ -62,7 +58,7 @@ const ResultDishCard = ({
   if (!isVisible || !results || !results[2]) {
     return null;
   }
-  console.log(dish)
+  
   return (
     <Card style={styles.card}>
       <Card.Content style={styles.cardContent}>

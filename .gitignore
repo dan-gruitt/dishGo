@@ -28,13 +28,10 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
-
 # typescript
 *.tsbuildinfo
 
 # .env
-.env*
+.env
 .husky
 .eslintrc.json

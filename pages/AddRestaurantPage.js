@@ -66,7 +66,7 @@ export default function AddRestaurantPage({navigation}) {
       cuisine: cuisine,
       placeId: placeId
     }
-    console.log(placeId, "<<<<<< place ID")
+
       try{
         await restaurantSchema.validate(formInput, {abortEarly: false})
         setErrors(null)
@@ -99,7 +99,6 @@ export default function AddRestaurantPage({navigation}) {
       .then((restaurantData) => {
         setRestaurant(restaurantData)
         setIsSubmitting(false)
-        console.log(restaurantData, "added successfully")
       })
       .catch((err) => {
         setIsSubmitting(false)
@@ -117,7 +116,6 @@ export default function AddRestaurantPage({navigation}) {
         setIsEditMode(false)
         setRestaurant(restaurantData)
         setIsSubmitting(false)
-        console.log(restaurantData, "updated successfully")
       })
       .catch((err) => {
         setIsSubmitting(false)
@@ -277,7 +275,6 @@ export default function AddRestaurantPage({navigation}) {
           onPress={() => {
             setIsEditMode(false)
             setRestaurant(restaurantToEdit)
-            console.log(restaurantToEdit)
             setRestaurantName(restaurantToEdit.name)
             setRestaurantDescription(restaurantToEdit.description)
             setCuisine(restaurantToEdit.cuisine)

@@ -18,12 +18,10 @@ const SearchArea = () => {
   const [distance, setDistance] = useState(1);
   const [placeholder, setPlaceholder] = useState("Search Location...");
 
-  console.log(placeId)
 
   useEffect(() => {
     if (placeId) {
       getPlacesById(placeId)
-      console.log(placeId)
         .then((response) => {
           const { data } = response;
           const location = data.result.geometry.location;
@@ -97,7 +95,6 @@ const SearchArea = () => {
         language: "en",
       }}
       onPress={(data, details = null) => {
-        console.log(data.place_id)
         setPlaceId(data.place_id);
       }}
       onFail={(error) => console.error(error)}

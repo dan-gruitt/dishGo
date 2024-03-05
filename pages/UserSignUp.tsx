@@ -23,7 +23,6 @@ export default function UserSignUp({navigation}) {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
-    console.log(session, '<<<')
   }, [])
 
   return (
