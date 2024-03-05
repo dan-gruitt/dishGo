@@ -87,10 +87,8 @@ export const getMenuByRestaurantId = async (restaurantId) => {
   .eq("restaurant_id", restaurantId)
   console.log(error)
   if (data.length === 0){
-    console.log(data, "no dishes")
     return []
   } else
-  console.log(data, "menu retrieved") 
   return data
 };
 

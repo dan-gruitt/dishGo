@@ -30,7 +30,6 @@ const AvatarImage = (props) => {
         const fr = new FileReader();
         fr.readAsDataURL(data!);
         fr.onload = () => {
-          console.log(data);
           setImageUri(fr.result as string);
           setIsLoading(false);
         };

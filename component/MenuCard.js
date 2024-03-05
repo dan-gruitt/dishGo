@@ -12,12 +12,7 @@ export default function MenuCard(props) {
 
     useEffect(() => {
       if (dish && dish.img_url) {
-        getDishImageByUrl(dish.img_url, "business_images", setImgUri).then(
-          () => {
-            console.log(menu)
-            console.log("imgUri retrieved");
-          }
-        );
+        getDishImageByUrl(dish.img_url, "business_images", setImgUri)
       }
     }, [menu]);
 

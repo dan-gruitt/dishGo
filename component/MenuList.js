@@ -13,7 +13,6 @@ export default function MenuList(props) {
   const [itemToDelete, setItemToDelete] = React.useState(null);
 
   const handlePopUp = (item) => {
-    console.log(itemToDelete)
     setItemToDelete(item)
     setIsDialogVisible(true);
   }

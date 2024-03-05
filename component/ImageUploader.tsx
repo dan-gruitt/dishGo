@@ -59,7 +59,6 @@ export default function ImageUploader(props) {
   };
 
   const onRemoveImage = async (imgUrl) => {
-    console.log("delete");
     supabase.storage
       .from("business_images")
       .remove(imgUrl)

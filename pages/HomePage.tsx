@@ -34,7 +34,6 @@ export default function HomePage({ session, isBusiness }: { session: Session, is
 
       if (data) {
         setUser(data);
-        console.log(data, "<<<< user??");
       }
     } catch (error) {
       if (error) {

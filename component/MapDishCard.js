@@ -13,11 +13,7 @@ export default function MapDishCard(props) {
 
     useEffect(() => {
       if (dish && dish.img_url) {
-        getDishImageByUrl(dish.img_url, "business_images", setImgUri).then(
-          () => {
-            console.log("imgUri retrieved");
-          }
-        );
+        getDishImageByUrl(dish.img_url, "business_images", setImgUri);
       }
     }, []);
 

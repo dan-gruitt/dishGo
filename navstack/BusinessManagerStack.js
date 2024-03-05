@@ -19,7 +19,6 @@ export default function BusinessManagerStack() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      // console.log(session, ' <<< SESSION 2 USER BUSINESS SIGN UP');
     });
   }, []);
 
