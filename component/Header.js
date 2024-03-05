@@ -8,7 +8,7 @@ import { CurrentPageContext } from "../context/CurrentPageContext";
 import { UserContext } from "../context/UserContext";
 import AvatarImage from "./AvatarImage";
 
-export default function TopBar() {
+export default function Header() {
   //this is the current page context
   const { CurrentPage } = useContext(CurrentPageContext);
   const { User } = useContext(UserContext);
@@ -29,7 +29,7 @@ export default function TopBar() {
   const navigation = useNavigation();
 
   return (
-    <Appbar.Header style={styles.appBar} mode="medium">
+    <Appbar.Header mode="medium">
       <View style={styles.container}>
         <View>
           <Pressable onPress={() => navigation.navigate("LandingPage")}>
@@ -62,10 +62,6 @@ export default function TopBar() {
 }
 
 const styles = StyleSheet.create({
-  appBar: {
-    elevation: 5,
-    backgroundColor: "#FFF",
-  },
   container: {
     display: "flex",
     flexDirection: "row",

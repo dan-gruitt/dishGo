@@ -79,8 +79,6 @@ export default function Auth(props) {
 
     if (error) Alert.alert(error.message);
 
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
   }
 
@@ -219,7 +217,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     paddingHorizontal: 20,
-    paddingBottom: 20
   },
   popUpContainer: {
     padding: 35,
@@ -256,7 +253,7 @@ const styles = StyleSheet.create({
     width: 93,
     backgroundColor: "#3AD6A7",
     borderRadius: 29,
-    marginTop: 20,
+    marginTop:10,
     marginBottom: 30,
   },
   signUpButtonText: {

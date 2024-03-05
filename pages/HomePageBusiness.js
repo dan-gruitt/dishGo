@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import UserBusinessProfile from '../component/UserBusinessProfile'
+import BusinessSignup from './BusinessSignup'
 import BusinessManagerStack from '../navstack/BusinessManagerStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Text } from 'react-native';
@@ -38,7 +38,7 @@ export default function HomePageBusiness() {
             />
           ),
         }} 
-        component={UserBusinessProfile}
+        component={BusinessSignup}
       />
       <Tab.Screen 
         name="Locations" 
