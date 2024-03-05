@@ -4,23 +4,22 @@ import { Pressable, StyleSheet, Line } from "react-native";
 
 export default function Faq({ navigation }) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.containerOuter}>
       <View style = {styles.titleContainer}>
-        <Text style={styles.title}>How does it work?</Text>
+        <Text style={styles.title}>How does this work?</Text>
       </View>
 
       <View style={styles.container}>
         <Text style={styles.subtitle}>Step 1: Crave It:</Text>
         <Text style={styles.text}>
-          Unleash your cravings with a tap! Our smart search bar serves up your
-          favorite dishes instantly.
+          Start typing in our smart search bar and watch suggested dishes appear.
         </Text>
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.subtitle}>Step 2: Local Vibes:</Text>
+        <Text style={styles.subtitle}>Step 2: Filter the Feast:</Text>
         <Text style={styles.text}>
-          Filter the feast! Narrow down options based on your location, ensuring
+          Narrow down options based on your location, ensuring
           your food adventure is just around the corner.
         </Text>
       </View>
@@ -28,16 +27,7 @@ export default function Faq({ navigation }) {
       <View style={styles.container}>
         <Text style={styles.subtitle}>Step 3: Map Munch:</Text>
         <Text style={styles.text}>
-          Check the map, plan your stroll. Discover how close you are to flavor
-          town and get ready to embark on a delicious journey.
-        </Text>
-      </View>
-
-      <View style={styles.container}>
-        <Text style={styles.subtitle}>Step 4: Nom Nom Now:</Text>
-        <Text style={styles.text}>
-          Tuck into bliss! Your favorite food is within reach – savor the moment
-          and indulge in a culinary experience like no other.
+          Check the map, plan your stroll and get ready to embark on a delicious journey.
         </Text>
       </View>
       <>
@@ -55,11 +45,13 @@ export default function Faq({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
+  containerOuter: {
     alignItems: "center",
-    width: "100%",
     padding: 15,
+    gap: 20,
+  },
+  container: {
+    alignItems: "center",
   },
   title: {
     fontWeight: "bold",
