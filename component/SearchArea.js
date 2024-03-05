@@ -2,12 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { List } from "react-native-paper";
-import { Picker } from "@react-native-picker/picker";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { getPlacesById } from "../utils/getPlacesById";
 import { LocationContext } from "../context/LocationContext";
 import { ScrollView } from "react-native-virtualized-view";
-import { CurrentRenderContext } from "@react-navigation/native";
 
 
 const SearchArea = () => {
@@ -16,10 +14,11 @@ const SearchArea = () => {
   const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
   const [placeId, setPlaceId] = useState("");
   const [distance, setDistance] = useState(1);
-  const [placeholder, setPlaceholder] = useState("Search Location...");
+  const [placeholder, setPlaceholder] = useState("Enter Location");
 
 
   useEffect(() => {
+    handleUserLocation()
     if (placeId) {
       getPlacesById(placeId)
         .then((response) => {
@@ -71,7 +70,6 @@ const SearchArea = () => {
 <View style={styles.locationSearchWrap}>
   <View style={styles.searchBar}>
   <Pressable onPress={handleUserLocation}  style={{
-          marginLeft: 0,
           fontWeight: "bold",
           fontSize: 12,
           color: "#3AD6A7",
@@ -87,9 +85,6 @@ const SearchArea = () => {
     <GooglePlacesAutocomplete
       placeholder={placeholder}
       placeholderTextColor="#A9A9AC" // Set placeholder text color
-      autoFocus={true}
-      mode="elevated"
-      listViewDisplayed="auto"
       query={{
         key: GOOGLE_PLACES_API_KEY,
         language: "en",
@@ -101,25 +96,16 @@ const SearchArea = () => {
       styles={{
         container: {
           borderRadius: 45,
-          width: 320,
-          flex: 1,
         },
         textInputContainer: {
-          paddingTop: 0,
           marginLeft: -5,
           height: 52,
-          backgroundColor: "rgba(0,0,0,0)",
         },
         textInput: {
           borderRadius: 50,
           height: 52,
-          color: "#5d5d5d",
           fontSize: 16,
-          marginBottom: 0,
           backgroundColor: "rgba(0,0,0,0)",
-        },
-        predefinedPlacesDescription: {
-          color: "#1faadb",
         },
       }}
     />
@@ -148,57 +134,24 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -50,
     paddingBottom: 15,
     paddingTop: 10,
-    width: "100%",
+    marginTop: 20,
   },
   locationSearchWrap: {
-    width: 355,
-    fontWeight: "bold",
+    width: 310,
   },
   searchBarContainer: {
-    marginTop: 10,
-    position: "relative",
     borderRadius: 50,
-    width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
   searchBar: {
-    marginTop: 100,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 50,
   },
 });
-
-const autocompleteStyles = {
-  container: {
-    borderRadius: 45,
-    flex: 1,
-    marginBottom: 5,
-  },
-  textInputContainer: {
-    textAlign: "center",
-    borderRadius: 45,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    height: "100%",
-  },
-  textInput: {
-    borderRadius: 50,
-    marginLeft: 0,
-    marginRight: 0,
-    color: "#5d5d5d",
-    fontSize: 16,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-  },
-  predefinedPlacesDescription: {
-    color: "#1faadb",
-  },
-};
 
 export default SearchArea;
