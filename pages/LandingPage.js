@@ -33,7 +33,7 @@ export default function LandingPage({ navigation }) {
 
       <View style={styles.introButton}>
         <Pressable
-          style={styles.button}
+          style={{backgroundColor: "#4C5B61", ...styles.button}}
           onPress={() => navigation.navigate("HomePage")}
         >
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
@@ -44,7 +44,7 @@ export default function LandingPage({ navigation }) {
         {session && session.user ? (
           <>
             <Pressable
-              style={styles.button}
+              style={{backgroundColor: '#DC143C', ...styles.button}}
               onPress={() => supabase.auth.signOut()}
             >
               <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
@@ -54,7 +54,7 @@ export default function LandingPage({ navigation }) {
           </>
         ) : (
           <Pressable
-            style={styles.button}
+            style={{backgroundColor: '#3AD6A7', ...styles.button}}
             onPress={() => navigation.navigate("HomePage",{ screen: 'Account' })}
           >
             <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
@@ -70,7 +70,7 @@ export default function LandingPage({ navigation }) {
             style={{ fontWeight: "bold", fontSize: 15, color: "#FFF" }}
             onPress={() => navigation.navigate("Faq")}
           >
-            How does it work?
+            How does this work?
           </Text>
         </Pressable>
       </View>
@@ -81,7 +81,6 @@ export default function LandingPage({ navigation }) {
 const styles = StyleSheet.create({
   imgWrap: {
     display: "flex",
-    marginTop: 112,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -90,9 +89,9 @@ const styles = StyleSheet.create({
     width: 336,
     height: 336,
     overflow: "hidden",
-    marginBottom: 100,
   },
   mainContainer: {
+    height: '100vh',
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#FFF",
@@ -104,12 +103,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     padding: 26,
-    marginBottom: 100,
   },
   button: {
     width: 139,
     height: 57,
-    backgroundColor: "#4C5B61",
     borderRadius: 29,
     display: "flex",
     flexDirection: "row",
