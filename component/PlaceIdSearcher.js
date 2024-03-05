@@ -19,7 +19,6 @@ const TestPlaceIdSearcher = ({setPlaceId, searcherPlaceHolder, setSearcherPlaceH
           language: 'en', // language of the results
         }}
         onPress={(data, details = null) => {
-          console.log(data)
           setPlaceId(data.place_id)
           setSearcherPlaceHolder(data.description)
         }

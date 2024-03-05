@@ -13,8 +13,6 @@ export default function TopBar() {
   const { CurrentPage } = useContext(CurrentPageContext);
   const { User } = useContext(UserContext);
 
-  console.log(User, "<<<<<<");
-
   const [session, setSession] = useState(null);
 
   useEffect(() => {

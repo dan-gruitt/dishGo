@@ -37,7 +37,6 @@ export default function DishUploadForm(props) {
       setErrors(null)
       submitDish();
     } catch (error) {
-      console.log(error.inner)
       const newError = {}
       error.inner.forEach((err)=>{
         newError[err.path] = err.message

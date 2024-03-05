@@ -10,8 +10,6 @@ export default function ConfirmDeletePopUp(props) {
     setIsDialogVisible(false);
   }
 
-  console.log(itemToDelete)
-
   return (!itemToDelete ? null : (
     <Portal>
     <Dialog visible = {isDialogVisible} onDismiss={handleDismiss}>

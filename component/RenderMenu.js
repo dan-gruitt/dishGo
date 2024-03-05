@@ -5,8 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import MenuCard from "./MenuCard";
 
 export const RenderMenu = ({ location, menu, styles }) => {
-  console.log(menu)
-
+  
     return menu.map((dish, index) => (
       <MenuCard dish={dish} key={index} menu={menu} styles ={styles} location = {location}></MenuCard>
 
