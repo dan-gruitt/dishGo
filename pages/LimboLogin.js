@@ -9,7 +9,7 @@ export default function LimboLogin() {
   return (
       <ScrollView style={styles.container}>
         <View style={styles.headerTextView}>
-          <Text style={styles.headerText}><Text>You must be logged in to view your restaurants</Text></Text>
+          <Text style={styles.headerText}>You must be logged in to see this page</Text>
         </View>
         <View style={styles.signInButtonView}>
           <Pressable style={styles.signInButton}>
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
     fontSize: 28,
     textAlign: "center",
     width: 226,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   signInButtonView:{
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 60
+    marginBottom: 40
   },
   signInButton:{
     width: 93,
