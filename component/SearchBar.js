@@ -11,10 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function SearchBar({userSearch, setUserSearch}) {
     const navigation = useNavigation();
-    const [input, setInput] =  useState('');
     const [dishes, setDishes] =  useState([]);
     const [filterDishes, setFilterDishes] =  useState([]);
-    const [searchQuery, setSearchQuery] = React.useState('');
+    const [searchQuery, setSearchQuery] = useState('');
   
   useEffect(() =>{
     getDishesName().then((data)=>{
@@ -26,7 +25,8 @@ export default function SearchBar({userSearch, setUserSearch}) {
     setSearchQuery(e)
     setUserSearch(e)
     if (searchQuery.length > 1 && filterSearch(dishes, searchQuery).length > 0){
-      setFilterDishes(filterSearch(dishes, searchQuery));
+      const firstFiveSearches = filterSearch(dishes, searchQuery).slice(0, 5)
+      setFilterDishes(firstFiveSearches);
     } else {
       setFilterDishes([]);
     }
