@@ -17,8 +17,8 @@ export default function SearchPage({ navigation }) {
   const [userSearch, setUserSearch] = useState("");
 
   return (
-    <ScrollView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding">
+    <>
+    <View style={styles.container}>
         {/* <Image
       style={styles.image}
       source={require("../assets/white-disgo.png")}
@@ -26,19 +26,19 @@ export default function SearchPage({ navigation }) {
         {/* <View>
       <Text style={styles.locationHeaderText}>Where Would You Like To Search?</Text>
     </View> */}
-        <View style={{ justifyContent: "flex-start" }}>
-          <SearchArea />
+        <View style={{ justifyContent: "flex-start", position: "absolute", zIndex:999, width: 360}}>
+        <SearchArea />
           <SearchBar setUserSearch={setUserSearch} userSearch={userSearch} />
         </View>
         <View style={styles.headerWrap}>
           <Text style={styles.headerText}>What are you in the mood for?</Text>
         </View>
-        <View style ={{alignItems: "center"}}>
+        <View style={{alignItems: "center"}}>
         <Image
       source={require("../assets/donut-lady.png")} style={{width: 335, height:294}} />
       </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+    </View>
+    </>
   );
 }
 
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // justifyContent: 'center',
     alignContent: "center",
     backgroundColor: "#3AD6A7",
     paddingBottom: 0,
@@ -54,12 +53,13 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 78,
-    overflow: "hidden",
+    objectFit: "cover"
   },
   headerWrap: {
     alignItems: "center",
     paddingTop:20,
     paddingBottom: 10,
+    marginTop: 170,
   },
   locationHeaderText: {
     color: "#FFF",
@@ -90,5 +90,3 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
