@@ -1,7 +1,10 @@
-import { Marker } from "react-native-maps";
+import { Marker, Callout } from "react-native-maps";
 import React from "react";
+import { IconButton } from "react-native-paper";
+import { View, Text } from "react-native";
+import ResultDishCard from "./ResultDishCard";
 
-export const MapMarkers = ({ mapResults, markerPressed }) => {
+export const MapMarkers = ({ mapResults, markerPressed, }) => {
     
     return mapResults.map((result, index) => {
         const markerLat = result.place.geometry.location.lat
@@ -14,7 +17,8 @@ export const MapMarkers = ({ mapResults, markerPressed }) => {
             title={restaurantName}
             pinColor="#3AD6A7" 
             onPress={() => markerPressed(result)}
-          />)
+          >
+          </Marker>)
 
     })
 }

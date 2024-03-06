@@ -88,7 +88,8 @@ export default function ResultsPage({ navigation, route }) {
           {mapView ? "Show List View" : "Show Map View"}
         </Button>
         {mapView ? (
-          <GoogleMapView mapResults={mapResults} results={results} />
+          <GoogleMapView mapResults={mapResults} results={results} setMapResults={setMapResults} storeMapResults={storeMapResults}
+          restaurants={restaurants}/>
         ) : dataLoaded ? (
           dishesToShow.map((dish) => (
             <ResultDishCard
@@ -103,7 +104,7 @@ export default function ResultsPage({ navigation, route }) {
           ))
         ) : (
           <View>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#3AD6A7" />
           </View>
         )}
       </ScrollView>

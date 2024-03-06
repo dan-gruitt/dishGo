@@ -10,7 +10,7 @@ import MapDishCard from "./MapDishCard";
 
 export const MarkerPressedCard = ({
   pressedMarkerArr,
-  pressedMarkerDishes,
+  pressedMarkerDish,
   results,
 }) => {
 
@@ -50,7 +50,7 @@ export const MarkerPressedCard = ({
           Restaurant
         </Button>
       </View>
-      {pressedMarkerDishes.map((dish, index) => (<MapDishCard key = {index} dish={dish} styles={styles} /> ))}
+      {pressedMarkerDish.map((dish, index) => (<MapDishCard key = {index} dish={dish} styles={styles} /> ))}
     </View>
   );
 };
