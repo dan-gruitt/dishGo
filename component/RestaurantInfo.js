@@ -19,7 +19,7 @@ const RestaurantInfo = ({
           {hours}
         </Text>
       ))}
-      <Text style={styles.opening_hours}>Address: {address}</Text>
+      {/* <Text style={styles.opening_hours}>Address: {address}</Text> */}
     </>
   );
 };

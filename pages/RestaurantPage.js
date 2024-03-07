@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Text, StyleSheet, Image, ScrollView, View } from "react-native";
-import RestaurantInfo from "../component/RestaurantInfo";
+import { useEffect, useState, useRef } from "react";
+import { Text, StyleSheet, Image, ScrollView, View, TouchableOpacity } from "react-native";
 import RenderStarRating from "../component/RenderStarRating";
 import RenderReviews from "../component/RenderReviews";
 import RenderMenu from "../component/RenderMenu";
@@ -9,6 +8,9 @@ import OpeningHours from '../component/OpeningHours';
 import { getMenuByRestaurantId } from "../utils/getMenuByRestaurantId";
 
 export default function RestaurantPage({ route }) {
+
+  const scrollRef = useRef();
+
   const { results } = route.params;
   const restaurant = results[1];
   const restaurantPlace = results[2];
@@ -34,44 +36,38 @@ export default function RestaurantPage({ route }) {
   }, [restaurant.id]);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.restaurant_name_view}><Text style={styles.restaurant_name}>{restaurant.name}</Text></View>
+    <ScrollView style={styles.container} ref={scrollRef}>
+      <View style={styles.restaurantCard}>
+        <View style={styles.restaurantHeader}>
+          <Text style={styles.restaurant_name}>{restaurant.name}</Text>
+          <RenderStarRating rating={restaurantPlace.rating} />
+          </View>
         <Text style={styles.restaurant_description}>
           {restaurant.description}
         </Text>
-        <View style={styles.starContainer}>
-          <View style={styles.ratingView}><RenderStarRating rating={restaurantPlace.rating} /></View>
-          <UrlLink styles={styles} website={restaurantPlace.website}/>
+        <View style={styles.buttonsContainer}>
+          <UrlLink styles={styles.webButton} website={restaurantPlace.website} text={"Website"}/>
+          <UrlLink styles={styles.mapsButton} website={restaurantPlace.url} text = {"Open in Maps"}/>
         </View>
-        {/* <RestaurantInfo
-          styles={styles}
-          open_now={restaurantPlace.current_opening_hours.open_now}
-          weekday_text={restaurantPlace.current_opening_hours.weekday_text}
-          website={restaurantPlace.website}
-          address={restaurantPlace.formatted_address}
-          restaurantName={restaurant.name}
-        /> */}
-        {/* <Text style={styles.sectionTitle}>Photos</Text> */}
         <View style={styles.photoView}>
           <ScrollView style={styles.photScroll} horizontal={true}>{renderPhotos()}</ScrollView>
         </View>
-
-        <View>
           <OpeningHours 
           styles={styles}
           restaurantPlace={restaurantPlace} 
           restaurant={restaurant}
           />
-        </View>
 
         <Text style={styles.sectionTitle}>Full Menu</Text>
-        {menu && <RenderMenu location={restaurant.name} menu={menu} styles={styles} />}
+        {menu && <RenderMenu location={restaurant.name} menu={menu} />}
       
         <Text style={styles.sectionTitle}>Reviews</Text>
         <RenderReviews reviews={restaurantPlace.reviews} styles={styles} />
-        {/* <Text style={styles.sectionTitle}>{restaurant.name}'s Full Menu</Text> */}
 
+<View style={{alignItems: "center"}}><TouchableOpacity style={styles.scrollToTopBtn} onPress={()=>{
+scrollRef.current?.scrollTo({
+  y: 0,})}}>
+    <Text style={{    color: 'grey'}}>Top</Text></TouchableOpacity></View>
       </View>
     </ScrollView>
   );
@@ -80,52 +76,63 @@ export default function RestaurantPage({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#3AD6A7"
+    backgroundColor:"#3AD6A7",
   },
-  innerContainer:{
+  restaurantCard:{
     backgroundColor:"#FFF",
-    margin: 26,
+    margin: 10,
     overflow: "hidden",
-    borderRadius: 31
+    borderRadius: 31,
+    padding: 20,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  restaurant_name_view:{
-    display: "flex",
+  restaurantHeader:{
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 10,
   },
   restaurant_name: {
     fontSize: 19,
     fontWeight: "bold",
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 15,
     color: "#4C5B61",
-    width: 184,
     textAlign:"center"
   },
   restaurant_description: {
     fontSize: 20,
-    marginHorizontal: 20,
-    marginBottom: 18,
+    marginBottom: 20,
     textAlign: "center",
     color: "#4C5B61",
     fontSize: 16
   },
-  ratingView:{
-    display: "flex",
+  buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    paddingTop: 12,
+    justifyContent: "center",
+    gap: 10,
+    marginBottom: 20,
+  },
+  webButton:
+  { 
+      backgroundColor: "#4C5B61",
+      color: "#FFF",
+      
+  },
+  mapsButton:
+  { 
+      backgroundColor: "#3AD6A7",
+      color: "#FFF",
+      
   },
   opening_hours: {
     fontSize: 16,
-    margin: 5,
     textAlign: "center",
+    marginBottom: 5,
   },
   open_now_green: {
     fontSize: 18,
@@ -133,6 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
     color: "green",
+    marginTop: 10,
   },
   open_now_red: {
     fontSize: 18,
@@ -140,25 +148,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
     color: "red",
-  },
-  website: {
-    fontSize: 16,
-    color: "blue",
-    textAlign: "center",
-    textDecorationLine: "underline",
     marginTop: 10,
   },
-  photoView:{
-    paddingHorizontal: 20
-  },
+
   photScroll:{
-    paddingBottom: 10,
+    marginBottom: 10,
   },
   photo: {
     width: 134,
     height: 134,
-    margin: 5,
-    borderRadius: 31,
+    marginRight: 10,
+    borderRadius: 18,
   },
   sectionTitle: {
     fontSize: 20,
@@ -166,17 +166,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#4C5B61",
     marginTop: 20,
-    marginBottom: 8,
-  },
-  card: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#4C5B61",
-    marginVertical: 12,
-    marginHorizontal: 20,
-    borderRadius:31
+    marginBottom: 20,
   },
   reviewCard:{
     display: "flex",
@@ -184,8 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#3AD6A7",
-    marginVertical: 12,
-    marginHorizontal: 20,
+    marginBottom: 15,
     borderRadius:31
   },
   reviewContainer: {
@@ -211,82 +200,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginBottom: -8,
   },
-  starContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 5,
-    paddingHorizontal: 26,
-    marginBottom: 26
-  },
+
   menuContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
-  dishHeader: {
-    display:"flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    justifyContent: "space-evenly",
-    // marginBottom: 5,
-    width:"50%",
-  },
-  dishName: {
-    fontSize: 13,
-    fontWeight: "bold",
-    marginLeft: 5,
-    textAlign: "right",
-    color: "#FFF",
-    marginBottom:30
-  },
-  dishLocation:{
-    fontSize: 13,
-    // fontWeight: "bold",
-    marginLeft: 5,
-    textAlign: "right",
-    color: "#FFF",
-    marginBottom:30
-  },
-  dishPrice:{
-    fontSize: 13,
-    fontWeight: "bold",
-    marginLeft: 5,
-    textAlign: "right",
-    color: "#FFF",
-  },
-  dishDescription: {
-    fontSize: 15,
-    margin: 20,
-    textAlign: "center",
-  },
+  
   reviewText: {
     fontSize: 11,
     margin: 20,
     textAlign: "center",
     color: "#FFF"
   },
-  cover: {
-    // height: 200,
-    width: "50%",
-  },
-  iconContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    backgroundColor: "#e8c6f7",
-    borderRadius: 10,
-    padding: 5,
-  },
-  iconTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 5,
-  },
-  iconText: {
-    fontSize: 16,
-  },
+  scrollToTopBtn:{
+    borderWidth: 1,
+    borderColor: '#eeeeee',
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 31,
+  }
 });

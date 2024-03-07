@@ -56,7 +56,10 @@ export const GoogleMapView = (props) => {
           region={mapRegion}
           scrollEnabled={true}
           zoomEnabled={true}
-        >
+          minZoomLevel={14}
+          showsMyLocationButton={false}
+          toolbarEnabled={false}>
+      
           <MapMarkers mapResults={mapResults} markerPressed={markerPressed} />
         </MapView>
       </View>

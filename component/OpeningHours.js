@@ -28,17 +28,17 @@ export default OpeningHours;
 
 const stylesAcc = StyleSheet.create({
     accordion: {
-     marginHorizontal: 18,
      borderRadius: 8,
      borderRadius: 8,
      overflow: "hidden",
      border:"#4C5B61",
-     marginTop: 20
+     marginTop: 20,
+     backgroundColor: '#fff',
     },
     innerAccordion: {
     borderRadius: 8,
-        borderColor:"#4C5B61",
-    borderWidth: 2,
-    marginBottom: 20
+        borderColor:"#eeeeee",
+    borderWidth: 1,
+    backgroundColor: '#fff',
     }
   });

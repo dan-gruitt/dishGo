@@ -1,4 +1,5 @@
 import Icon from "react-native-vector-icons/FontAwesome";
+import { View, StyleSheet } from "react-native";
 
 export const RenderStarRating = ({ starColor="#3AD6A7", rating }) => { 
     const filledStars = Math.floor(rating);
@@ -23,7 +24,16 @@ export const RenderStarRating = ({ starColor="#3AD6A7", rating }) => {
       );
     }
   
-    return <>{stars}</>;
+    return <View style={styles.ratingView}>{stars}</View>;
   };
+
+  const styles = StyleSheet.create({
+    ratingView:{
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  })
+
 
   export default RenderStarRating;
