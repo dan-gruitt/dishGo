@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { View, StyleSheet} from 'react-native';
-import {ScrollView} from 'react-native-virtualized-view'
+import { View} from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const GOOGLE_PLACES_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY; // never save your real api key in a snack!

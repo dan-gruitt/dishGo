@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, Dimensions, ActivityIndicator } from "react-native";
+import { View, Dimensions, ActivityIndicator } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Callout } from "react-native-maps";
 import {MapMarkers} from "./MapMarker";
 import { LocationContext } from "../context/LocationContext";
-import {MarkerPressedCard} from "./MarkerPressedCard";
-import { ScrollView } from "react-native";
 import ResultDishCard from "./ResultDishCard";
 
 export const GoogleMapView = (props) => {
@@ -39,9 +37,6 @@ export const GoogleMapView = (props) => {
   }
 
   const markerPressed = (result) => {
-    // const allDishes = mapResults
-    //   .filter((item) => item.dish.restaurant_id === result.restaurant.id)
-    //   .map((item) => item.dish);
     setPressedMarkerArr(result);
     setPressedMarkerDish(result);
   }

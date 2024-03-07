@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Linking } from 'react-native'
+import { Text, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 
 export default function Link({styles,website}) {

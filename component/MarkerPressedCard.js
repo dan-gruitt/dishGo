@@ -6,7 +6,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { CurrentRenderContext, useNavigation } from "@react-navigation/native";
 import { getDishImageByUrl } from "../utils/getDishImageByUrl";
-import MapDishCard from "./MapDishCard";
 
 export const MarkerPressedCard = ({
   pressedMarkerArr,
@@ -50,7 +49,6 @@ export const MarkerPressedCard = ({
           Restaurant
         </Button>
       </View>
-      {pressedMarkerDish.map((dish, index) => (<MapDishCard key = {index} dish={dish} styles={styles} /> ))}
     </View>
   );
 };
