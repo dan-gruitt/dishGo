@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Alert, StyleSheet, View, AppState } from "react-native";
-import { Modal, Portal, Text } from "react-native-paper";
+import { Alert, StyleSheet, View, AppState, Text } from "react-native";
+import { Modal, Portal} from "react-native-paper";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
 import { CurrentPageContext } from "../context/CurrentPageContext";
@@ -90,9 +90,9 @@ export default function Auth(props) {
           onDismiss={hideModal}
           contentContainerStyle={styles.popUpContainer}
         >
-          <View style={[styles.verticallySpaced2, styles.mt202]}>
+          <View style={styles.verticallySpaced2}>
             <View style={styles.textContainer}>
-            <Text style={{color: "#4C5B61", fontWeight: "bold", fontSize: 23}}>Welcome back!</Text>
+            <Text style={{color: "#3AD6A7", fontWeight: "bold", fontSize: 23, textAlign: 'center', marginTop: 10}}>Welcome back!</Text>
             </View>
   
             <Input
@@ -111,6 +111,7 @@ export default function Auth(props) {
               value={signInEmail}
               placeholder="email@address.com"
               autoCapitalize={"none"}
+              inputStyle={styles.input}
             />
           </View>
           <View style={styles.verticallySpaced}>
@@ -126,6 +127,7 @@ export default function Auth(props) {
                 color: "#4C5B61",
                 size: 16,
               }}
+              inputStyle={styles.input}
               onChangeText={(text) => setSignInPassword(text)}
               value={signInPassword}
               secureTextEntry={true}
@@ -149,7 +151,7 @@ export default function Auth(props) {
         <View style={[styles.verticallySpaced, styles.mt20]}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
-            inputStyle={styles.input}
+            inputStyle={{color: "#FFF", ...styles.input}}
             containerStyle={styles.inputOuterContainer}
             labelStyle={styles.labels}
             label="Email"
@@ -168,7 +170,7 @@ export default function Auth(props) {
         <View style={styles.verticallySpaced}>
           <Input
             inputContainerStyle={styles.inputInnerContainer}
-            inputStyle={styles.input}
+            inputStyle={{color: "#FFF", ...styles.input}}
             containerStyle={styles.inputOuterContainer}
             labelStyle={styles.labels}
             label="Password"
@@ -219,9 +221,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   popUpContainer: {
-    padding: 35,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
     borderRadius: 38,
     backgroundColor: "white",
+    margin: 10,
+    alignItems:'center'
   },
   labels: {
     color: "#FFF",
@@ -238,7 +243,6 @@ const styles = StyleSheet.create({
     borderColor: "#FFF",
   },
   input: {
-    color: "#FFF",
     textDecorationLine: "none",
     paddingLeft: 24,
     fontSize: 14,
@@ -298,9 +302,6 @@ const styles = StyleSheet.create({
   },
   verticallySpaced2: {
     alignSelf: "stretch",
-  },
-  mt202: {
-    marginTop: 20,
   },
   textContainer: {
     marginBottom: 20,

@@ -92,7 +92,7 @@ export default function Account({ session }: { session: Session }) {
   return (
     <View style={styles.container}>
         <Avatar
-          size={160}
+          size={130}
           url={avatarUrl}
           onUpload={(url: string) => {
             setAvatarUrl(url);
@@ -100,22 +100,14 @@ export default function Account({ session }: { session: Session }) {
           }}
         />
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input label="Email" value={session?.user?.email} disabled />
+        <Input style = {styles.input} labelStyle={styles.labels} 
+        leftIcon={{
+              type: "font-awesome",
+              name: "envelope",
+              color: "#FFF",
+              size: 16,
+            }} label="Email" value={session?.user?.email} disabled />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Username"
-          value={username || ""}
-          onChangeText={(text) => setUsername(text)}
-        />
-      </View>
-      {/* <View style={styles.verticallySpaced}>
-        <Input
-          label="Website"
-          value={website || ""}
-          onChangeText={(text) => setWebsite(text)}
-        />
-      </View> */}
 
 <View style={styles.buttonContainer}>
 
@@ -127,7 +119,7 @@ export default function Account({ session }: { session: Session }) {
           }
           disabled={loading}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#FFF" }}>
             {loading? "Loading..." : "Update"}
           </Text>
         </Pressable>
@@ -143,7 +135,7 @@ export default function Account({ session }: { session: Session }) {
             navigation.getParent()?.goBack()
           }}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#FFF" }}>
             Sign Out
           </Text>
         </Pressable>
@@ -166,7 +158,7 @@ export default function Account({ session }: { session: Session }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 30,
     padding: 12,
     display: "flex",
     alignItems: "center",
@@ -208,5 +200,17 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFF",
+  },
+  input: {
+    textDecorationLine: "none",
+    paddingLeft: 24,
+    fontSize: 14,
+    color: '#fff'
+  },
+  labels: {
+    color: "#FFF",
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: 0.8,
   },
 });
