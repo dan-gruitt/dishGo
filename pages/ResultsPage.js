@@ -5,7 +5,7 @@ import { getDishes } from "../utils/getDishes";
 import ResultDishCard from "../component/ResultDishCard";
 import { filterSearch } from "../utils/filterSearch";
 import { getRestaurantsById } from "../utils/getRestaurantsById";
-import { getPlacesById } from "../utils/getPlacesById";
+import getPlacesById from "../utils/getPlacesById";
 import GoogleMapView from "../component/GoogleMapView";
 
 export default function ResultsPage({ navigation, route }) {
