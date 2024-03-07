@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 import { List } from "react-native-paper";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { getPlacesById } from "../utils/getPlacesById";

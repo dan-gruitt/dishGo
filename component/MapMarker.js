@@ -1,8 +1,5 @@
-import { Marker, Callout } from "react-native-maps";
+import { Marker} from "react-native-maps";
 import React from "react";
-import { IconButton } from "react-native-paper";
-import { View, Text } from "react-native";
-import ResultDishCard from "./ResultDishCard";
 
 export const MapMarkers = ({ mapResults, markerPressed, }) => {
     
