@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { decode } from "base64-arraybuffer";
 import { supabase } from "../lib/supabase";
-import ImageItem from "./ImagePreview";
+import ImagePreview from "./ImagePreview";
 
 export default function ImageUploader(props) {
   const { restaurant, imgUrl, setImgUrl } = props;
@@ -74,12 +74,11 @@ export default function ImageUploader(props) {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator animating={true} color="#3AD6A7" />
+        <ActivityIndicator animating={true} color="#3AD6A7" style={{marginTop: 10, marginBottom: 10}}/>
       ) : (
         <ScrollView style={styles.dishImage}>
           {imgUrl ? (
-            <ImageItem
-              
+            <ImagePreview
               previewImage={previewImage}
               restaurantId={restaurant!.id}
               imgUrl={imgUrl}
@@ -112,14 +111,14 @@ const styles = StyleSheet.create({
     marginBottom:20
   },
   dishImage:{
-    backgroundColor: "#FFF",
+    backgroundColor: "rgba(0,0,0,0)",
+    marginBottom: 20,
+    marginTop: 0,
   },
   addImageButton:{
     width: 139,
-    height: 48,
     borderRadius: 29,
     borderColor: "#3AD6A7", 
     borderWidth: 1, 
-    marginTop:20
   },
 })

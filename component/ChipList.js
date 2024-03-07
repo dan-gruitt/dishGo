@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import { Chip } from "react-native-paper";
+import { Chip, Icon } from "react-native-paper";
 
 export default function ChipList({setDietary, dietary }) {
   const dietaryNames = Object.keys(dietary)
@@ -21,13 +21,17 @@ export default function ChipList({setDietary, dietary }) {
   };
 
   return (
-    <View style={styles.chip}>
+    <View style={styles.chipContainer}>
       {dietaryNames.map((name, index) => {
         return (
           <Chip
           selectedColor="#FFF"
+          avatar={<Icon
+          source={icons[name]}
+          color={'#3AD6A7'}
+          size={20}
+        /> }
             key={index}
-            icon={dietary[name]? icons.checked : icons[name]}
             style = {dietary[name]? styles.selected : styles.unSelected }
             onPress={() => {
                return handleOnPress(name);
@@ -43,13 +47,13 @@ export default function ChipList({setDietary, dietary }) {
 }
 
 const styles = StyleSheet.create({
-  chip: {
+  chipContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent:"center",
-    marginTop: 30,
+    marginTop: 20,
     marginBottom:20,
-    gap: 10
+    gap: 10,
   },
   selected:{
     backgroundColor: "#3AD6A7",

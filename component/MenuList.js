@@ -32,9 +32,6 @@ export default function MenuList(props) {
     <>
 <ConfirmDeletePopUp isDialogVisible ={isDialogVisible} setIsDialogVisible = {setIsDialogVisible} isDeleting = {isDeleting} handleDelete = {handleDelete} itemToDelete = {itemToDelete}/>
     <View style={styles.container}>
-    <View style={styles.headerTextView}>
-        <Text style={[styles.headerText, styles.yourRestaurantText]}>Menu</Text>
-      </View>
       {menu.map((item, index) => {
       return (
             <Card key={index} style={{marginBottom:16}} contentStyle={styles.card}>
@@ -78,7 +75,6 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor:"#4C5B61", 
     paddingHorizontal:26,
-    paddingBottom: 80
   },
   cardTitle:{
     color:"#4C5B61",
@@ -104,23 +100,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent:"space-around"
-  },
-  headerTextView:{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  yourRestaurantText:{
-    width: 250,
-  },
-  headerText:{
-    color: "#FFF",
-    fontWeight:600,
-    fontSize: 28,
-    textAlign: "center",
-    width: 197,
-    marginBottom: 20,
-    fontWeight: "bold",
   },
   deleteDishButton:{
     width: 139,
