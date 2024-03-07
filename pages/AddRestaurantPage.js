@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 import { restaurantSchema } from "../validation/RestaurantValidation";
+import getPlacesById from '../utils/getPlacesById';
 
 
 export default function AddRestaurantPage({navigation}) {
@@ -33,6 +34,7 @@ export default function AddRestaurantPage({navigation}) {
 
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
+  const [restaurantAddress, setRestaurantAddress] = React.useState(null);
   const [cuisine, setCuisine] = React.useState("");
   const [placeId, setPlaceId] = React.useState(null);
 
@@ -56,6 +58,14 @@ export default function AddRestaurantPage({navigation}) {
       }).catch((error)=>{console.log(error)})
     }
   }, [session])
+
+  React.useEffect(()=>{
+    if(restaurant){
+      getPlacesById(restaurant.place_id).then((googleData)=>{
+        setRestaurantAddress(googleData.data.result.vicinity)
+      })
+    }
+  }, [restaurant])
 
   async function handleSubmit(){
     setIsSubmitting(true)
@@ -131,7 +141,7 @@ export default function AddRestaurantPage({navigation}) {
     <Card.Title titleStyle={styles.cardTitle} titleVariant="headlineLarge"  title={restaurant.name} />
 
     <Card.Content>
-      <Text style={styles.cardDesc} variant="bodyMedium">{restaurant.description}</Text>
+      <Text style={styles.cardDesc} variant="bodyMedium">{restaurantAddress}</Text>
       <View style={styles.cardCuisineWrap}><Text style={styles.cardCuisine} variant="bodyMedium">{restaurant.cuisine}</Text></View>
     </Card.Content>
     <Card.Actions>
@@ -308,7 +318,7 @@ const styles = StyleSheet.create({
   cardDesc:{
     fontSize: 14,
     color: "#4C5B61",
-    marginBottom: 12
+    marginBottom: 20
   },
   cardCuisineWrap:{
     borderWidth: 1,
