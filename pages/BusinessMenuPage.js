@@ -15,7 +15,12 @@ export default function BusinessMenuPage({ route }) {
   }, []);
   return (
     <ScrollView style={styles.container}>
+           <View style={styles.headerTextView}>
+        <Text style={styles.headerText}>Menu</Text>
+        <Text style={{color: '#fff'}}>{restaurant.name}</Text>
+      </View>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
+      <Text style={{color:'#fff',     textAlign: 'center', marginBottom: 10,}}>{menu.length} dish(es)</Text>
       <MenuList menu = {menu} setMenu = {setMenu} restaurant = {restaurant} /> 
     </ScrollView>
   );
@@ -24,6 +29,19 @@ export default function BusinessMenuPage({ route }) {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor:"#4C5B61"
-  }
+    backgroundColor:"#4C5B61",
+  },
+  headerTextView:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: -10
+  },
+  headerText:{
+    width: 250,
+    color: "#FFF",
+    fontSize: 28,
+    textAlign: "center",
+  },
 });

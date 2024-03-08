@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
 
 import PlaceIdSearcher from "../component/PlaceIdSearcher";
 import { restaurantSchema } from "../validation/RestaurantValidation";
+import getPlacesById from '../utils/getPlacesById';
 
 
 export default function AddRestaurantPage({navigation}) {
@@ -33,6 +34,7 @@ export default function AddRestaurantPage({navigation}) {
 
   const [restaurantName, setRestaurantName] = React.useState("");
   const [restaurantDescription, setRestaurantDescription] = React.useState("");
+  const [restaurantAddress, setRestaurantAddress] = React.useState(null);
   const [cuisine, setCuisine] = React.useState("");
   const [placeId, setPlaceId] = React.useState(null);
 
@@ -56,6 +58,14 @@ export default function AddRestaurantPage({navigation}) {
       }).catch((error)=>{console.log(error)})
     }
   }, [session])
+
+  React.useEffect(()=>{
+    if(restaurant){
+      getPlacesById(restaurant.place_id).then((googleData)=>{
+        setRestaurantAddress(googleData.data.result.vicinity)
+      })
+    }
+  }, [restaurant])
 
   async function handleSubmit(){
     setIsSubmitting(true)
@@ -86,8 +96,6 @@ export default function AddRestaurantPage({navigation}) {
             setErrors(newError)
           })
         }
-
-
         setIsSubmitting(false)
       }
   }
@@ -133,7 +141,7 @@ export default function AddRestaurantPage({navigation}) {
     <Card.Title titleStyle={styles.cardTitle} titleVariant="headlineLarge"  title={restaurant.name} />
 
     <Card.Content>
-      <Text style={styles.cardDesc} variant="bodyMedium">{restaurant.description}</Text>
+      <Text style={styles.cardDesc} variant="bodyMedium">{restaurantAddress}</Text>
       <View style={styles.cardCuisineWrap}><Text style={styles.cardCuisine} variant="bodyMedium">{restaurant.cuisine}</Text></View>
     </Card.Content>
     <Card.Actions>
@@ -177,7 +185,7 @@ export default function AddRestaurantPage({navigation}) {
 
       {/* Title */}
       <View style={styles.headerTextView}>
-        <Text style={styles.headerText}>{isEditMode? 'Edit your restaurant': `Now let's add your restaurant`}</Text>
+        <Text style={styles.headerText}>{isEditMode? 'Edit your restaurant': `Now let's find your restaurant`}</Text>
       </View>
 
       {/* Restaurant Name */}
@@ -199,21 +207,27 @@ export default function AddRestaurantPage({navigation}) {
 
 
       {/* Restaurant Description */}
-      <View><Text style={styles.inputLabels}>Description</Text>
+      {/* <View><Text style={styles.inputLabels}>Description</Text>
         <TextInput
           underlineColor="#FFF"
           activeUnderlineColor="#3AD6A7"
-          style={styles.inputsBody}
-          contentStyle={styles.inputsMultiline}
           placeholderTextColor="#A9A9AC"
           label=""
           multiline={true}
+          numberOfLines={2}
           mode="flat"
           value={restaurantDescription}
           onChangeText={(restaurantDescription) => setRestaurantDescription(restaurantDescription)} />
                 {!errors ? null : Object.hasOwn(errors, 'restaurantDescription') ? <HelperText style={styles.errorMsg} type="error">
           {errors.restaurantDescription}
         </HelperText> : null}
+      </View> */}
+
+<View><Text style={styles.inputLabels}>Location</Text>
+        <PlaceIdSearcher setPlaceId={setPlaceId} searcherPlaceHolder = {searcherPlaceHolder} setSearcherPlaceHolder = {setSearcherPlaceHolder}/>
+        {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText style={styles.errorMsg} type="error">
+        {errors.placeId}
+      </HelperText> : null}
       </View>
 
       {/* Cuisine dropdown */}
@@ -248,12 +262,7 @@ export default function AddRestaurantPage({navigation}) {
       </View>
       
            
-      <View><><Text style={styles.inputLabels}>Location</Text></>
-        <PlaceIdSearcher setPlaceId={setPlaceId} searcherPlaceHolder = {searcherPlaceHolder} setSearcherPlaceHolder = {setSearcherPlaceHolder}/>
-        {!errors ? null : Object.hasOwn(errors, 'placeId') ? <HelperText style={styles.errorMsg} type="error">
-        {errors.placeId}
-      </HelperText> : null}
-      </View>
+      
 
       <View style={styles.buttonWrap}>
         <View style ={ styles.buttonRow}>
@@ -309,7 +318,7 @@ const styles = StyleSheet.create({
   cardDesc:{
     fontSize: 14,
     color: "#4C5B61",
-    marginBottom: 12
+    marginBottom: 20
   },
   cardCuisineWrap:{
     borderWidth: 1,
@@ -331,7 +340,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     backgroundColor: "#4C5B61",
-    paddingTop: 60,
+    paddingTop: 30,
     paddingHorizontal: 20,
     gap: 12
   },
@@ -344,12 +353,12 @@ const styles = StyleSheet.create({
     width: 250,
   },
   headerText:{
+    width: 250,
     color: "#FFF",
     fontWeight:600,
     fontSize: 28,
     textAlign: "center",
-    width: 197,
-    marginBottom: 20,
+    marginBottom: 10,
     fontWeight: "bold",
   },
   inputLabels:{
@@ -360,8 +369,8 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   inputsBody:{
+    padding: 0,
     borderColor:"#FFF", 
-    borderWidth: 1, 
     borderRadius: 5, 
     overflow:"hidden", 
     backgroundColor: "#FFF",
@@ -370,12 +379,10 @@ const styles = StyleSheet.create({
   inputs:{
     backgroundColor: "#FFF",
     color: "#4C5B61",
-    height: 52
   },
   inputsMultiline:{
     backgroundColor: "#FFF",
     color: "#4C5B61",
-    height: 82
   },
   dropdownContainer:{
     flex: 1,
@@ -415,8 +422,7 @@ const styles = StyleSheet.create({
   },
   buttonWrap:{
     display:"flex",
-    marginTop: 40,
-    marginBottom: 125,
+    marginTop: 20,
     alignItems: "center",
   },
   buttonRow:{

@@ -123,8 +123,8 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
           onPress={uploadAvatar}
           disabled={uploading}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-            {uploading ? "Uploading..." : "Upload"}
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#FFF" }}>
+            {uploading ? "Uploading..." : "Change"}
           </Text>
         </Pressable>
 
@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
   },
   container: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 10
   },
   button: {
     width: 110,
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 20,
   },
   buttonText: {
     color: "#FFF",

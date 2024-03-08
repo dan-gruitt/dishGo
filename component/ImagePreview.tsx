@@ -2,20 +2,20 @@ import { FileObject } from '@supabase/storage-js';
 import { Image, View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// Image item component that displays the image from Supabase Storage and a delte button
-const ImageItem = (props, { restaurantId }: { imgUrl : string; item: FileObject; restaurantId: string}) => {
+// Image preview component that displays the image from Supabase Storage and a delete button
+const ImagePreview = (props, { restaurantId }: { imgUrl : string; item: FileObject; restaurantId: string}) => {
 
   const {imgUrl, setImgUrl, onRemoveImage, previewImage} = props
 
   return (
-    <View style={{ flexDirection: 'row', margin: 1, justifyContent: 'center', gap: 5 }}>
-      {imgUrl ? <Image style={{ width: 150, height: 150 }} source={{ uri: previewImage }} /> : <View style={{ width: 150, height: 150, backgroundColor: '#1A1A1A' }} />}
+    <View style={{ marginTop:20, flexDirection: 'row', margin: 1, justifyContent: 'center', gap: 5 }}>
+      {imgUrl ? <Image style={{ width: 150, height: 150, zIndex: -1, }} source={{ uri: previewImage }} /> : <View style={{ width: 150, height: 150, backgroundColor: '#1A1A1A' }} />}
       {/* Delete image button */}
       <TouchableOpacity onPress={()=>{onRemoveImage(imgUrl)}}>
-        <Ionicons name="trash-outline" size={20} />
+        <Ionicons style= {{padding: 10, backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: 30, position: 'absolute', zIndex: 999, top: -5, right: 0,}} color={'#DC143C'} name="trash-outline" size={20} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default ImageItem;
+export default ImagePreview;

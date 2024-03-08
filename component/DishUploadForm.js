@@ -13,9 +13,11 @@ export default function DishUploadForm(props) {
   const [dishName, setDishName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [price, setPrice] = React.useState("");
-  const [imgUrl, setImgUrl] = React.useState("");
+  const [imgUrl, setImgUrl] = React.useState(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [errors, setErrors] = React.useState(null)
+
+  const [expanded, setExpanded] = React.useState(false);
 
 
   const [dietary, setDietary] = React.useState({
@@ -50,12 +52,12 @@ export default function DishUploadForm(props) {
     setIsSubmitting(true)
     postDishByRestaurantId(dishName, description, price, dietary, restaurant.id, imgUrl)
     .then((dishData)=>{
+      setExpanded(false)
       const newDish = dishData
       setMenu(() => {
         const updatedMenu = [newDish, ...menu]
         return updatedMenu
       })
-      setIsSubmitting(false)
       setDishName("")
       setDescription("")
       setPrice("")
@@ -65,6 +67,7 @@ export default function DishUploadForm(props) {
         vegetarian: false,
         pescatarian: false,
       })
+      setIsSubmitting(false)
     }).catch((err)=>{
       console.log(err)
     })
@@ -74,14 +77,19 @@ export default function DishUploadForm(props) {
     <View style={styles.container}>
       <List.Section style={styles.accordionContainer} title="">
       <List.Accordion 
+        expanded={expanded}
+        onPress={()=>{
+          setExpanded(!expanded)
+        }}
         style={styles.accordionButton} 
         titleStyle={styles.accordionTitle}
         title={"Add New Dish"}
+        right={props => <List.Icon color='#fff' icon="plus" />}
         >
         <View style={styles.formView}>
         <ImageUploader restaurant={restaurant} setImgUrl = {setImgUrl} imgUrl = {imgUrl} />
 
-      <Text style={styles.inputLabels}>Name of dish</Text>
+      <Text style={styles.inputLabels}>Dish Name</Text>
       <TextInput
         underlineColor="#FFF"
         activeUnderlineColor="#3AD6A7"
@@ -120,7 +128,7 @@ export default function DishUploadForm(props) {
         {errors.description}
       </HelperText> : null}
 
-      <Text style={styles.inputLabels}>£ Price</Text>
+      <Text style={styles.inputLabels}>Price (£)</Text>
     <TextInput
         underlineColor="#FFF"
         activeUnderlineColor="#3AD6A7"
@@ -147,16 +155,15 @@ export default function DishUploadForm(props) {
              textColor="#FFF"
              buttonColor="#3AD6A7"
       style={styles.mainButton}
-      mode="elevated" 
       onPress={() => handleSubmit()}
       disabled = {isSubmitting}
       >
     <Text style={styles.mainButtonText} >Add dish</Text>
     </Button>
+      </View>
       <HelperText type="error" style={styles.errorMsg} visible={errors}>
         Unable to submit form - invalid input(s)
       </HelperText>
-      </View>
 
         </View>
 
@@ -169,32 +176,25 @@ export default function DishUploadForm(props) {
 const styles = StyleSheet.create({
   container:{
     flex:1, 
-    backgroundColor:"#4C5B61", 
     paddingHorizontal:26,
-    paddingVertical: 26
+    paddingVertical: 26,
   },
   accordionContainer: {
-    marginHorizontal: 18,
-    borderRadius: 8,
-    borderRadius: 8,
-    overflow: "hidden",
     border:"#4C5B61",
-    marginTop: 20
+    marginTop: 10,
    }
   ,
   accordionButton:{
     backgroundColor:"#4C5B61", 
-    borderRadius:10, 
-    borderWidth:2, 
-    borderColor: "#FFF",
-    borderRadius: 8,
+    borderWidth:1, 
+    borderColor: '#3AD6A7',
   },
   accordionTitle:{
     color: "#FFF",
     fontWeight:"bold",
   },
   formView:{
-    marginTop: 40
+    marginTop: 10
   },
   inputsBody:{
     borderColor:"#FFF", 
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     overflow:"hidden", 
     backgroundColor: "#FFF",
+    marginBottom: 10
   },
   inputs:{
     backgroundColor: "#FFF",
@@ -212,8 +213,8 @@ const styles = StyleSheet.create({
     fontWeight:600,
     color:"#FFF",
     fontSize: 14,
-    marginTop: 16,
-    marginBottom: 6
+    marginTop: 0,
+    marginBottom: 10
   },
   inputsMultiline:{
     backgroundColor: "#FFF",
@@ -223,20 +224,19 @@ const styles = StyleSheet.create({
   inputPrice:{
     backgroundColor: "#FFF",
     color: "#4C5B61",
+marginLeft: 5
   },
   errorMsg:{
-    marginTop: 8,
+    marginBottom: 10,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "#C54E65",
     backgroundColor: '#EFD2D8',
   },
   mainButton: {
-    width: 139,
-    height: 48,
+    width: 90,
     backgroundColor: '#3AD6A7',
     borderRadius: 29,
-    display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
   },
   buttonWrap:{
     display:"flex",
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 10,
     alignItems: "center",
   }
   
