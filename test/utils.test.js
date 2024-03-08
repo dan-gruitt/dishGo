@@ -20,16 +20,16 @@ describe('filterSearch', () => {
 
     expect(actualOutput).toEqual(expectedOutput)
   })
-  test('returns an array with single dish containing chicken', () => {
+  test('returns an array with single dish containing chicken wrap', () => {
     const input = [{dish_name: 'chicken'}, {dish_name: 'beef'}, {dish_name: 'Chicken Shawarma wrap'}]
     const actualOutput = filterSearch(input, 'chicken wrap')
     const expectedOutput = [{dish_name: 'Chicken Shawarma wrap'}]
 
     expect(actualOutput).toEqual(expectedOutput)
   })
-  test('returns an array with single dish containing chicken', () => {
+  test('returns an array with all dishes containing chicken', () => {
     const input = [{dish_name: 'chicken', id:1 }, {dish_name: 'beef', id: 2}, {dish_name: 'Chicken Shawarma wrap', id:3}]
-    const actualOutput = filterSearch(input, 'chicken kebab wrap')
+    const actualOutput = filterSearch(input, 'chicken')
     const expectedOutput = [{dish_name: 'chicken', id: 1}, {dish_name: 'Chicken Shawarma wrap', id:3}]
 
     expect(actualOutput).toEqual(expectedOutput)
