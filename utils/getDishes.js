@@ -12,7 +12,7 @@ export const getDishes = () => {
 }
 
 export const getDishesName = () => {
-    return supabase.from("dishes").select('dish_name,id')
+    return supabase.from("dishes").select('dish_name')
     .then(({data}) => {
         return data;
     }).catch((error)=> {

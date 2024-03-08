@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard, FlatList, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { getDishesName } from '../utils/getDishes';
+import { filterSuggestions } from '../utils/filterSuggestions';
 import { filterSearch } from '../utils/filterSearch';
 import { List } from 'react-native-paper';
 import { Searchbar, Surface } from 'react-native-paper';
@@ -13,6 +14,7 @@ export default function SearchBar({userSearch, setUserSearch}) {
     const navigation = useNavigation();
     const [dishes, setDishes] =  useState([]);
     const [filterDishes, setFilterDishes] =  useState([]);
+    const [filteredSuggestions, setFilteredSuggestions] =  useState([]);
     const [searchQuery, setSearchQuery] = useState('');
   
   useEffect(() =>{
@@ -25,10 +27,13 @@ export default function SearchBar({userSearch, setUserSearch}) {
     setSearchQuery(e)
     setUserSearch(e)
     if (searchQuery.length > 1 && filterSearch(dishes, searchQuery).length > 0){
-      const firstFiveSearches = filterSearch(dishes, searchQuery).slice(0, 5)
-      setFilterDishes(firstFiveSearches);
+      const filteredSearches = filterSearch(dishes, searchQuery)
+      const firstFiveSuggestions = filterSuggestions(dishes, searchQuery).slice(0, 5)
+      setFilterDishes(filteredSearches);
+      setFilteredSuggestions(firstFiveSuggestions);
     } else {
-      setFilterDishes([]);
+      setFilterDishes([])
+      setFilteredSuggestions([]);
     }
   }
 
@@ -75,17 +80,17 @@ export default function SearchBar({userSearch, setUserSearch}) {
                 }} />
 
                 {
-                    filterDishes.length > 0 ?
+                    filteredSuggestions.length > 0 ?
                     <Surface style={styles.surface} elevation={0}>
                     <FlatList
-                        data={filterDishes}
+                        data={filteredSuggestions}
                         renderItem={({ item, index }) => <Pressable onPress={() => {
                         setSearchQuery(item.dish_name);
                         dishSelected(item.dish_name);
                         } }>
                         {getItemText(item,index)}
                         </Pressable>}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.dish_name}
                         showsVerticalScrollIndicator={true} 
                     />
                 </Surface>
