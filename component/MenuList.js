@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor:"#4C5B61", 
     paddingHorizontal:26,
+
   },
   cardTitle:{
     color:"#4C5B61",

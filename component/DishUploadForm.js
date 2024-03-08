@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     flex:1, 
     paddingHorizontal:26,
     paddingVertical: 26,
+    marginBottom: 20,
   },
   accordionContainer: {
     border:"#4C5B61",
