@@ -1,15 +1,28 @@
-import { Text, View } from "react-native";
-import { Card } from "react-native-paper";
-import React, { useEffect, useState } from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet } from "react-native";
+import React from "react";
 import MenuCard from "./MenuCard";
 
-export const RenderMenu = ({ location, menu, styles }) => {
+export const RenderMenu = ({ location, menu }) => {
   
     return menu.map((dish, index) => (
-      <MenuCard dish={dish} key={index} menu={menu} styles ={styles} location = {location}></MenuCard>
+      <MenuCard dish={dish} key={index} menu={menu} style ={styles} details = {location} ></MenuCard>
 
       ));
   };
+
+  const styles = StyleSheet.create({
+    card:{
+      backgroundColor: '#4C5B61'
+    },
+    dishPrice:{
+      color: "#FFF",
+    },
+    dishDescription:{
+      color: "#FFF",
+    },
+    dishName:{
+      color: "#FFF",
+    }
+  })
 
 export default RenderMenu;

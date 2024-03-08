@@ -23,7 +23,7 @@ export default function ConfirmDeletePopUp(props) {
       </View>
         <Text variant="bodySmall">{itemToDelete.description} {itemToDelete.name} </Text>
       </Dialog.Content>
-      <Dialog.Actions>
+      <Dialog.Actions style={{justifyContent: 'space-between', gap: 10,}}>
       <Button 
              textColor="#4C5B61"
          
@@ -47,16 +47,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   cancelButton:{
-    width: 139,
-    height: 48,
     borderRadius: 29,
     borderColor: "#4C5B61",
     borderWidth: 1, 
-    marginTop:20
+    marginTop:20,
+    flex: 1,
   },
   deleteButton:{
-    width: 139,
-    height: 48,
+    flex: 1,
     borderRadius: 29,
     borderColor: "crimson",
     borderWidth: 1, 

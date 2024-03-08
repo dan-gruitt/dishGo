@@ -12,7 +12,7 @@ const ImagePreview = (props, { restaurantId }: { imgUrl : string; item: FileObje
       {imgUrl ? <Image style={{ width: 150, height: 150, zIndex: -1, }} source={{ uri: previewImage }} /> : <View style={{ width: 150, height: 150, backgroundColor: '#1A1A1A' }} />}
       {/* Delete image button */}
       <TouchableOpacity onPress={()=>{onRemoveImage(imgUrl)}}>
-        <Ionicons style= {{padding: 5, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 20, position: 'absolute', zIndex: 999, top: 0, right:0}} color={'#DC143C'} name="trash-outline" size={20} />
+        <Ionicons style= {{padding: 10, backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: 30, position: 'absolute', zIndex: 999, top: -5, right: 0,}} color={'#DC143C'} name="trash-outline" size={20} />
       </TouchableOpacity>
     </View>
   );

@@ -58,7 +58,6 @@ export default function DishUploadForm(props) {
         const updatedMenu = [newDish, ...menu]
         return updatedMenu
       })
-      setIsSubmitting(false)
       setDishName("")
       setDescription("")
       setPrice("")
@@ -68,6 +67,7 @@ export default function DishUploadForm(props) {
         vegetarian: false,
         pescatarian: false,
       })
+      setIsSubmitting(false)
     }).catch((err)=>{
       console.log(err)
     })
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     flex:1, 
     paddingHorizontal:26,
     paddingVertical: 26,
-    marginBottom: 20,
   },
   accordionContainer: {
     border:"#4C5B61",
@@ -189,14 +188,13 @@ const styles = StyleSheet.create({
     backgroundColor:"#4C5B61", 
     borderWidth:1, 
     borderColor: '#3AD6A7',
-    marginBottom: -30
   },
   accordionTitle:{
     color: "#FFF",
     fontWeight:"bold",
   },
   formView:{
-    marginTop: 40
+    marginTop: 10
   },
   inputsBody:{
     borderColor:"#FFF", 

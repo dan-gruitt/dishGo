@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 export default function MenuCard(props) {
 
-    const {dish, menu, location} = props
+    const {dish, menu, details, style} = props
 
     const [imgUri, setImgUri] = useState(null);
 
@@ -16,7 +16,7 @@ export default function MenuCard(props) {
     }, [menu]);
 
   return (
-    <View style={styles.card}>
+    <View style={{...style.card, ...styles.card}}>
                 <Image
               source={
                 imgUri
@@ -28,10 +28,10 @@ export default function MenuCard(props) {
         <View style={styles.detailsContainer}>
 
           <View style={styles.dishHeader}>
-            <Text style={styles.dishName}>{dish.dish_name}</Text>
-            <Text style={styles.dishDescription}>{location}</Text>
+            <Text style={{...style.dishName, ...styles.dishName}}>{dish.dish_name}</Text>
+            <Text style={{...style.dishDescription,...styles.dishDescription}}>{details}</Text>
           </View>
-          <Text style={styles.dishPrice}>£{dish.price.toFixed(2)}</Text>
+          <Text style={{...style.dishDescription ,...styles.dishPrice}}>£{dish.price.toFixed(2)}</Text>
         </View>
       </View>
   )
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#4C5B61",
     marginBottom: 15,
     borderRadius:31,
     height: 150,
@@ -70,21 +69,19 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "bold",
     textAlign: "right",
-    color: "#FFF",
 
   },
   dishDescription:{
-    fontSize: 13,
+    fontSize: 12,
     // fontWeight: "bold",
     textAlign: "right",
-    color: "#FFF",
     marginVertical: 10,
   },
   dishPrice:{
     fontSize: 13,
     fontWeight: "bold",
     textAlign: "right",
-    color: "#FFF",
+
   },
 
 })

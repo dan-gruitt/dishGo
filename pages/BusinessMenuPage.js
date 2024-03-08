@@ -20,6 +20,7 @@ export default function BusinessMenuPage({ route }) {
         <Text style={{color: '#fff'}}>{restaurant.name}</Text>
       </View>
       <DishUploadForm menu={menu} setMenu={setMenu} restaurant={restaurant} />
+      <Text style={{color:'#fff',     textAlign: 'center', marginBottom: 10,}}>{menu.length} dish(es)</Text>
       <MenuList menu = {menu} setMenu = {setMenu} restaurant = {restaurant} /> 
     </ScrollView>
   );
@@ -28,7 +29,7 @@ export default function BusinessMenuPage({ route }) {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor:"#4C5B61"
+    backgroundColor:"#4C5B61",
   },
   headerTextView:{
     display: "flex",
