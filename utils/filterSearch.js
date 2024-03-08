@@ -30,9 +30,7 @@ export const filterSearch = (allDishes, searchDish) => {
     });
   }
 
-  const uniqueDishes = [...new Set(matchDishes)]; 
-
-  return uniqueDishes;
+  return matchDishes
 };
 
 export default { filterSearch };
