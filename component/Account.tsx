@@ -11,7 +11,6 @@ export default function Account({ session }: { session: Session }) {
 
   const navigation = useNavigation()
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState("");
   // const [website, setWebsite] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const { User, setUser } = useContext(UserContext);
@@ -35,13 +34,13 @@ export default function Account({ session }: { session: Session }) {
       }
 
       if (data) {
-        setUsername(data.username);
         // setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
         setUser(data)
       }
     } catch (error) {
       if (error instanceof Error) {
+        console.log(error)
         Alert.alert(error.message);
       }
     } finally {
@@ -50,11 +49,10 @@ export default function Account({ session }: { session: Session }) {
   }
 
   async function updateProfile({
-    username,
     // website,
     avatar_url,
   }: {
-    username: string;
+    // username: string;
     // website: string;
     avatar_url: string;
   }) {
@@ -64,17 +62,20 @@ export default function Account({ session }: { session: Session }) {
 
       const updates = {
         id: session?.user.id,
-        username,
         // website,
-        avatar_url,
+        avatar_url: avatar_url,
         updated_at: new Date(),
       };
 
-      const { data, error } = await supabase
-        .from("profiles")
-        .upsert(updates)
-        .select();
+      console.log(updates)
 
+      const { data, error } = await supabase
+        .from('profiles')
+        .upsert(updates)
+        .select('*');
+
+// currently bugged, cannot change profile picture if user already has one 
+// possible fix: see storage management section in this tutorial https://supabase.com/docs/guides/getting-started/tutorials/with-react
       setUser(data[0]);
 
       if (error) {
@@ -82,6 +83,7 @@ export default function Account({ session }: { session: Session }) {
       }
     } catch (error) {
       if (error instanceof Error) {
+        console.log(error)
         Alert.alert(error.message);
       }
     } finally {
@@ -96,7 +98,7 @@ export default function Account({ session }: { session: Session }) {
           url={avatarUrl}
           onUpload={(url: string) => {
             setAvatarUrl(url);
-            updateProfile({ username, avatar_url: url });
+            updateProfile({ avatar_url: url });
           }}
         />
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -111,11 +113,11 @@ export default function Account({ session }: { session: Session }) {
 
 <View style={styles.buttonContainer}>
 
-      <View>
+      {/* <View>
         <Pressable
           style={styles.button}
           onPress={() =>
-            updateProfile({ username, avatar_url: avatarUrl })
+            updateProfile({ avatar_url: avatarUrl })
           }
           disabled={loading}
         >
@@ -123,7 +125,7 @@ export default function Account({ session }: { session: Session }) {
             {loading? "Loading..." : "Update"}
           </Text>
         </Pressable>
-      </View>
+      </View> */}
 
 
       <View>
